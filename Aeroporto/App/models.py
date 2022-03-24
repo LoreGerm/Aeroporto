@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+class Admin(models.Model):
+    nome = models.CharField(max_length=50, null=False)
+    cognome = models.CharField(max_length=50, null=False)
+
 
 class Turni(models.Model):
     data = models.DateField(null=False)
