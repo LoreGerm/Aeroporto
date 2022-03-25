@@ -1,7 +1,7 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<div class="align-middle  text-center container w-25 rounded-3" style="margin-top: 10%;">
+<div class="text-center container w-25" style="margin-top: 10%;">
     <form action=" {% url 'gestione_home' %} " method="POST"> 
         {% csrf_token %}
         <label><h3>Amministrazione</h3> </label>
