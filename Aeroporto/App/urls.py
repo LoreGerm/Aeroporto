@@ -4,5 +4,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('gestione', views.gestione, name='gestione'),
+    path('gestione', views.gestione_accesso, name='gestione'),
+    path('gestione/home', views.verifica_accesso, name='gestione_home'),
 ]

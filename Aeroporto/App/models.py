@@ -3,12 +3,19 @@ from django.db import models
 # Create your models here.
 class Admin(models.Model):
     nome = models.CharField(max_length=50, null=False)
-    cognome = models.CharField(max_length=50, null=False)
+    password = models.CharField(max_length=50, null=False)
+    
+    def __str__(self) -> str:
+        return self.nome+' '+self.password
+
 
 
 class Turni(models.Model):
     data = models.DateField(null=False)
     ora = models.DateField(null=False)
+    
+    def __str__(self) -> str:
+        return self.data+' '+self.ora
 
 
 class Aereo(models.Model):

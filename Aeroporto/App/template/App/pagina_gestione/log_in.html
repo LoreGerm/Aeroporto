@@ -1,9 +1,20 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
+<div class="align-middle  text-center container w-25 rounded-3" style="margin-top: 10%;">
+    <form action=" {% url 'gestione_home' %} " method="POST"> 
+        {% csrf_token %}
+        <label><h3>Amministrazione</h3> </label>
+        <input type="text" class="form-control mb-2" placeholder="Nome utente" name="nome">
+        <input type="password" class="form-control mb-3" placeholder="password" name="password" id="">
+        <button type="submit" class="btn btn-primary"> Accedi </button>
+    </form>
 
-    <div>
-        ciao
-    </div>
+    {% for m in messages %}
+    <div class="alert alert-danger mt-3" role="alert">
+        <h3>{{m}}</h3>
+      </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
