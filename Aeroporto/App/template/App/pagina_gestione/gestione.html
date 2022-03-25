@@ -1,0 +1,26 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+            
+        </thead>
+        <tbody>
+            {% for i in voli %}
+            <tr>
+                <td>{{i.codice}}</td>
+                <td>{{i.aereoporto}}</td>
+                <td>{{i.prezzo_unitario}}</td>
+                <td>{{i.ora_partenza}}</td>
+                <td>{{i.ora_arrivo}}</td>
+                <td>{{i.data_partenza}}</td>
+                <td>{{i.data_arrivo}}</td>
+                <td>{{i.km}}</td>
+                <td>{{i.aereo.targa}}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
