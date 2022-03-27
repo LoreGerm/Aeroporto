@@ -5,6 +5,8 @@ from App.models import Aereo, Aeroporto, Personale, Turni, Volo, Admin, Utente, 
 # Register your models here.
 admin.site.unregister(Group)
 admin.site.site_header = 'Starvato Airlines'
+admin.site.site_title = 'Amministrazione'
+admin.site.index_title = ''
 
 
 
