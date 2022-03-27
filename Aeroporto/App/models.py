@@ -32,7 +32,7 @@ class Aereo(models.Model):
     data_ultima_manutenzione = models.DateField(null=True)
 
     def __str__(self) -> str:
-        return self.targa +' '+ self.modello+' '+self.stato+ ' '+ self.volo+' '+self.personale+' '+self.prima_classe+ ' '+ self.seconda_classe+' '+self.terza_classe+' '+self.km_totali+ ' '+ self.km_da_ultima_manutenzione+' '+self.data_ultima_manutenzione
+        return self.targa +' '+ self.modello
 
 
 
@@ -48,7 +48,7 @@ class Personale(models.Model):
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.codice +' '+ self.nome+' '+self.cognome+' '+self.stato+' '+self.ruolo+ ' '+ self.aereo
+        return self.codice +' '+ self.nome+' '+self.cognome
 
 
 
@@ -95,7 +95,7 @@ class Volo(models.Model):
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-            return self.codice +' '+ self.aeroporto+' '+self.prezzo_unitario+' '+ self.ora_partenza+' '+self.ora_arrivo+' '+self.data_partenza+ ' '+ self.data_arrivo+' '+self.km
+            return self.codice
     
 
 class Has_volo(models.Model):
