@@ -2,25 +2,89 @@
 
 {% block content %}
 
-    <table class="table">
+
+    <table class="table mt-5">
+        {% if obj == 'voli' %}
         <thead>
-            
+            <th>Codice</th>
+            <th>Aeroporto di partenza</th>
+            <th>Aeroporto di arrivo</th>
+            <th>Prezzo unitario</th>
+            <th>Ora di partenza</th>
+            <th>Ora d'arrivo</th>
+            <th>Data di partenza</th>
+            <th>Data d'arrivo</th>
+            <th>Km</th>
+            <th>targa aereo</th>
         </thead>
         <tbody>
             {% for i in voli %}
             <tr>
                 <td>{{i.codice}}</td>
-                <td>{{i.aereoporto}}</td>
-                <td>{{i.prezzo_unitario}}</td>
+                <td>{{i.aeroporto_partenza}}</td>
+                <td>{{i.aeroporto_arrivo}}</td>
+                <td>{{i.prezzo_unitario}} €</td>
                 <td>{{i.ora_partenza}}</td>
                 <td>{{i.ora_arrivo}}</td>
                 <td>{{i.data_partenza}}</td>
                 <td>{{i.data_arrivo}}</td>
                 <td>{{i.km}}</td>
                 <td>{{i.aereo.targa}}</td>
+                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
               </tr>
             {% endfor %}
         </tbody>
+        {% elif obj == 'pren' %}
+        <thead>
+            <th>Codice</th>
+            <th>Nome dell'utente</th>
+            <th>Cognome dell'utente</th>
+            <th>email dell'utente</th>
+            <th>Telefono dell'utente</th>
+            <th>Codice volo</th>
+            <th>Posti prenotati</th>
+        </thead>
+        <tbody>
+            {% for i in pren %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.utente.nome}}</td>
+                <td>{{i.utente.cognome}}</td>
+                <td>{{i.utente.email}}</td>
+                <td>{{i.utente.telefono}}</td>
+                <td>{{i.volo.codice}}</td>
+                <td>{{i.posti_prenotati}}</td>
+                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+              </tr>
+            {% endfor %}
+        </tbody>
+        {% elif obj == 'Aeroporti' %}
+        <thead>
+            <th>Codice</th>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Via</th>
+            <th>Numero civico</th>
+            <th>Stato</th>
+            <th>Citta</th>
+            <th>Provincia</th>
+        </thead>
+        <tbody>
+            {% for i in pren %}
+            <tr>
+                <td>{{i.codice}}</td>
+                <td>{{i.nome}}</td>
+                <td>{{i.descrizione}}</td>
+                <td>{{i.indirizzo.via}}</td>
+                <td>{{i.indirizzo.numero}}</td>
+                <td>{{i.indirizzo.stato}}</td>
+                <td>{{i.indirizzo.citta}}</td>
+                <td>{{i.indirizzo.provincia}}</td>
+                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+              </tr>
+            {% endfor %}
+        </tbody>
+        {% endif %}
     </table>
 
 {% endblock %}

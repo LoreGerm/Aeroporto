@@ -18,11 +18,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='volo',
             name='aeroporto_arrivo',
-            field=models.ForeignKey(default=' ', on_delete=django.db.models.deletion.CASCADE, related_name='aeroporto_arrivo', to='App.aeroporto'),
+            field=models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='aeroporto_arrivo', to='App.aeroporto'),
         ),
         migrations.AddField(
             model_name='volo',
             name='aeroporto_partenza',
-            field=models.ForeignKey(default=' ', on_delete=django.db.models.deletion.CASCADE, related_name='aeroporto_partenza', to='App.aeroporto'),
+            field=models.ForeignKey(default='', on_delete=django.db.models.deletion.CASCADE, related_name='aeroporto_partenza', to='App.aeroporto'),
         ),
     ]
