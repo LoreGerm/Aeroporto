@@ -23,7 +23,11 @@ class Turni(models.Model):
 class Aereo(models.Model):
     targa = models.CharField(max_length=50, null=True, unique=True)
     modello = models.CharField(max_length=50, null=True, unique=True)
-    stato = models.CharField(max_length=50, null=True)    #['In_volo', 'Pronto', 'Manutenzione']
+    in_volo = 'In volo'
+    pronto = 'Pronto'
+    man = 'Manutenzione'
+    STATO = [(in_volo, 'In volo'),(pronto, 'Pronto'),(man, 'Manutenzione')]
+    stato = models.CharField(max_length=50, null=True, choices=STATO)  
     posti_prima_classe = models.IntegerField(null=True)
     posti_seconda_classe = models.IntegerField(null=True)
     posti_terza_classe = models.IntegerField(null=True)
@@ -41,10 +45,19 @@ class Personale(models.Model):
     nome = models.CharField(max_length=50, null=True)
     cognome = models.CharField(max_length=50, null=True)
     email = models.CharField(max_length=100, null=True)
-    telefono = models.CharField(max_length=100, null=True, default=0)
+    telefono = models.CharField(max_length=100, null=True)
     stipendio = models.FloatField(null=True, default=0.0)
-    stato = models.CharField(max_length=50, null=True)   #['In_volo', 'Disponibile', 'Ferie', 'Malattia']
-    ruolo = models.CharField(max_length=50, null=True)   #['Pilota', 'Co-pilota', 'Hostess']
+    in_volo = 'In volo'
+    disp = 'Disponibile'
+    ferie = 'Ferie'
+    malattia = 'Malattia'
+    STATO = [(in_volo, 'In volo'),(disp, 'Disponibile'),(ferie, 'Ferie'),(malattia, 'Malattia')]
+    stato = models.CharField(max_length=50, null=True, choices=STATO)
+    pilota = 'pilota'
+    co_pi = 'Co-pilota'
+    hostess = 'Hostess'
+    RUOLO = [(pilota, 'Pilota'),(co_pi, 'Co-pilota'),(hostess, 'Hostess')]
+    ruolo = models.CharField(max_length=50, null=True, choices=RUOLO)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -84,8 +97,8 @@ class Aeroporto(models.Model):
 
 class Volo(models.Model):
     codice = models.CharField(max_length=200, null=True, unique=True)
-    aeroporto = models.ForeignKey(Aeroporto, on_delete=models.CASCADE)
-    #aeroporto_a = models.ForeignKey(Aeroporto, on_delete=models.CASCADE)
+    aeroporto_partenza = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_partenza')
+    aeroporto_arrivo = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_arrivo')
     prezzo_unitario = models.FloatField(null=True, default=0.0)
     ora_partenza = models.TimeField(auto_now=False, auto_now_add=False)
     ora_arrivo = models.TimeField(auto_now=False, auto_now_add=False)
@@ -96,11 +109,13 @@ class Volo(models.Model):
 
     def __str__(self) -> str:
             return self.codice
-    
 
+
+'''    
 class Has_volo(models.Model):
     aeroporto = models.ForeignKey(Aeroporto, on_delete=models.CASCADE)
     volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
+'''
 
 
 
