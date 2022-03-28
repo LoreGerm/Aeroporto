@@ -12,8 +12,8 @@ admin.site.index_title = ''
 
 
 class VoloAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'aeroporto_partenza', 'aeroporto_arrivo', 'prezzo_unitario', 'ora_partenza', 'ora_arrivo', 'data_partenza', 'data_arrivo', 'km', 'aereo')
-    list_filter = ('codice', 'aeroporto_partenza', 'aeroporto_arrivo', 'prezzo_unitario', 'ora_partenza', 'ora_arrivo', 'data_partenza', 'data_arrivo', 'km', 'aereo')
+    list_display = ('codice', 'aeroporto_partenza', 'aeroporto_arrivo', 'prezzo_unitario', 'ora_partenza', 'ora_arrivo', 'data_partenza', 'data_arrivo', 'posti_disponibili_prima_classe', 'posti_disponibili_seconda_classe', 'posti_disponibili_terza_classe', 'km', 'aereo')
+    list_filter = ('codice', 'aeroporto_partenza', 'aeroporto_arrivo', 'prezzo_unitario', 'ora_partenza', 'ora_arrivo', 'data_partenza', 'data_arrivo', 'posti_disponibili_prima_classe', 'posti_disponibili_seconda_classe', 'posti_disponibili_terza_classe', 'km', 'aereo')
 admin.site.register(Volo, VoloAdmin)
 
 
@@ -23,8 +23,8 @@ class AeroportoAdmin(admin.ModelAdmin):
 admin.site.register(Aeroporto, AeroportoAdmin)
 
 class PersonaleAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
-    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
+    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'indirizzo', 'stipendio', 'stato', 'ruolo', 'aereo')
+    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'indirizzo', 'stipendio', 'stato', 'ruolo', 'aereo')
 admin.site.register(Personale, PersonaleAdmin)
 
 class AereoAdmin(admin.ModelAdmin):

@@ -40,6 +40,17 @@ class Aereo(models.Model):
 
 
 
+class Indirizzo(models.Model):
+    via = models.CharField(max_length=100, null=True)
+    numero = models.CharField(max_length=100, null=True)
+    citta = models.CharField(max_length=100, null=True)
+    provincia = models.CharField(max_length=2, null=True)
+    stato = models.CharField(max_length=100, null=True)
+
+    def __str__(self) -> str:
+        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
+
+
 class Personale(models.Model):
     codice = models.CharField(max_length=50, null=True, unique=True)
     nome = models.CharField(max_length=50, null=True)
@@ -59,6 +70,7 @@ class Personale(models.Model):
     RUOLO = [(pilota, 'Pilota'),(co_pi, 'Co-pilota'),(hostess, 'Hostess')]
     ruolo = models.CharField(max_length=50, null=True, choices=RUOLO)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
+    indirizzo = models.ForeignKey(Indirizzo, on_delete=models.CASCADE, default=-1)
 
     def __str__(self) -> str:
         return self.codice +' '+ self.nome+' '+self.cognome
@@ -69,18 +81,6 @@ class Has_turni(models.Model):
     personale = models.ForeignKey(Personale, on_delete=models.CASCADE)
     turni = models.ForeignKey(Turni, on_delete=models.CASCADE)
 
-
-
-class Indirizzo(models.Model):
-    via = models.CharField(max_length=100, null=True)
-    numero = models.CharField(max_length=100, null=True)
-    citta = models.CharField(max_length=100, null=True)
-    provincia = models.CharField(max_length=2, null=True)
-    stato = models.CharField(max_length=100, null=True)
-    personale = models.ForeignKey(Personale, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
 
 
 
@@ -106,6 +106,9 @@ class Volo(models.Model):
     data_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
+    posti_disponibili_prima_classe = aereo.posti_prima_classe
+    posti_disponibili_seconda_classe = aereo.posti_seconda_classe
+    posti_disponibili_terza_classe = aereo.posti_terza_classe
 
     def __str__(self) -> str:
             return self.codice
