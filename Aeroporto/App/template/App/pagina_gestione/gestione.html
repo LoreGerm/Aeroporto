@@ -1,6 +1,26 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'gestione_home' %}">
+        <img src="{% static 'img/aereo.png' %}" alt="" width="70" height="70" class="d-inline-block align-text-top">
+        Starvato
+    </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
 
     <table class="table mt-5">
@@ -30,7 +50,7 @@
                 <td>{{i.data_arrivo}}</td>
                 <td>{{i.km}}</td>
                 <td>{{i.aereo.targa}}</td>
-                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+                <td><a href="{% url 'elimina_volo' i.id %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
               </tr>
             {% endfor %}
         </tbody>
@@ -54,7 +74,7 @@
                 <td>{{i.utente.telefono}}</td>
                 <td>{{i.volo.codice}}</td>
                 <td>{{i.posti_prenotati}}</td>
-                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+                <td><a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
               </tr>
             {% endfor %}
         </tbody>
@@ -80,7 +100,7 @@
                 <td>{{i.indirizzo.stato}}</td>
                 <td>{{i.indirizzo.citta}}</td>
                 <td>{{i.indirizzo.provincia}}</td>
-                <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+                <td><a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
               </tr>
             {% endfor %}
         </tbody>

@@ -10,7 +10,9 @@ from django.contrib import messages
 def gestione_accesso(request):
     return render(request, 'App/pagina_gestione/log_in.html')
 
-
+def gestione_home(request):
+    return render(request, 'App/pagina_gestione/home.html')
+"""
 def verifica_accesso(request):
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -20,7 +22,7 @@ def verifica_accesso(request):
         else:
             messages.success(request, 'Accesso negato')
             return render(request, 'App/pagina_gestione/log_in.html')
-            
+            """
 
 
 def gestione_voli(request):
@@ -50,5 +52,34 @@ def gestione_aeroporti(request):
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
-def elimina(request):
-    pass
+def elimina_volo(request, id):
+    volo = Volo.objects.get(id = id)
+    volo.delete()
+    voli = Volo.objects.all()
+    content = {
+        'obj':'voli',
+        'voli':voli,
+    }
+    return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+def elimina_aeroporto(request, id):
+    aeroporto = Aeroporto.objects.get(id = id)
+    aeroporto.delete()
+    aeroporti = Aeroporto.objects.all()
+    content = {
+        'obj':'Aeroporti',
+        'pren':aeroporti,
+    }
+    return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+def elimina_prenotazione(request, id):
+    pren = Prenotazioni.objects.get(id = id)
+    pren.delete()
+    pren = Prenotazioni.objects.all()
+    content = {
+        'obj':'pren',
+        'pren':pren,
+    }
+    return render(request, 'App/pagina_gestione/gestione.html', content)

@@ -28,15 +28,19 @@ class Aereo(models.Model):
     man = 'Manutenzione'
     STATO = [(in_volo, 'In volo'),(pronto, 'Pronto'),(man, 'Manutenzione')]
     stato = models.CharField(max_length=50, null=True, choices=STATO)  
-    posti_prima_classe = models.IntegerField(null=True)
-    posti_seconda_classe = models.IntegerField(null=True)
-    posti_terza_classe = models.IntegerField(null=True)
     km_totali = models.IntegerField(null=True)
     km_da_ultima_manutenzione = models.IntegerField(null=True)
     data_ultima_manutenzione = models.DateField(null=True)
 
     def __str__(self) -> str:
         return self.targa +' '+ self.modello
+
+
+class Posti(models.Model):
+    posti_prima_classe = models.IntegerField(null=True)
+    posti_seconda_classe = models.IntegerField(null=True)
+    posti_terza_classe = models.IntegerField(null=True)
+    aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
 
 
 
@@ -64,13 +68,13 @@ class Personale(models.Model):
         return self.codice +' '+ self.nome+' '+self.cognome
 
 
-class Indirizzo(models.Model):
+class Indirizzo_p(models.Model):
     via = models.CharField(max_length=100, null=True)
     numero = models.CharField(max_length=100, null=True)
     citta = models.CharField(max_length=100, null=True)
     provincia = models.CharField(max_length=2, null=True)
     stato = models.CharField(max_length=100, null=True)
-    personale = models.ForeignKey(Personale, on_delete=models.CASCADE, default=-1)
+    personale = models.ForeignKey(Personale, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
@@ -82,13 +86,23 @@ class Has_turni(models.Model):
     turni = models.ForeignKey(Turni, on_delete=models.CASCADE)
 
 
+class Indirizzo_a(models.Model):
+    via = models.CharField(max_length=100, null=True)
+    numero = models.CharField(max_length=100, null=True)
+    citta = models.CharField(max_length=100, null=True)
+    provincia = models.CharField(max_length=2, null=True)
+    stato = models.CharField(max_length=100, null=True)
+
+    def __str__(self) -> str:
+        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
+
 
 
 class Aeroporto(models.Model):
     codice = models.CharField(max_length=200, null=True, unique=True)
     nome = models.CharField(max_length=100, null=True)
     descrizione = models.CharField(max_length=500, null=True)
-    indirizzo = models.ForeignKey(Indirizzo, on_delete=models.CASCADE)
+    indirizzo = models.ForeignKey(Indirizzo_a, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.nome
@@ -106,10 +120,11 @@ class Volo(models.Model):
     data_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-    posti_disponibili_prima_classe = aereo.posti_prima_classe
-    posti_disponibili_seconda_classe = aereo.posti_seconda_classe
-    posti_disponibili_terza_classe = aereo.posti_terza_classe
-
+    """
+    posti_disponibili_prima_classe = models.IntegerField(default=aereo.posti_prima_classe)
+    posti_disponibili_seconda_classe = models.IntegerField(default=aereo.posti_seconda_classe)
+    posti_disponibili_terza_classe = models.IntegerField(default=aereo.posti_terza_classe)
+"""
     def __str__(self) -> str:
             return self.codice
 
