@@ -40,17 +40,6 @@ class Aereo(models.Model):
 
 
 
-class Indirizzo(models.Model):
-    via = models.CharField(max_length=100, null=True)
-    numero = models.CharField(max_length=100, null=True)
-    citta = models.CharField(max_length=100, null=True)
-    provincia = models.CharField(max_length=2, null=True)
-    stato = models.CharField(max_length=100, null=True)
-
-    def __str__(self) -> str:
-        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
-
-
 class Personale(models.Model):
     codice = models.CharField(max_length=50, null=True, unique=True)
     nome = models.CharField(max_length=50, null=True)
@@ -70,10 +59,21 @@ class Personale(models.Model):
     RUOLO = [(pilota, 'Pilota'),(co_pi, 'Co-pilota'),(hostess, 'Hostess')]
     ruolo = models.CharField(max_length=50, null=True, choices=RUOLO)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-    indirizzo = models.ForeignKey(Indirizzo, on_delete=models.CASCADE, default=-1)
 
     def __str__(self) -> str:
         return self.codice +' '+ self.nome+' '+self.cognome
+
+
+class Indirizzo(models.Model):
+    via = models.CharField(max_length=100, null=True)
+    numero = models.CharField(max_length=100, null=True)
+    citta = models.CharField(max_length=100, null=True)
+    provincia = models.CharField(max_length=2, null=True)
+    stato = models.CharField(max_length=100, null=True)
+    personale = models.ForeignKey(Personale, on_delete=models.CASCADE, default=-1)
+
+    def __str__(self) -> str:
+        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
 
 
 

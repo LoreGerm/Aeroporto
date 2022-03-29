@@ -23,8 +23,8 @@ class AeroportoAdmin(admin.ModelAdmin):
 admin.site.register(Aeroporto, AeroportoAdmin)
 
 class PersonaleAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'indirizzo', 'stipendio', 'stato', 'ruolo', 'aereo')
-    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'indirizzo', 'stipendio', 'stato', 'ruolo', 'aereo')
+    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
+    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
 admin.site.register(Personale, PersonaleAdmin)
 
 class AereoAdmin(admin.ModelAdmin):
