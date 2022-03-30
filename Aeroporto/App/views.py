@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
-from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a
+from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
 from App.models import Admin
 from django.db.models import Q
-from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm
+from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
 from django.views.generic import CreateView
 
 # Create your views here.
@@ -101,6 +101,8 @@ def elimina_prenotazione(request, id):
 
 def agg_voli(request):
     messages = ''
+    aeroporto = Aeroporto.objects.all()
+    aereo = Aereo.objects.all()
     if request.method == 'POST':
         form = VoloForm(request.POST)
         if form.is_valid():
@@ -110,14 +112,18 @@ def agg_voli(request):
             messages = 'Errore'
 
     content = {
+        'aeroporto': aeroporto,
+        'aereo': aereo,
+        'action': 'aggiungi_voli',
         'messaggio': messages,
         'home': 'gestione_voli',
-        'form': VoloForm,
     }
     return render(request, 'App/pagina_gestione/form/form_voli.html', content)
 
 def agg_prenotazioni(request):
     messages = ''
+    utente = Utente.objects.all()
+    volo = Volo.objects.all()
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
         if form.is_valid():
@@ -127,9 +133,11 @@ def agg_prenotazioni(request):
             messages = 'Errore'
 
     content = {
+        'volo': volo,
+        'utente': utente,
+        'action': 'aggiungi_prenotazioni',
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
-        'form': PrenotaForm,
     }
     return render(request, 'App/pagina_gestione/form/form_prenota.html', content)
 
@@ -145,6 +153,7 @@ def agg_aeroporti(request):
             messages = 'Errore'
 
     content = {
+        'action': 'aggiungi_aeroporti',
         'messaggio': messages,
         'indirizzi': indirizzi,
         'home': 'gestione_aeroporti',
@@ -160,9 +169,45 @@ def agg_indirizzo_a(request):
             messages = 'Salvato'
         else:
             messages = 'Errore'
-            
+
     content = {
+        'action': 'aggiungi_indirizzo_a',
         'messaggio': messages,
         'home': 'gestione_aeroporti',
     }
     return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
+
+def agg_aereo(request):
+    messages = ''
+    if request.method == 'POST':
+        form = aereo_form(request.POST)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'action': 'aggiungi_aereo',
+        'messaggio': messages,
+        'home': 'gestione_voli',
+    }
+    return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
+
+
+def agg_utente(request):
+    messages = ''
+    if request.method == 'POST':
+        form = utente_form(request.POST)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'action': 'aggiungi_utente',
+        'messaggio': messages,
+        'home': 'gestione_prenotazioni',
+    }
+    return render(request, 'App/pagina_gestione/form/form_utente.html', content) 

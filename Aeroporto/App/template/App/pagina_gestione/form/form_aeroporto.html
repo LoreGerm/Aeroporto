@@ -4,17 +4,17 @@
 <div class="row mb-3">
     <div class="col">
         <label for="" class="form-label">Codice</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" required>
     </div>
     <div class="col">
         <label class="form-label">Nome</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" required>
     </div>
 </div>
 <div class="mb-2">
     <label class="form-label">Indirizzo</label>
     <div class="input-group">
-        <select class="form-select">
+        <select class="form-select" required>
             {% for i in indirizzi %}
             <option value="{{i.id}}">{{i}}</option>
             {% endfor %}
@@ -24,7 +24,7 @@
 </div>
 <div>
     <label class="form-label">Descrizione</label>
-    <textarea class="form-control" rows="5"></textarea>
+    <textarea class="form-control" rows="5" required></textarea>
 </div>
 
 

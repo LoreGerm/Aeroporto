@@ -1,0 +1,44 @@
+{% extends 'App/pagina_gestione/form/base_form.html' %}
+{% block contenuto %}
+
+
+<div class="row mb-3">
+    <div class="col">
+        <label for="" class="form-label">Targa</label>
+        <input type="text" class="form-control" required>
+    </div>
+    <div class="col">
+        <label class="form-label">Modello</label>
+        <input type="text" class="form-control" required>
+    </div>
+</div>
+
+<div class="mb-2 row">
+    <div class="col">
+        <label class="form-label">Stato</label>
+        <select class="form-select" required>
+            <option value="in_volo">In volo</option>
+            <option value="pronto">Pronto</option>
+            <option value="manutenzione">Manutenzione</option>
+        </select>
+    </div>
+    <div class="col">
+        <label class="form-label">Km totali</label>
+        <input type="number" class="form-control" required>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <label class="form-label">Km dall'ultima manutenzione</label>
+        <input type="number" class="form-control" required>
+    </div>
+    <div class="col">
+        <label class="form-label">Data dell'ultima manutenzione</label>
+        <input type="date" class="form-control" required>
+    </div>
+</div>
+
+
+
+{% endblock %}

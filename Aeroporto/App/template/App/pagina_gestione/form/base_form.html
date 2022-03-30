@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container mt-2 w-50">
-    <form action="" method="post">
+    <form action="{% url action %}" method="POST">
         {% csrf_token %}
         <div class="mb-4">
             <a href="{% url home %}" class="btn btn-primary"> Home </a>

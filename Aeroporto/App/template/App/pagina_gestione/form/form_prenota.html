@@ -1,6 +1,40 @@
 {% extends 'App/pagina_gestione/form/base_form.html' %}
 {% block contenuto %}
 
-    {{form.as_p}}
+
+<div class="mb-2 row">
+    <div class="col">
+        <label class="form-label">Utente</label>
+        <div class="input-group">
+            <select class="form-select" required>
+                {% for i in utente %}
+                <option value="{{i.id}}">{{i}}</option>
+                {% endfor %}
+            </select>
+            <a href="{% url 'aggiungi_utente' %}" target="_blank" class="input-group-text btn btn-primary"
+                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label">Volo</label>
+        <div class="input-group">
+            <select class="form-select" required>
+                {% for i in volo %}
+                <option value="{{i.id}}">{{i}}</option>
+                {% endfor %}
+            </select>
+            <a href="{% url 'aggiungi_voli' %}" target="_blank" class="input-group-text btn btn-primary" type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <label class="form-label">Posti prenotati</label>
+        <input type="number" class="form-control" required>
+    </div>
+</div>
+
+
 
 {% endblock %}
