@@ -1,5 +1,5 @@
 from django import forms
-from .models import Volo, Aeroporto, Prenotazioni
+from .models import Indirizzo_a, Volo, Aeroporto, Prenotazioni
 
 class VoloForm(forms.ModelForm):
     class Meta:
@@ -41,5 +41,10 @@ class AerportoForm(forms.ModelForm):
             'codice': forms.TextInput(attrs={'class':'form-control'}),
             'nome': forms.TextInput(attrs={'class':'form-control'}),
             'descrizione': forms.Textarea(attrs={'class':'form-control'}),
-            'indirizzo': forms.Select(attrs={'class':'form-select', 'id':'indirizzo'}),
         }
+
+
+class Indirizzo_a_form(forms.ModelForm):
+    class Meta:
+        model = Indirizzo_a
+        fields = '__all__'

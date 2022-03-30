@@ -2,8 +2,7 @@ from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a
 from App.models import Admin
 from django.db.models import Q
-from django.contrib import messages
-from .forms import AerportoForm, PrenotaForm, VoloForm
+from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm
 from django.views.generic import CreateView
 
 # Create your views here.
@@ -101,47 +100,69 @@ def elimina_prenotazione(request, id):
 
 
 def agg_voli(request):
+    messages = ''
     if request.method == 'POST':
         form = VoloForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successo')
+            messages = 'Salvato'
         else:
-            messages.success(request, 'Errore')
+            messages = 'Errore'
 
     content = {
+        'messaggio': messages,
         'home': 'gestione_voli',
         'form': VoloForm,
     }
     return render(request, 'App/pagina_gestione/form/form_voli.html', content)
 
 def agg_prenotazioni(request):
+    messages = ''
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successo')
+            messages = 'Salvato'
         else:
-            messages.success(request, 'Errore')
+            messages = 'Errore'
 
     content = {
+        'messaggio': messages,
         'home': 'gestione_prenotazioni',
         'form': PrenotaForm,
     }
     return render(request, 'App/pagina_gestione/form/form_prenota.html', content)
 
 def agg_aeroporti(request):
+    messages = ''
     indirizzi = Indirizzo_a.objects.all()
     if request.method == 'POST':
         form = AerportoForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successo')
+            messages = 'Salvato'
         else:
-            messages.success(request, 'Errore')
+            messages = 'Errore'
 
     content = {
+        'messaggio': messages,
+        'indirizzi': indirizzi,
         'home': 'gestione_aeroporti',
-        'form': AerportoForm,
     }
-    return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content)
+    return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
+
+def agg_indirizzo_a(request):
+    messages = ''
+    if request.method == 'POST':
+        form = Indirizzo_a_form(request.POST)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+            
+    content = {
+        'messaggio': messages,
+        'home': 'gestione_aeroporti',
+    }
+    return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
