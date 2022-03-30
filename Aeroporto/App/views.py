@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from App.models import Volo, Prenotazioni, Aeroporto
+from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a
 from App.models import Admin
 from django.db.models import Q
 from django.contrib import messages
@@ -103,7 +103,11 @@ def elimina_prenotazione(request, id):
 def agg_voli(request):
     if request.method == 'POST':
         form = VoloForm(request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successo')
+        else:
+            messages.success(request, 'Errore')
 
     content = {
         'home': 'gestione_voli',
@@ -114,7 +118,11 @@ def agg_voli(request):
 def agg_prenotazioni(request):
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successo')
+        else:
+            messages.success(request, 'Errore')
 
     content = {
         'home': 'gestione_prenotazioni',
@@ -123,9 +131,14 @@ def agg_prenotazioni(request):
     return render(request, 'App/pagina_gestione/form/form_prenota.html', content)
 
 def agg_aeroporti(request):
+    indirizzi = Indirizzo_a.objects.all()
     if request.method == 'POST':
         form = AerportoForm(request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successo')
+        else:
+            messages.success(request, 'Errore')
 
     content = {
         'home': 'gestione_aeroporti',

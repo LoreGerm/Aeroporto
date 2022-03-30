@@ -101,8 +101,8 @@ class Indirizzo_a(models.Model):
 class Aeroporto(models.Model):
     codice = models.CharField(max_length=200, null=True, unique=True)
     nome = models.CharField(max_length=100, null=True)
-    descrizione = models.CharField(max_length=500, null=True)
     indirizzo = models.ForeignKey(Indirizzo_a, on_delete=models.CASCADE)
+    descrizione = models.CharField(max_length=500, null=True)
 
     def __str__(self) -> str:
         return self.nome

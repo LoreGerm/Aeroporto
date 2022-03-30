@@ -1,6 +1,11 @@
 {% extends 'App/pagina_gestione/form/base_form.html' %}
 {% block contenuto %}
 
-    {{form.as_p}}
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Indirizzo" aria-label="Recipient's username"
+        aria-describedby="basic-addon2">
+    <span class="input-group-text" id="basic-addon2"> + </span>
+</div>
+{{form.as_p}}
 
 {% endblock %}

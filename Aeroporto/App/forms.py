@@ -35,11 +35,11 @@ class PrenotaForm(forms.ModelForm):
 class AerportoForm(forms.ModelForm):
     class Meta:
         model = Aeroporto
-        fields = ('codice', 'nome', 'descrizione', 'indirizzo')
+        fields = ('codice', 'nome', 'indirizzo', 'descrizione')
 
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control'}),
             'nome': forms.TextInput(attrs={'class':'form-control'}),
             'descrizione': forms.Textarea(attrs={'class':'form-control'}),
-            'indirizzo': forms.Select(attrs={'class':'form-select'}),
+            'indirizzo': forms.Select(attrs={'class':'form-select', 'id':'indirizzo'}),
         }

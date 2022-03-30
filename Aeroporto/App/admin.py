@@ -18,8 +18,8 @@ admin.site.register(Volo, VoloAdmin)
 
 
 class AeroportoAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'nome', 'descrizione', 'indirizzo')
-    list_filter = ('codice', 'nome', 'descrizione', 'indirizzo')
+    list_display = ('codice', 'nome', 'indirizzo', 'descrizione')
+    list_filter = ('codice', 'nome', 'indirizzo', 'descrizione')
 admin.site.register(Aeroporto, AeroportoAdmin)
 
 class PersonaleAdmin(admin.ModelAdmin):
