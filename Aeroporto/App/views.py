@@ -28,6 +28,10 @@ def verifica_accesso(request):
 def gestione_voli(request):
     voli = Volo.objects.all()
     content = {
+        'agg': 'aggiungi_voli',
+        'active_v': 'active',
+        'active_p': '',
+        'active_a': '',
         'obj':'voli',
         'voli':voli,
     }
@@ -37,6 +41,10 @@ def gestione_voli(request):
 def gestione_prenotazioni(request):
     pren = Prenotazioni.objects.all()
     content = {
+        'agg': 'aggiungi_prenotazioni',
+        'active_v': '',
+        'active_p': 'active',
+        'active_a': '',
         'obj':'pren',
         'pren':pren,
     }
@@ -46,6 +54,10 @@ def gestione_prenotazioni(request):
 def gestione_aeroporti(request):
     aeroporti = Aeroporto.objects.all()
     content = {
+        'agg': 'aggiungi_aeroporti',
+        'active_v': '',
+        'active_p': '',
+        'active_a': 'active',
         'obj':'Aeroporti',
         'pren':aeroporti,
     }
@@ -83,3 +95,13 @@ def elimina_prenotazione(request, id):
         'pren':pren,
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+def agg_voli(request):
+    return render(request, 'App/pagina_gestione/form/form_voli.html')
+
+def agg_prenotazioni(request):
+    return render(request, 'App/pagina_gestione/form/form_voli.html')
+
+def agg_aeroporti(request):
+    return render(request, 'App/pagina_gestione/form/form_voli.html')

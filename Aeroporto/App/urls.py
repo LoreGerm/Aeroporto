@@ -11,4 +11,7 @@ urlpatterns = [
     path('gestione/home/voli/<int:id>', views.elimina_volo, name='elimina_volo'),
     path('gestione/home/prenotazioni', views.gestione_prenotazioni, name='gestione_prenotazioni'),
     path('gestione/home/aeroporti', views.gestione_aeroporti, name='gestione_aeroporti'),
+    path('gestione/home/voli/aggiungi', views.agg_voli, name='aggiungi_voli'),
+    path('gestione/home/prenotazioni/aggiungi', views.agg_prenotazioni, name='aggiungi_prenotazioni'),
+    path('gestione/home/aeroporti/aggiungi', views.agg_aeroporti, name='aggiungi_aeroporti'),
 ]
