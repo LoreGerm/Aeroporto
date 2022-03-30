@@ -38,13 +38,13 @@
             {% for i in voli %}
             <tr>
                 <td>{{i.codice}}</td>
-                <td>{{i.aeroporto_partenza}}</td>
-                <td>{{i.aeroporto_arrivo}}</td>
+                <td>{{i.aeroporto_di_partenza}}</td>
+                <td>{{i.aeroporto_di_arrivo}}</td>
                 <td>{{i.prezzo_unitario}} €</td>
-                <td>{{i.ora_partenza}}</td>
-                <td>{{i.ora_arrivo}}</td>
-                <td>{{i.data_partenza}}</td>
-                <td>{{i.data_arrivo}}</td>
+                <td>{{i.ora_di_partenza}}</td>
+                <td>{{i.ora_di_arrivo}}</td>
+                <td>{{i.data_di_partenza}}</td>
+                <td>{{i.data_di_arrivo}}</td>
                 <td>{{i.km}}</td>
                 <td>{{i.aereo.targa}}</td>
                 <td><a href="{% url 'elimina_volo' i.id %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
@@ -71,7 +71,7 @@
                 <td>{{i.utente.telefono}}</td>
                 <td>{{i.volo.codice}}</td>
                 <td>{{i.posti_prenotati}}</td>
-                <td><a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+                <td><a href="{% url 'elimina_prenotazione' i.id %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
               </tr>
             {% endfor %}
         </tbody>
@@ -87,7 +87,7 @@
             <th>Provincia</th>
         </thead>
         <tbody>
-            {% for i in pren %}
+            {% for i in aeroporti %}
             <tr>
                 <td>{{i.codice}}</td>
                 <td>{{i.nome}}</td>
@@ -97,7 +97,7 @@
                 <td>{{i.indirizzo.stato}}</td>
                 <td>{{i.indirizzo.citta}}</td>
                 <td>{{i.indirizzo.provincia}}</td>
-                <td><a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+                <td><a href="{% url 'elimina_aeroporto' i.id %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
               </tr>
             {% endfor %}
         </tbody>

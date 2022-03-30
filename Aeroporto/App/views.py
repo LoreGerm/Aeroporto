@@ -3,6 +3,8 @@ from App.models import Volo, Prenotazioni, Aeroporto
 from App.models import Admin
 from django.db.models import Q
 from django.contrib import messages
+from .forms import AerportoForm, PrenotaForm, VoloForm
+from django.views.generic import CreateView
 
 # Create your views here.
 
@@ -45,8 +47,8 @@ def gestione_prenotazioni(request):
         'active_v': '',
         'active_p': 'active',
         'active_a': '',
-        'obj':'pren',
-        'pren':pren,
+        'obj': 'pren',
+        'pren': pren,
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
@@ -58,50 +60,75 @@ def gestione_aeroporti(request):
         'active_v': '',
         'active_p': '',
         'active_a': 'active',
-        'obj':'Aeroporti',
-        'pren':aeroporti,
+        'obj': 'Aeroporti',
+        'aeroporti': aeroporti,
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+
+
+
 
 
 def elimina_volo(request, id):
     volo = Volo.objects.get(id = id)
     volo.delete()
     voli = Volo.objects.all()
-    content = {
-        'obj':'voli',
-        'voli':voli,
-    }
-    return render(request, 'App/pagina_gestione/gestione.html', content)
+
+    return redirect('gestione_voli')
 
 
 def elimina_aeroporto(request, id):
     aeroporto = Aeroporto.objects.get(id = id)
     aeroporto.delete()
     aeroporti = Aeroporto.objects.all()
-    content = {
-        'obj':'Aeroporti',
-        'pren':aeroporti,
-    }
-    return render(request, 'App/pagina_gestione/gestione.html', content)
+    
+    return redirect('gestione_aeroporti')
 
 
 def elimina_prenotazione(request, id):
     pren = Prenotazioni.objects.get(id = id)
     pren.delete()
     pren = Prenotazioni.objects.all()
-    content = {
-        'obj':'pren',
-        'pren':pren,
-    }
-    return render(request, 'App/pagina_gestione/gestione.html', content)
+    
+    return redirect('gestione_prenotazioni')
+
+
+
+
+
 
 
 def agg_voli(request):
-    return render(request, 'App/pagina_gestione/form/form_voli.html')
+    if request.method == 'POST':
+        form = VoloForm(request.POST)
+        form.save()
+
+    content = {
+        'home': 'gestione_voli',
+        'form': VoloForm,
+    }
+    return render(request, 'App/pagina_gestione/form/form_voli.html', content)
 
 def agg_prenotazioni(request):
-    return render(request, 'App/pagina_gestione/form/form_voli.html')
+    if request.method == 'POST':
+        form = PrenotaForm(request.POST)
+        form.save()
+
+    content = {
+        'home': 'gestione_prenotazioni',
+        'form': PrenotaForm,
+    }
+    return render(request, 'App/pagina_gestione/form/form_prenota.html', content)
 
 def agg_aeroporti(request):
-    return render(request, 'App/pagina_gestione/form/form_voli.html')
+    if request.method == 'POST':
+        form = AerportoForm(request.POST)
+        form.save()
+
+    content = {
+        'home': 'gestione_aeroporti',
+        'form': AerportoForm,
+    }
+    return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content)

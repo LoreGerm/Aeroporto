@@ -1,0 +1,20 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+
+<div class="container mt-2 w-50">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <a href="{% url home %}" class="btn btn-primary"> Home </a>
+            <button type="submit" class="btn btn-primary"> Invia </button>
+        </div>
+
+        {% block contenuto %}
+        
+        {% endblock %}
+
+    </form>
+</div>
+
+{% endblock %}

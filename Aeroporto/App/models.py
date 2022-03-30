@@ -111,13 +111,13 @@ class Aeroporto(models.Model):
 
 class Volo(models.Model):
     codice = models.CharField(max_length=200, null=True, unique=True)
-    aeroporto_partenza = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_partenza')
-    aeroporto_arrivo = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_arrivo', default=None)
+    aeroporto_di_partenza = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_partenza')
+    aeroporto_di_arrivo = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_arrivo', default=None)
     prezzo_unitario = models.FloatField(null=True, default=0.0)
-    ora_partenza = models.TimeField(auto_now=False, auto_now_add=False)
-    ora_arrivo = models.TimeField(auto_now=False, auto_now_add=False)
-    data_partenza = models.DateField(null=True)
-    data_arrivo = models.DateField(null=True)
+    ora_di_partenza = models.TimeField(auto_now=False, auto_now_add=False)
+    ora_di_arrivo = models.TimeField(auto_now=False, auto_now_add=False)
+    data_di_partenza = models.DateField(null=True)
+    data_di_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
     """
