@@ -5,11 +5,11 @@
 <div class="row mb-3">
     <div class="col">
         <label for="" class="form-label">Codice</label>
-        <input type="text" class="form-control" required>
+        {{form.codice}}
     </div>
     <div class="col">
         <label class="form-label">Prezzo</label>
-        <input type="number" class="form-control" required>
+        {{form.prezzo_unitario}}
     </div>
 </div>
 
@@ -17,11 +17,7 @@
     <div class="col">
         <label class="form-label">Aeroporto di partenza</label>
         <div class="input-group">
-            <select class="form-select" required>
-                {% for i in aeroporto %}
-                <option value="{{i.id}}">{{i}}</option>
-                {% endfor %}
-            </select>
+            {{form.aeroporto_di_partenza}}
             <a href="{% url 'aggiungi_aeroporti' %}" target="_blank" class="input-group-text btn btn-primary"
                 type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
         </div>
@@ -29,11 +25,7 @@
     <div class="col">
         <label class="form-label">Aeroporto di arrivo</label>
         <div class="input-group" >
-            <select class="form-select" required>
-                {% for i in aeroporto %}
-                <option value="{{i.id}}">{{i}}</option>
-                {% endfor %}
-            </select>
+            {{form.aeroporto_di_arrivo}}
             <a href="{% url 'aggiungi_aeroporti' %}" target="_blank" class="input-group-text btn btn-primary"
                 type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
         </div>
@@ -43,38 +35,34 @@
 <div class="row mb-3">
     <div class="col">
         <label for="" class="form-label">Ora di partenza</label>
-        <input type="time" class="form-control" required>
+        {{form.ora_di_partenza}}
     </div>
     <div class="col">
         <label class="form-label">Ora di arrivo</label>
-        <input type="time" class="form-control" required>
+        {{form.ora_di_arrivo}}
     </div>
 </div>
 
 <div class="row mb-3">
     <div class="col">
         <label for="" class="form-label">Data di partenza</label>
-        <input type="date" class="form-control">
+        {{form.data_di_partenza}}
     </div>
     <div class="col">
         <label class="form-label">Data di arrivo</label>
-        <input type="date" class="form-control">
+        {{form.data_di_arrivo}}
     </div>
 </div>
 
 <div class="mb-2 row">
     <div class="col">
         <label class="form-label">Km</label>
-        <input type="number" class="form-control">
+        {{form.km}}
     </div>
     <div class="col">
         <label class="form-label">Aereo</label>
         <div class="input-group">
-            <select class="form-select">
-                {% for i in aereo %}
-                <option value="{{i.id}}">{{i}}</option>
-                {% endfor %}
-            </select>
+            {{form.aereo}}
             <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary"
                 type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
         </div>

@@ -112,8 +112,7 @@ def agg_voli(request):
             messages = 'Errore'
 
     content = {
-        'aeroporto': aeroporto,
-        'aereo': aereo,
+        'form': VoloForm,
         'action': 'aggiungi_voli',
         'messaggio': messages,
         'home': 'gestione_voli',
@@ -122,7 +121,6 @@ def agg_voli(request):
 
 def agg_prenotazioni(request):
     messages = ''
-    utente = Utente.objects.all()
     volo = Volo.objects.all()
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
@@ -134,7 +132,7 @@ def agg_prenotazioni(request):
 
     content = {
         'volo': volo,
-        'utente': utente,
+        'form': PrenotaForm,
         'action': 'aggiungi_prenotazioni',
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
@@ -143,7 +141,6 @@ def agg_prenotazioni(request):
 
 def agg_aeroporti(request):
     messages = ''
-    indirizzi = Indirizzo_a.objects.all()
     if request.method == 'POST':
         form = AerportoForm(request.POST)
         if form.is_valid():
@@ -155,8 +152,8 @@ def agg_aeroporti(request):
     content = {
         'action': 'aggiungi_aeroporti',
         'messaggio': messages,
-        'indirizzi': indirizzi,
         'home': 'gestione_aeroporti',
+        'form': AerportoForm,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
 
@@ -171,6 +168,7 @@ def agg_indirizzo_a(request):
             messages = 'Errore'
 
     content = {
+        'form': Indirizzo_a_form,
         'action': 'aggiungi_indirizzo_a',
         'messaggio': messages,
         'home': 'gestione_aeroporti',
@@ -188,6 +186,7 @@ def agg_aereo(request):
             messages = 'Errore'
 
     content = {
+        'form': aereo_form,
         'action': 'aggiungi_aereo',
         'messaggio': messages,
         'home': 'gestione_voli',
@@ -206,6 +205,7 @@ def agg_utente(request):
             messages = 'Errore'
 
     content = {
+        'form': utente_form,
         'action': 'aggiungi_utente',
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
