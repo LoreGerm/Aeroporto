@@ -335,4 +335,18 @@ def cerca_prenotazioni(request):
 
 
 def cerca_aeroporti(request):
-    pass
+    aeroporto = []
+    if request.method == 'POST':
+        cerca = request.POST.get('cerca', '')
+        aeroporto = Aeroporto.objects.filter(Q(codice__icontains=cerca) | Q(nome__icontains=cerca))
+
+    content = {
+        'active_v': '',
+        'active_p': '',
+        'active_a': 'active',
+        'agg': 'aggiungi_aeroporti',
+        'obj': 'Aeroporti',
+        'aeroporti': aeroporto,
+        'cerca': 'cerca_aeroporti',
+    }
+    return render(request, 'App/pagina_gestione/cerca.html', content)
