@@ -1,6 +1,5 @@
 
 from . import views
-from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
@@ -21,4 +20,8 @@ urlpatterns = [
     path('gestione/home/prenotazioni/aggiungi/utente', views.agg_utente, name="aggiungi_utente"),
     path('gestione/home/aeroporti/aggiungi', views.agg_aeroporti, name='aggiungi_aeroporti'),
     path('gestione/home/aeroporti/aggiungi/indirizzo', views.agg_indirizzo_a, name="aggiungi_indirizzo_a"),
+
+    path('gestione/home/voli/modifica/<int:id>', views.modifica_volo, name='modifica_volo'),
+    path('gestione/home/aeroporti/modifica/<int:id>', views.modifica_aeroporto, name='modifica_aeroporto'),
+    path('gestione/home/prenotazioni/modifica/<int:id>', views.modifica_prenotazione, name='modifica_prenotazione'),
 ]

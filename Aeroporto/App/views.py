@@ -93,13 +93,81 @@ def elimina_prenotazione(request, id):
 
 
 
+def modifica_volo(request, id):
+    volo = Volo.objects.get(id = id)
+    field = {
+        'codice': volo.codice,
+        'aeroporto_di_partenza': volo.aeroporto_di_partenza,
+        'aeroporto_di_arrivo': volo.aeroporto_di_arrivo,
+        'prezzo_unitario': volo.prezzo_unitario,
+        'ora_di_partenza': volo.ora_di_partenza,
+        'ora_di_arrivo': volo.ora_di_arrivo,
+        'data_di_partenza': volo.data_di_partenza,
+        'data_di_arrivo': volo.data_di_arrivo,
+        'km': volo.km,
+        'aereo': volo.aereo,
+    }
+    form = VoloForm(initial=field)
+    messages = ''
+    if request.method == 'POST':
+        form = VoloForm(request.POST, instance=volo)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'form': form,
+        'messaggio': messages,
+        'home': 'gestione_voli',
+    }
+    return render(request, 'App/pagina_gestione/form/form_voli.html', content)
+
+
+def modifica_aeroporto(request, id):
+    aeroporto = Aeroporto.objects.get(id = id)
+    messages = ''
+    field={
+        'codice': aeroporto.codice,
+        'nome': aeroporto.nome,
+        'indirizzo': aeroporto.indirizzo,
+        'descrizione': aeroporto.descrizione,
+    }
+    form = AerportoForm(initial=field)
+    if request.method == 'POST':
+        form = AerportoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'messaggio': messages,
+        'home': 'gestione_aeroporti',
+        'form': form,
+    }
+    return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
+    
+    return redirect('gestione_aeroporti')
+
+
+def modifica_prenotazione(request, id):
+    pren = Prenotazioni.objects.get(id = id)
+    pren.delete()
+    
+    return redirect('gestione_prenotazioni')
+
+
+
+
+
 
 
 
 def agg_voli(request):
     messages = ''
-    aeroporto = Aeroporto.objects.all()
-    aereo = Aereo.objects.all()
     if request.method == 'POST':
         form = VoloForm(request.POST)
         if form.is_valid():
@@ -110,11 +178,11 @@ def agg_voli(request):
 
     content = {
         'form': VoloForm,
-        'action': 'aggiungi_voli',
         'messaggio': messages,
         'home': 'gestione_voli',
     }
     return render(request, 'App/pagina_gestione/form/form_voli.html', content)
+
 
 def agg_prenotazioni(request):
     messages = ''
@@ -130,11 +198,11 @@ def agg_prenotazioni(request):
     content = {
         'volo': volo,
         'form': PrenotaForm,
-        'action': 'aggiungi_prenotazioni',
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/form/form_prenota.html', content)
+
 
 def agg_aeroporti(request):
     messages = ''
@@ -147,12 +215,12 @@ def agg_aeroporti(request):
             messages = 'Errore'
 
     content = {
-        'action': 'aggiungi_aeroporti',
         'messaggio': messages,
         'home': 'gestione_aeroporti',
         'form': AerportoForm,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
+
 
 def agg_indirizzo_a(request):
     messages = ''
@@ -166,11 +234,11 @@ def agg_indirizzo_a(request):
 
     content = {
         'form': Indirizzo_a_form,
-        'action': 'aggiungi_indirizzo_a',
         'messaggio': messages,
         'home': 'gestione_aeroporti',
     }
     return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
+
 
 def agg_aereo(request):
     messages = ''
@@ -184,7 +252,6 @@ def agg_aereo(request):
 
     content = {
         'form': aereo_form,
-        'action': 'aggiungi_aereo',
         'messaggio': messages,
         'home': 'gestione_voli',
     }
@@ -203,7 +270,6 @@ def agg_utente(request):
 
     content = {
         'form': utente_form,
-        'action': 'aggiungi_utente',
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
     }
