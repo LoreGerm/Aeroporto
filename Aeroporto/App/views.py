@@ -302,8 +302,11 @@ def cerca_voli(request):
         voli = Volo.objects.filter(codice__icontains=cerca)
         
     content = {
+        'active_v': 'active',
+        'active_p': '',
+        'active_a': '',
         'agg': 'aggiungi_voli',
-        'obj': voli,
+        'obj': 'voli',
         'voli': voli,
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)
