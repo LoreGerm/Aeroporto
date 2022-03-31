@@ -296,9 +296,9 @@ def agg_utente(request):
 
 
 def cerca_voli(request):
-    voli = []
+    voli = ''
     if request.method == 'POST':
-        cerca = request.POST['cerca']
+        cerca = request.POST.get('cerca', '')
         voli = Volo.objects.filter(codice__icontains=cerca)
         
     content = {
