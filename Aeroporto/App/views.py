@@ -263,7 +263,6 @@ def agg_voli(request):
 
 def agg_prenotazioni(request):
     messages = ''
-    volo = Volo.objects.all()
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
         if form.is_valid():
@@ -273,7 +272,6 @@ def agg_prenotazioni(request):
             messages = 'Errore'
 
     content = {
-        'volo': volo,
         'form': PrenotaForm,
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
@@ -290,6 +288,9 @@ def agg_aeroporti(request):
             messages = 'Salvato'
         else:
             messages = 'Errore'
+
+    # INSERISCI NEL FILE JSON IL NUMERO DI POSTI E FALLO LEGGERE AL JS PER GENEREARE I POSTI
+    # {'prima':numero-posti, 'seconda':numero-posti, 'terza':numero-posti,}
 
     content = {
         'messaggio': messages,
@@ -406,7 +407,7 @@ def cerca_aeroporti(request):
         'active_a': 'active',
         'active_ae': '',
         'obj': 'Aeroporti',
-        'aeroporti': aeroporti,
+        'aeroporti': aeroporto,
         'cerca': 'cerca_aeroporti',
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)

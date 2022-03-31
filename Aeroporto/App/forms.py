@@ -29,7 +29,7 @@ class PrenotaForm(forms.ModelForm):
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'utente': forms.Select(attrs={'class':'form-select'}),
             'volo': forms.Select(attrs={'class':'form-select'}),
-            'posti_prenotati': forms.TextInput(attrs={'class':'form-control'}),
+            'posti_prenotati': forms.TextInput(attrs={'class':'form-control', 'id':'posti_prenotati'}),
         }
 
 
