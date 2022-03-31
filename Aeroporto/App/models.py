@@ -45,7 +45,7 @@ class Posti(models.Model):
 
 
 class Personale(models.Model):
-    codice = models.CharField(max_length=50, null=True, unique=True)
+    codice = models.CharField(max_length=200, null=True, unique=True)
     nome = models.CharField(max_length=50, null=True)
     cognome = models.CharField(max_length=50, null=True)
     email = models.CharField(max_length=100, null=True)
@@ -148,6 +148,7 @@ class Utente(models.Model):
 
 
 class Prenotazioni(models.Model):
+    codice = models.CharField(max_length=200, null=False, unique=True)
     utente = models.ForeignKey(Utente, on_delete=models.CASCADE)
     volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
     posti_prenotati = ArrayField(models.CharField(max_length=10, null=True))

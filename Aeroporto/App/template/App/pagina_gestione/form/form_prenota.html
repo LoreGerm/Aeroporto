@@ -22,6 +22,13 @@
 
 <div class="row mb-3">
     <div class="col">
+        <label class="form-label">Codice</label>
+        <div class="input-group">
+            {{form.codice}}
+            <button class="input-group-text btn btn-primary" onclick="Genera()" type="button" id="basic-addon2">Genera</i></button>
+        </div>
+    </div>
+    <div class="col">
         <label class="form-label">Posti prenotati</label>
         {{form.posti_prenotati}}
     </div>

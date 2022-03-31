@@ -35,6 +35,7 @@ def gestione_voli(request):
         'active_a': '',
         'obj':'voli',
         'voli':voli,
+        'cerca': 'cerca_voli',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
@@ -48,6 +49,7 @@ def gestione_prenotazioni(request):
         'active_a': '',
         'obj': 'pren',
         'pren': pren,
+        'cerca': 'cerca_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
@@ -61,6 +63,7 @@ def gestione_aeroporti(request):
         'active_a': 'active',
         'obj': 'Aeroporti',
         'aeroporti': aeroporti,
+        'cerca': 'cerca_aeroporti',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
@@ -308,12 +311,27 @@ def cerca_voli(request):
         'agg': 'aggiungi_voli',
         'obj': 'voli',
         'voli': voli,
+        'cerca': 'cerca_voli',
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)
 
 
 def cerca_prenotazioni(request):
-    pass
+    pren = []
+    if request.method == 'POST':
+        cerca = request.POST.get('cerca', '')
+        pren = Prenotazioni.objects.filter(Q(codice__icontains=cerca) | Q(utente__nome__icontains=cerca) | Q(utente__cognome__icontains=cerca))
+
+    content = {
+        'active_v': '',
+        'active_p': 'active',
+        'active_a': '',
+        'agg': 'aggiungi_prenotazioni',
+        'obj': 'pren',
+        'pren': pren,
+        'cerca': 'cerca_prenotazioni',
+    }
+    return render(request, 'App/pagina_gestione/cerca.html', content)
 
 
 def cerca_aeroporti(request):

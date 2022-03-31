@@ -7,7 +7,7 @@ class VoloForm(forms.ModelForm):
         fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
 
         widgets =  {
-            'codice': forms.TextInput(attrs={'class':'form-control'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select'}),
             'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select'}),
             'prezzo_unitario': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
@@ -23,9 +23,10 @@ class VoloForm(forms.ModelForm):
 class PrenotaForm(forms.ModelForm):
     class Meta:
         model = Prenotazioni
-        fields = ('utente', 'volo', 'posti_prenotati')
+        fields = ('codice', 'utente', 'volo', 'posti_prenotati')
 
         widgets =  {
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'utente': forms.Select(attrs={'class':'form-select'}),
             'volo': forms.Select(attrs={'class':'form-select'}),
             'posti_prenotati': forms.TextInput(attrs={'class':'form-control'}),

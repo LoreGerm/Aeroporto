@@ -19,11 +19,11 @@
   </div>
 </nav>
 
-<form action="{% url 'cerca' %}" method="post">
+<form action="{% url cerca %}" method="post">
     {% csrf_token %}
     <div class="input-group mt-3 w-25">
         <button type="submit" class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
-        <input type="text" name="cerca" class="form-control" placeholder="Cerca" required>
+        <input type="text" name="cerca" class="form-control" placeholder="Cerca">
     </div>
 </form>
 
@@ -74,7 +74,7 @@
   <tbody>
     {% for i in pren %}
     <tr>
-      <td>{{i.id}}</td>
+      <td>{{i.codice}}</td>
       <td>{{i.utente.nome}}</td>
       <td>{{i.utente.cognome}}</td>
       <td>{{i.utente.email}}</td>
