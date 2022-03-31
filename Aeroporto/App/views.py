@@ -299,13 +299,14 @@ def cerca_voli(request):
     voli = []
     if request.method == 'POST':
         cerca = request.POST['cerca']
-        voli = Volo.objects.filter(Q(codice__icontains=cerca) | Q(aeroporto_di_partenza__icontains=cerca) | Q(aeroporto_di_arrivo__icontains=cerca) | Q(data_di_partenza__icontains=cerca) | Q(data_di_arrivo__icontains=cerca) | Q(aereo__icontains=cerca))
+        voli = Volo.objects.filter(codice__icontains=cerca)
         
     content = {
+        'agg': 'aggiungi_voli',
         'obj': voli,
         'voli': voli,
     }
-    return render(request, 'App/pagina_gestione/gestione.html', content)
+    return render(request, 'App/pagina_gestione/cerca.html', content)
 
 
 def cerca_prenotazioni(request):
