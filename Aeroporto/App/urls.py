@@ -9,13 +9,15 @@ urlpatterns = [
     path('gestione/home/voli', views.gestione_voli, name='gestione_voli'),
     path('gestione/home/prenotazioni', views.gestione_prenotazioni, name='gestione_prenotazioni'),
     path('gestione/home/aeroporti', views.gestione_aeroporti, name='gestione_aeroporti'),
+    path('gestione/home/aereo', views.gestione_aerei, name='gestione_aerei'),
 
     path('gestione/home/voli/<int:id>', views.elimina_volo, name='elimina_volo'),
     path('gestione/home/aeroporti/<int:id>', views.elimina_aeroporto, name='elimina_aeroporto'),
     path('gestione/home/prenotazioni/<int:id>', views.elimina_prenotazione, name='elimina_prenotazione'),
+    path('gestione/home/aereo/<int:id>', views.elimina_aereo, name='elimina_aereo'),
     
     path('gestione/home/voli/aggiungi', views.agg_voli, name='aggiungi_voli'),
-    path('gestione/home/voli/aggiungi/aereo', views.agg_aereo, name="aggiungi_aereo"),
+    path('gestione/home/voli/aereo', views.agg_aereo, name="aggiungi_aereo"),
     path('gestione/home/prenotazioni/aggiungi', views.agg_prenotazioni, name='aggiungi_prenotazioni'),
     path('gestione/home/prenotazioni/aggiungi/utente', views.agg_utente, name="aggiungi_utente"),
     path('gestione/home/aeroporti/aggiungi', views.agg_aeroporti, name='aggiungi_aeroporti'),
@@ -24,8 +26,10 @@ urlpatterns = [
     path('gestione/home/voli/modifica/<int:id>', views.modifica_volo, name='modifica_volo'),
     path('gestione/home/aeroporti/modifica/<int:id>', views.modifica_aeroporto, name='modifica_aeroporto'),
     path('gestione/home/prenotazioni/modifica/<int:id>', views.modifica_prenotazione, name='modifica_prenotazione'),
+    path('gestione/home/aerei/modifica/<int:id>', views.modifica_aereo, name='modifica_aereo'),
     
     path('gestione/home/voli/cerca', views.cerca_voli, name='cerca_voli'),
     path('gestione/home/prenotazioni/cerca', views.cerca_prenotazioni, name='cerca_prenotazioni'),
     path('gestione/home/aeroporti/cerca', views.cerca_aeroporti, name='cerca_aeroporti'),
+    path('gestione/home/aereo/cerca', views.cerca_aereo, name='cerca_aereo'),
 ]

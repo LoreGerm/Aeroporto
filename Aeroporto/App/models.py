@@ -31,6 +31,9 @@ class Aereo(models.Model):
     km_totali = models.IntegerField(null=True)
     km_da_ultima_manutenzione = models.IntegerField(null=True)
     data_ultima_manutenzione = models.DateField(null=True)
+    posti_prima_classe = models.IntegerField()
+    posti_seconda_classe = models.IntegerField()
+    posti_terza_classe = models.IntegerField()
 
     def __str__(self) -> str:
         return self.targa +' '+ self.modello
