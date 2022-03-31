@@ -150,14 +150,31 @@ def modifica_aeroporto(request, id):
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
     
-    return redirect('gestione_aeroporti')
 
 
 def modifica_prenotazione(request, id):
     pren = Prenotazioni.objects.get(id = id)
-    pren.delete()
-    
-    return redirect('gestione_prenotazioni')
+    messages = ''
+    field={
+        'utente': pren.utente,
+        'volo': pren.volo,
+        'posti_prenotati': pren.posti_prenotati,
+    }
+    form = PrenotaForm(initial=field)
+    if request.method == 'POST':
+        form = PrenotaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'messaggio': messages,
+        'home': 'gestione_prenotazioni',
+        'form': form,
+    }
+    return render(request, 'App/pagina_gestione/form/form_prenota.html', content) 
 
 
 
@@ -274,3 +291,26 @@ def agg_utente(request):
         'home': 'gestione_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/form/form_utente.html', content) 
+
+
+
+
+def cerca_voli(request):
+    voli = []
+    if request.method == 'POST':
+        cerca = request.POST['cerca']
+        voli = Volo.objects.filter(Q(codice__icontains=cerca) | Q(aeroporto_di_partenza__icontains=cerca) | Q(aeroporto_di_arrivo__icontains=cerca) | Q(data_di_partenza__icontains=cerca) | Q(data_di_arrivo__icontains=cerca) | Q(aereo__icontains=cerca))
+        
+    content = {
+        'obj': voli,
+        'voli': voli,
+    }
+    return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+def cerca_prenotazioni(request):
+    pass
+
+
+def cerca_aeroporti(request):
+    pass
