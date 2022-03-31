@@ -73,7 +73,6 @@ def gestione_aeroporti(request):
 def elimina_volo(request, id):
     volo = Volo.objects.get(id = id)
     volo.delete()
-    voli = Volo.objects.all()
 
     return redirect('gestione_voli')
 
@@ -81,7 +80,6 @@ def elimina_volo(request, id):
 def elimina_aeroporto(request, id):
     aeroporto = Aeroporto.objects.get(id = id)
     aeroporto.delete()
-    aeroporti = Aeroporto.objects.all()
     
     return redirect('gestione_aeroporti')
 
@@ -89,7 +87,6 @@ def elimina_aeroporto(request, id):
 def elimina_prenotazione(request, id):
     pren = Prenotazioni.objects.get(id = id)
     pren.delete()
-    pren = Prenotazioni.objects.all()
     
     return redirect('gestione_prenotazioni')
 
