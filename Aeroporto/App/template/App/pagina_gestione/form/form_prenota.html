@@ -1,6 +1,6 @@
 {% extends 'App/pagina_gestione/form/base_form.html' %}
 {% block contenuto %}
-
+{% load static %}
 
 <div class="mb-2 row">
     <div class="col">
@@ -32,6 +32,24 @@
         <label class="form-label">Posti prenotati</label>
         {{form.posti_prenotati}}
     </div>
+</div>
+
+<div class="conatiner w-25 h-25 text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">A</th>
+                <th scope="col">B</th>
+                <th scope="col">C</th>
+                <th scope="col">D</th>
+                <th scope="col">E</th>
+                <th scope="col">F</th>
+            </tr>
+        </thead>
+        <tbody id="posti">
+        </tbody>
+    </table>
 </div>
 
 
