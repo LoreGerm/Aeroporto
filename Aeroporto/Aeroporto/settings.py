@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Aeroporto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\PROGETTI\Aeroporto\Aeroporto\App\template'],
+        'DIRS': [r'/home/pc2/Scrivania/ese_git/Aeroporto/Aeroporto/App/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

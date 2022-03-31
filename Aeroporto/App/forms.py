@@ -40,6 +40,7 @@ class AerportoForm(forms.ModelForm):
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control'}),
             'nome': forms.TextInput(attrs={'class':'form-control'}),
+            'indirizzo': forms.Select(attrs={'class':'form-select'}),
             'descrizione': forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -47,16 +48,47 @@ class AerportoForm(forms.ModelForm):
 class Indirizzo_a_form(forms.ModelForm):
     class Meta:
         model = Indirizzo_a
-        fields = '__all__'
+        fields = ('via', 'numero', 'citta', 'provincia', 'stato')
+
+        widgets =  {
+            'via': forms.TextInput(attrs={'class':'form-control'}),
+            'numero': forms.TextInput(attrs={'class':'form-control'}),
+            'citta': forms.TextInput(attrs={'class':'form-control'}),
+            'provincia': forms.TextInput(attrs={'class':'form-control'}),
+            'stato': forms.TextInput(attrs={'class':'form-control'}),
+        }
+
 
 
 class aereo_form(forms.ModelForm):
     class Meta:
         model = Aereo
-        fields = '__all__'
+        fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
+
+        widgets =  {
+            'targa': forms.TextInput(attrs={'class':'form-control'}),
+            'modello': forms.TextInput(attrs={'class':'form-control'}),
+            'stato': forms.Select(attrs={'class':'form-select'}),
+            'km_totali': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
+            'km_da_ultima_manutenzione': forms.NumberInput(attrs={'class':'form-control'}),
+            'data_ultima_manutenzione': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
+        }
+
 
 
 class utente_form(forms.ModelForm):
     class Meta:
         model = Utente
-        fields = '__all__'
+        fields = ('nome', 'cognome', 'email', 'telefono')
+
+        widgets =  {
+            'cognome': forms.TextInput(attrs={'class':'form-control'}),
+            'nome': forms.TextInput(attrs={'class':'form-control'}),
+            'email': forms.EmailInput(attrs={'class':'form-select'}),
+            'telefono': forms.NumberInput(attrs={'class':'form-control'}),
+        }
+
+
+
+class personale_form(forms.ModelForm):
+    pass

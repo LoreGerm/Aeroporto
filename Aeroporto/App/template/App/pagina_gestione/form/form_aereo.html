@@ -5,37 +5,33 @@
 <div class="row mb-3">
     <div class="col">
         <label for="" class="form-label">Targa</label>
-        <input type="text" class="form-control" required>
+        {{form.targa}}
     </div>
     <div class="col">
         <label class="form-label">Modello</label>
-        <input type="text" class="form-control" required>
+        {{form.modello}}
     </div>
 </div>
 
 <div class="mb-2 row">
     <div class="col">
         <label class="form-label">Stato</label>
-        <select class="form-select" required>
-            <option value="in_volo">In volo</option>
-            <option value="pronto">Pronto</option>
-            <option value="manutenzione">Manutenzione</option>
-        </select>
+        {{form.stato}}
     </div>
     <div class="col">
         <label class="form-label">Km totali</label>
-        <input type="number" class="form-control" required>
+        {{form.km_totali}}
     </div>
 </div>
 
 <div class="row mb-3">
     <div class="col">
         <label class="form-label">Km dall'ultima manutenzione</label>
-        <input type="number" class="form-control" required>
+        {{form.km_da_ultima_manutenzione}}
     </div>
     <div class="col">
         <label class="form-label">Data dell'ultima manutenzione</label>
-        <input type="date" class="form-control" required>
+        {{form.data_ultima_manutenzione}}
     </div>
 </div>
 
