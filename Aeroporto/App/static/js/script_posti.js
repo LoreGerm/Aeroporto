@@ -1,7 +1,14 @@
-let n = 10;
-for (let i = 1; i <= n; i++) {
-    document.getElementById('posti').append(fila(i));
+
+
+function posti(posti) {
+    document.getElementById('tabella_posti').classList.remove('d-none');
+    let n = posti;
+    console.log(n);
+    for (let i = 1; i <= n; i++) {
+        document.getElementById('posti').append(fila(i));
+    }
 }
+
 function fila(i) {
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>'
@@ -13,15 +20,16 @@ function fila(i) {
     return node;
 }
 
-let posti = [];
+let posti_scelti = [];
 function scelta(id) {
     if (document.getElementById(id).classList == 'btn') {
-        posti.push(id);
-        //document.getElementById('posti_prenotati').value = id;
+        posti_scelti.push(id);
+        document.getElementById('posti_prenotati').value = posti_scelti;
         document.getElementById(id).classList.add('btn-success');
     }
     else {
-        posti.pop(id);
+        posti_scelti.pop(id);
+        document.getElementById('posti_prenotati').value = posti_scelti;
         document.getElementById(id).classList.remove('btn-success');
     }
 }

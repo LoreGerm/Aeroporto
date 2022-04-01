@@ -30,10 +30,11 @@
     <div class="col">
         <label class="form-label">Posti prenotati</label>
         {{form.posti_prenotati}}
+        <button class="btn btn-primary" type="button" onclick="posti('{{form.volo.value}}')">Scegli posti</button>
     </div>
 </div>
 
-<div class="conatiner w-25 h-25 text-center">
+<div id="tabella_posti" class="conatiner w-25 h-25 text-center d-none">
     <table class="table">
         <thead>
             <tr>
