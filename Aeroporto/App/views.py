@@ -1,9 +1,11 @@
+import json
 from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
 from App.models import Admin
 from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
 from django.views.generic import CreateView
+from django.templatetags.static import static
 
 # Create your views here.
 
@@ -242,7 +244,6 @@ def modifica_aereo(request, id):
 
 
 
-
 def agg_voli(request):
     messages = ''
     if request.method == 'POST':
@@ -318,11 +319,35 @@ def agg_indirizzo_a(request):
     return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
 
 
+
+
+def Stampa(file):
+    f = open(file, "r")
+    a = f.read()
+    f.close()
+    return a
+
+def Over_write(file,x):
+    f = open(file, "w")
+    f.write(json.dumps(x)) 
+    f.close()
+
+
 def agg_aereo(request):
     messages = ''
     if request.method == 'POST':
         form = aereo_form(request.POST)
         if form.is_valid():
+            all_posti = []
+            all_posti.append(Stampa(static('js/posti.json')))
+            posti = {
+                'targa': request.POST['targa'],
+                'prima': request.POST['prima_classe'],
+                'seconda': request.POST['seconda_classe'],
+                'terza': request.POST['terza_classe'],
+            }
+            all_posti.append(posti)
+            Over_write('static/js/posti.json',all_posti)
             form.save()
             messages = 'Salvato'
         else:
@@ -431,3 +456,10 @@ def cerca_aereo(request):
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)
 
+
+
+
+def json_posti(request):
+
+    f = open('static/js/posti.json', 'w')
+    f.write(json.dumps())

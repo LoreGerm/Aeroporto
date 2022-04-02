@@ -28,7 +28,7 @@ class PrenotaForm(forms.ModelForm):
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'utente': forms.Select(attrs={'class':'form-select'}),
-            'volo': forms.Select(attrs={'class':'form-select'}),
+            'volo': forms.Select(attrs={'class':'form-select', 'id':'volo'}),
             'posti_prenotati': forms.TextInput(attrs={'class':'d-non', 'id':'posti_prenotati'}),
         }
 
@@ -67,15 +67,15 @@ class aereo_form(forms.ModelForm):
         fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
         widgets =  {
-            'targa': forms.TextInput(attrs={'class':'form-control'}),
+            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'targa'}),
             'modello': forms.TextInput(attrs={'class':'form-control'}),
             'stato': forms.Select(attrs={'class':'form-select'}),
             'km_totali': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
             'km_da_ultima_manutenzione': forms.NumberInput(attrs={'class':'form-control'}),
             'data_ultima_manutenzione': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
-            'posti_prima_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
-            'posti_seconda_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
-            'posti_terza_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
+            'posti_prima_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number', 'name':'prima_classe'}),
+            'posti_seconda_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number', 'name':'seconda_classe'}),
+            'posti_terza_classe': forms.NumberInput(attrs={'class':'form-control', 'type':'number', 'name':'terza_classe'}),
         }
 
 

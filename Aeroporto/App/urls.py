@@ -1,4 +1,3 @@
-
 from . import views
 from django.urls import path
 
@@ -32,4 +31,6 @@ urlpatterns = [
     path('gestione/home/prenotazioni/cerca', views.cerca_prenotazioni, name='cerca_prenotazioni'),
     path('gestione/home/aeroporti/cerca', views.cerca_aeroporti, name='cerca_aeroporti'),
     path('gestione/home/aereo/cerca', views.cerca_aereo, name='cerca_aereo'),
+
+    path('gestione/home/prenotazioni', views.json_posti, name='json_posti'),
 ]
