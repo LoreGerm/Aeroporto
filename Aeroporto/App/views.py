@@ -32,6 +32,20 @@ def scelta_posti(request, id):
     }
     return render(request, 'App/pagine_utente/scelta_posti.html', content)
 
+def dati_utente(request):
+    if request.method == 'POST':
+        volo_id = request.POST.get('id_volo', '')
+        volo = Volo.objects.get(id = volo_id)
+        posti = request.POST['posti_prenotati']
+
+    content = {
+        'form_utente': utente_form,
+        'volo': volo,
+        'posti': posti,
+        'prezzo_tot': int(volo.prezzo_unitario) * len(list(posti.split(","))),
+    }
+    return render(request, 'App/pagine_utente/form_utente.html', content)
+
 
 
 

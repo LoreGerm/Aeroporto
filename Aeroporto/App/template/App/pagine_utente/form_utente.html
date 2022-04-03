@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="">Chi siamo</a>
-                <a class="nav-link active" href="{% url 'prenota_utente' %}">Prenota</a>
+                <a class="nav-link active" href="">Prenota</a>
                 <a class="nav-link" href="">I tuoi voli</a>
             </div>
         </div>
@@ -30,6 +30,8 @@
                 <th>Ora di partenza</th>
                 <th>Ora d'arrivo</th>
                 <th>Prezzo unitario</th>
+                <th>Posti</th>
+                <th>Prezzo totale</th>
             </tr>
         </thead>
         <tbody>
@@ -41,35 +43,37 @@
                 <td>{{volo.ora_di_partenza}}</td>
                 <td>{{volo.ora_di_partenza}}</td>
                 <td>{{volo.prezzo_unitario}} €</td>
+                <td>{{posti}}</td>
+                <td>{{prezzo_tot}} €</td>
             </tr>
         </tbody>
     </table>
-
-    <button class="btn btn-success w-100" onclick="posti(10)">Scegli posti</button>
 </div>
 
-
-<div id="tabella_posti" class="conatiner w-25 h-25 d-none mt-3" style="margin-left: 30%;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">A</th>
-                <th scope="col">B</th>
-                <th scope="col">C</th>
-                <th scope="col">D</th>
-                <th scope="col">E</th>
-                <th scope="col">F</th>
-            </tr>
-        </thead>
-        <tbody id="posti">
-        </tbody>
-    </table>
-    <form action="{% url 'dati_utente' %}" method="post">
+<div class="mt-5">
+    <form action="" method="post">
         {% csrf_token %}
-        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
-        {{form_prenota.posti_prenotati}}
-        <button type="submit" class="btn btn-success w-100" style="margin-left: 25%;">Continua</button>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="" class="form-label">Nome</label>
+                {{form_utente.nome}}
+            </div>
+            <div class="col">
+                <label class="form-label">Cognome</label>
+                {{form_utente.cognome}}
+            </div>
+            <div class="col">
+                <label class="form-label">Email</label>
+                {{form_utente.email}}
+            </div>
+            <div class="col">
+                <label class="form-label">Telefono</label>
+                {{form_utente.telefono}}
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-success">Prenota</button>
+        </div>
     </form>
 </div>
 
