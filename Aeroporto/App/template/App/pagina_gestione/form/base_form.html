@@ -5,9 +5,9 @@
 <div class="container mt-2 w-50">
     <form action="" method="POST">
         {% csrf_token %}
-        <div class="mb-4">
-            <a href="{% url home %}" class="btn btn-primary"> Home </a>
-            <button type="submit" class="btn btn-primary"> Invia </button>
+        <div class="mb-4 row">
+            <a href="{% url home %}" class="btn btn-primary border col"> Home </a>
+            <button type="submit" class="btn btn-primary border col"> Invia </button>
         </div>
 
         {% block contenuto %}

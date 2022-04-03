@@ -9,6 +9,51 @@ from django.templatetags.static import static
 
 # Create your views here.
 
+def prenota_utente(request):
+    voli = []
+    if request.method == 'POST':
+        partenza = request.POST['aeroporto_di_partenza']
+        arrivo = request.POST['aeroporto_di_arrivo']
+        data_partenza = request.POST['data_di_partenza']
+        data_arrivo = request.POST['data_di_arrivo']
+        voli = Volo.objects.filter(Q(aeroporto_di_partenza = partenza) & Q(aeroporto_di_arrivo = arrivo) & Q(data_di_partenza = data_partenza) & Q(data_di_arrivo = data_arrivo))
+
+    content = {
+        'form_volo': VoloForm,
+        'voli': voli,
+    }
+    return render(request, 'App/pagine_utente/prenota.html', content)
+
+def scelta_posti(request, id):
+    volo = Volo.objects.get(id = id)
+    content = {
+        'form_prenota': PrenotaForm,
+        'volo': volo,
+    }
+    return render(request, 'App/pagine_utente/scelta_posti.html', content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################################################################
 
 def gestione_accesso(request):
     return render(request, 'App/pagina_gestione/log_in.html')

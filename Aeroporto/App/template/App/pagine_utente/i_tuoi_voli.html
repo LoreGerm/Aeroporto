@@ -1,0 +1,33 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'gestione_home' %}">
+      <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
+      Starvato
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="">Chi siamo</a>
+        <a class="nav-link" href="">Prenota</a>
+        <a class="nav-link" href="">I tuoi voli</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div style="margin-top: 10%;">
+    <form action="" method="post">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col">
+                <label for="">Inserisci il codice di prenotazione</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

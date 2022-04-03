@@ -2,6 +2,9 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
+    path('',views.prenota_utente, name='prenota_utente'),
+    path('posti/<int:id>',views.scelta_posti, name='scelta_posti'),
+
     #path('gestione', views.gestione_accesso, name='gestione'),
     #path('gestione/home', views.verifica_accesso, name='gestione_home'),
     path('gestione/home', views.gestione_home, name='gestione_home'),

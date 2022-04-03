@@ -1,8 +1,8 @@
 
 
 function posti(posti) {
-    volo = document.getElementById('volo').value; // ID
-    console.log(volo);
+    //volo = document.getElementById('volo').value; // ID
+    //console.log(volo);
     document.getElementById('tabella_posti').classList.remove('d-none');
     let n = posti;
     for (let i = 1; i <= n; i++) {

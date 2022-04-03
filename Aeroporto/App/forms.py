@@ -8,8 +8,8 @@ class VoloForm(forms.ModelForm):
 
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
-            'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select'}),
-            'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select'}),
+            'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select', 'name':'aeroporto_di_partenza'}),
+            'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select', 'name': 'aeroporto_di_arrivo'}),
             'prezzo_unitario': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
             'ora_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
             'ora_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
