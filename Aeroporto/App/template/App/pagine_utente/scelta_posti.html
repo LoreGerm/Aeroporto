@@ -48,12 +48,8 @@
     <button class="btn btn-success w-100" onclick="posti(10)">Scegli posti</button>
 </div>
 
-<form action="" method="post" class="d-none">
-    {% csrf_token %}
-    {{form_prenota.posti_prenotati}}
-</form>
 
-<div id="tabella_posti" class="conatiner w-25 h-25 text-center d-none mt-5">
+<div id="tabella_posti" class="conatiner w-25 h-25 d-none mt-3" style="margin-left: 30%;">
     <table class="table">
         <thead>
             <tr>
@@ -69,6 +65,11 @@
         <tbody id="posti">
         </tbody>
     </table>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form_prenota.posti_prenotati}}
+        <a href="" class="btn btn-success w-100" style="margin-left: 25%;">Continua</a>
+    </form>
 </div>
 
 {% endblock %}
