@@ -32,6 +32,13 @@
         {{form.posti_prenotati}}
         <button class="btn btn-primary" type="button" onclick="posti('{{form.volo.value}}')">Scegli posti</button>
     </div>
+    <div class="col">
+        <label class="form-label">Prezzo totale</label>
+        <div class="input-group">
+            {{form.prezzo_totale}}
+            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+        </div>
+    </div>
 </div>
 
 <div id="tabella_posti" class="conatiner w-25 h-25 text-center d-none">

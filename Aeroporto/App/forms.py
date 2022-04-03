@@ -23,13 +23,14 @@ class VoloForm(forms.ModelForm):
 class PrenotaForm(forms.ModelForm):
     class Meta:
         model = Prenotazioni
-        fields = ('codice', 'utente', 'volo', 'posti_prenotati')
+        fields = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
 
         widgets =  {
-            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice', 'name':'codice'}),
             'utente': forms.Select(attrs={'class':'form-select'}),
             'volo': forms.Select(attrs={'class':'form-select', 'id':'volo'}),
             'posti_prenotati': forms.TextInput(attrs={'class':'d-none', 'id':'posti_prenotati', 'name':'posti_prenotati'}),
+            'prezzo_totale': forms.TextInput(attrs={'class':'form-control'}),
         }
 
 
@@ -86,10 +87,10 @@ class utente_form(forms.ModelForm):
         fields = ('nome', 'cognome', 'email', 'telefono')
 
         widgets =  {
-            'cognome': forms.TextInput(attrs={'class':'form-control'}),
-            'nome': forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.EmailInput(attrs={'class':'form-select'}),
-            'telefono': forms.NumberInput(attrs={'class':'form-control'}),
+            'cognome': forms.TextInput(attrs={'class':'form-control', 'name':'cognome'}),
+            'nome': forms.TextInput(attrs={'class':'form-control', 'name':'nome'}),
+            'email': forms.EmailInput(attrs={'class':'form-select', 'name':'email'}),
+            'telefono': forms.NumberInput(attrs={'class':'form-control', 'name': 'telefono'}),
         }
 
 

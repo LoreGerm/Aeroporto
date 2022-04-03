@@ -155,6 +155,7 @@ class Prenotazioni(models.Model):
     utente = models.ForeignKey(Utente, on_delete=models.CASCADE)
     volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
     posti_prenotati = ArrayField(models.CharField(max_length=10, null=True))
+    prezzo_totale = models.FloatField(null=True)
 
 
 

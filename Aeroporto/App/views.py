@@ -1,4 +1,5 @@
 import json
+from wsgiref.handlers import format_date_time
 from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
 from App.models import Admin
@@ -45,6 +46,54 @@ def dati_utente(request):
         'prezzo_tot': int(volo.prezzo_unitario) * len(list(posti.split(","))),
     }
     return render(request, 'App/pagine_utente/form_utente.html', content)
+
+def recap(request):
+    if request.method == 'POST':
+        nome_ut = request.POST['nome']
+        cognome_ut = request.POST['cognome']
+        email_ut = request.POST['email']
+        telefono_ut = request.POST['telefono']
+        volo_id = request.POST.get('id_volo', '')
+        volo = Volo.objects.get(id = volo_id)
+        posti = request.POST['posti']
+        prezzo_tot = request.POST['prezzo_tot']
+
+    content = {
+        'prenota_form': PrenotaForm,
+        'nome_ut': nome_ut,
+        'cognome_ut': cognome_ut,
+        'email_ut': email_ut,
+        'telefono_ut': telefono_ut,
+        'volo': volo,
+        'posti': posti,
+        'prezzo_tot': prezzo_tot,
+    }
+    return render(request, 'App/pagine_utente/recap.html', content)
+
+def acquista(request):
+    if request.method == 'POST':
+        codice_pre = request.POST['codice']
+        nome = request.POST.get('nome', '')
+        cognome = request.POST.get('cognome', '')
+        email = request.POST.get('email', '')
+        telefono = int(request.POST.get('telefono', ''))
+        #form_ut = utente_form(nome,cognome,email,telefono) ######### ERRORE + POSTI DINAMICI
+        volo_id = request.POST.get('volo', '')
+        posti = request.POST.get('posti', '')
+        prezzo_tot = request.POST.get('prezzo_tot', '')
+
+        print(nome)
+        print(cognome)
+        print(email)
+        print(telefono)
+        print(volo_id)
+        print(posti)
+        print(prezzo_tot)
+
+    content = {
+        'codice': codice_pre,
+    }
+    return render(request, 'App/pagine_utente/acquista.html', content)
 
 
 

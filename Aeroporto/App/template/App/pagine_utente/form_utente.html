@@ -51,8 +51,11 @@
 </div>
 
 <div class="mt-5">
-    <form action="" method="post">
+    <form action="{% url 'recap' %}" method="post">
         {% csrf_token %}
+        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        <input type="text" value="{{posti}}" class="d-none" name="posti">
+        <input type="text" value="{{prezzo_tot}}" class="d-none" name="prezzo_tot">
         <div class="row mb-3">
             <div class="col">
                 <label for="" class="form-label">Nome</label>
@@ -72,7 +75,7 @@
             </div>
         </div>
         <div class="row">
-            <button type="submit" class="btn btn-success">Prenota</button>
+            <button type="submit" class="btn btn-success">Avanti</button>
         </div>
     </form>
 </div>
