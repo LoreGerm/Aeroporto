@@ -472,7 +472,7 @@ def agg_aereo(request):
         'form': aereo_form,
         'messaggio': messages,
         'home': 'gestione_voli',
-        'json_posti':json_posti,
+        'json_posti':json_posti
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
