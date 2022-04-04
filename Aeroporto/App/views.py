@@ -459,7 +459,7 @@ def agg_aereo(request):
         if form.is_valid():
             form.save()
             messages = 'Salvato'
-            aereo = Aereo.objects.get(targa=request.POST.get('targa', ''))
+            aereo = Aereo.objects.get(targa=request.POST.get('targa', ''))             
             posti = {
                 'id': aereo.id,
                 'prima': aereo.posti_prima_classe,
