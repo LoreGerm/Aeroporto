@@ -8,6 +8,8 @@ urlpatterns = [
     path('posti/utente/recap',views.recap, name='recap'),
     path('posti/utente/recap/acquista',views.acquista, name='acquista'),
 
+    path('i_tuoi_voli',views.i_tuoi_voli, name='i_tuoi_voli'),
+
     #path('gestione', views.gestione_accesso, name='gestione'),
     #path('gestione/home', views.verifica_accesso, name='gestione_home'),
     path('gestione/home', views.gestione_home, name='gestione_home'),

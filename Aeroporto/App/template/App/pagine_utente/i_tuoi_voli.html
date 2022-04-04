@@ -4,7 +4,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'gestione_home' %}">
+    <a class="navbar-brand" href="{% url 'prenota_utente' %}">
       <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
       Starvato
     </a>
@@ -12,19 +12,19 @@
       <div class="navbar-nav">
         <a class="nav-link" href="">Chi siamo</a>
         <a class="nav-link" href="">Prenota</a>
-        <a class="nav-link" href="">I tuoi voli</a>
+        <a class="nav-link active" href="">I tuoi voli</a>
       </div>
     </div>
   </div>
 </nav>
 
-<div style="margin-top: 10%;">
+<div class="mt-5 text-center">
     <form action="" method="post">
-        <div class="row">
-            {% csrf_token %}
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col-auto">
                 <label for="">Inserisci il codice di prenotazione</label>
                 <input type="text" class="form-control">
+                <button type="submit" class="btn btn-success mt-2 w-100">Cerca</button>
             </div>
         </div>
     </form>

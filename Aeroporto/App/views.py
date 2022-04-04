@@ -23,7 +23,7 @@ def prenota_utente(request):
         'form_volo': VoloForm,
         'voli': voli,
     }
-    return render(request, 'App/pagine_utente/prenota.html', content)
+    return render(request, 'App/pagine_utente/prenota/prenota.html', content)
 
 def scelta_posti(request, id):
     volo = Volo.objects.get(id = id)
@@ -31,7 +31,7 @@ def scelta_posti(request, id):
         'form_prenota': PrenotaForm,
         'volo': volo,
     }
-    return render(request, 'App/pagine_utente/scelta_posti.html', content)
+    return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
 
 def dati_utente(request):
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def dati_utente(request):
         'posti': posti,
         'prezzo_tot': int(volo.prezzo_unitario) * len(list(posti.split(","))),
     }
-    return render(request, 'App/pagine_utente/form_utente.html', content)
+    return render(request, 'App/pagine_utente/prenota/form_utente.html', content)
 
 def recap(request):
     if request.method == 'POST':
@@ -68,32 +68,37 @@ def recap(request):
         'posti': posti,
         'prezzo_tot': prezzo_tot,
     }
-    return render(request, 'App/pagine_utente/recap.html', content)
+    return render(request, 'App/pagine_utente/prenota/recap.html', content)
 
 def acquista(request):
     if request.method == 'POST':
-        codice_pre = request.POST['codice']
         nome = request.POST.get('nome', '')
         cognome = request.POST.get('cognome', '')
         email = request.POST.get('email', '')
         telefono = int(request.POST.get('telefono', ''))
-        #form_ut = utente_form(nome,cognome,email,telefono) ######### ERRORE + POSTI DINAMICI
+        utente = Utente(nome=nome, cognome=cognome, email=email, telefono=telefono)
+        utente.save()
+
+        codice_pre = request.POST['codice']
         volo_id = request.POST.get('volo', '')
+        volo = Volo.objects.get(id=volo_id)
         posti = request.POST.get('posti', '')
         prezzo_tot = request.POST.get('prezzo_tot', '')
-
-        print(nome)
-        print(cognome)
-        print(email)
-        print(telefono)
-        print(volo_id)
-        print(posti)
-        print(prezzo_tot)
+        prenotazione = Prenotazioni(codice=codice_pre, utente=utente, volo=volo, posti_prenotati=posti, prezzo_totale=prezzo_tot)
+        prenotazione.save()
 
     content = {
         'codice': codice_pre,
     }
-    return render(request, 'App/pagine_utente/acquista.html', content)
+    return render(request, 'App/pagine_utente/prenota/acquista.html', content)
+
+
+
+
+def i_tuoi_voli(request):
+    content = {
+    }
+    return render(request, 'App/pagine_utente/i_tuoi_voli.html', content)
 
 
 
