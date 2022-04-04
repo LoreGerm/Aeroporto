@@ -1,0 +1,66 @@
+{% extends 'App/pagine_utente/prenota/nav_bar.html' %}
+
+{% block contenuto %}
+
+<div class="mt-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Aeroporto di partenza</th>
+                <th>Aeroporto di arrivo</th>
+                <th>Data di partenza</th>
+                <th>Data d'arrivo</th>
+                <th>Ora di partenza</th>
+                <th>Ora d'arrivo</th>
+                <th>Prezzo unitario</th>
+                <th>Posti</th>
+                <th>Prezzo totale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{volo.aeroporto_di_partenza}}</td>
+                <td>{{volo.aeroporto_di_arrivo}}</td>
+                <td>{{volo.data_di_partenza}}</td>
+                <td>{{volo.data_di_arrivo}}</td>
+                <td>{{volo.ora_di_partenza}}</td>
+                <td>{{volo.ora_di_partenza}}</td>
+                <td>{{volo.prezzo_unitario}} €</td>
+                <td>{{posti}}</td>
+                <td>{{prezzo_tot}} €</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-5">
+    <form action="{% url 'recap' %}" method="post">
+        {% csrf_token %}
+        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        <input type="text" value="{{posti}}" class="d-none" name="posti">
+        <input type="text" value="{{prezzo_tot}}" class="d-none" name="prezzo_tot">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="" class="form-label">Nome</label>
+                {{form_utente.nome}}
+            </div>
+            <div class="col">
+                <label class="form-label">Cognome</label>
+                {{form_utente.cognome}}
+            </div>
+            <div class="col">
+                <label class="form-label">Email</label>
+                {{form_utente.email}}
+            </div>
+            <div class="col">
+                <label class="form-label">Telefono</label>
+                {{form_utente.telefono}}
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-success">Avanti</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

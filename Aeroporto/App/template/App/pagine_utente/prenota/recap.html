@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starvato Airlines</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body class="container text-center" style="background-color: rgb(204, 255, 255);" onload="Genera()">
+
+    {% load static %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'prenota_utente' %}">
+                <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
+                Starvato
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" href="">Prenota</a>
+                    <a class="nav-link" href="">I tuoi voli</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="mt-5">
+        <div class="card">
+            <h2 class="card-header"> Prenotazione </h2>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h5 class="card-title">{{nome_ut}} {{cognome_ut}}</h5>
+                    <h5 class="card-text">{{email_ut}}</h5>
+                    <h5 class="card-text">{{telefono_ut}}</h5>
+                </div>
+                <div class="mb-3">
+                    <h5 class="card-text">{{volo.aeroporto_di_partenza}} --> {{volo.aeroporto_di_arrivo}}</h5>
+                    <h5 class="card-text">{{volo.data_di_partenza}} --> {{volo.data_di_arrivo}}</h5>
+                    <h5 class="card-text">{{volo.ora_di_partenza}} --> {{volo.ora_di_arrivo}}</h5>
+                    <h5 class="card-text">{{posti}} --> {{prezzo_tot}} €</h5>
+                </div>
+                <form action="{% url 'acquista' %}" method="post">
+                    {% csrf_token %}
+                    <div class="d-none">
+                        <input type="text" value="{{nome_ut}}" class="d-none" name="nome">
+                        <input type="text" value="{{cognome_ut}}" class="d-none" name="cognome">
+                        <input type="text" value="{{email_ut}}" class="d-none" name="email">
+                        <input type="text" value="{{telefono_ut}}" class="d-none" name="telefono">
+                        <input type="text" value="{{volo.id}}" class="d-none" name="volo">
+                        <input type="text" value="{{posti}}" class="d-none" name="posti">
+                        <input type="text" value="{{prezzo_tot}}" class="d-none" name="prezzo_tot">
+                        {{prenota_form.codice}}
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-50">Acquista</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/script_genera_codice.js' %}"></script>
+    <script src="{% static 'js/script_posti.js' %}"></script>
+</body>
+
+</html>

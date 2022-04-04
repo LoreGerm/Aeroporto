@@ -1,0 +1,14 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="mt-5 text-center">
+    <h1>Congratulazioni la prenotatzione è andata a buon fine</h1>
+    <h3>Codice di prenotazione da conservare: </h3>
+    <h1 class="text-danger">{{codice}}</h1>
+    <a href="{% url 'prenota_utente' %}" class="btn btn-lg btn-success mt-5">Torna alla schermata principale</a>
+</div>
+
+
+{% endblock %}

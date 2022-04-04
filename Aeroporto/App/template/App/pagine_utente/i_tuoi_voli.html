@@ -1,0 +1,58 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'prenota_utente' %}">
+      <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
+      Starvato
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="{% url 'prenota_utente' %}">Prenota</a>
+        <a class="nav-link active" href="">I tuoi voli</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mt-5 text-center">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <label for="">Inserisci il codice di prenotazione</label>
+        <input type="text" class="form-control" name="cerca">
+        <button type="submit" class="btn btn-success mt-2 w-100">Cerca</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+{% for p in prenotazione %}
+<div class="mt-5">
+  <div class="card">
+    <h2 class="card-header"> Prenotazione </h2>
+    <div class="card-body">
+      <div class="mb-3">
+        <h5 class="card-title">{{p.utente.nome}} {{p.utente.cognome}}</h5>
+        <h5 class="card-text">{{p.utente.email}}</h5>
+        <h5 class="card-text">{{p.utente.telefono}}</h5>
+      </div>
+      <div class="mb-3">
+        <h5 class="card-text">{{p.volo.aeroporto_di_partenza}} --> {{p.volo.aeroporto_di_arrivo}}</h5>
+        <h5 class="card-text">{{p.volo.data_di_partenza}} --> {{p.volo.data_di_arrivo}}</h5>
+        <h5 class="card-text">{{p.volo.ora_di_partenza}} --> {{p.volo.ora_di_arrivo}}</h5>
+        <h5 class="card-text">{{p.posti_prenotati}} --> {{p.prezzo_totale}} €</h5>
+      </div>
+      <div class="mt-4">
+        <a href="{% url 'cancella_prenotazione' p.id %}" class="btn btn-danger">Cancella</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'App/pagine_utente/prenota/nav_bar.html' %}
+
+{% block contenuto %}
+
+<div class="mt-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Aeroporto di partenza</th>
+                <th>Aeroporto di arrivo</th>
+                <th>Data di partenza</th>
+                <th>Data d'arrivo</th>
+                <th>Ora di partenza</th>
+                <th>Ora d'arrivo</th>
+                <th>Prezzo unitario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{volo.aeroporto_di_partenza}}</td>
+                <td>{{volo.aeroporto_di_arrivo}}</td>
+                <td>{{volo.data_di_partenza}}</td>
+                <td>{{volo.data_di_arrivo}}</td>
+                <td>{{volo.ora_di_partenza}}</td>
+                <td>{{volo.ora_di_partenza}}</td>
+                <td>{{volo.prezzo_unitario}} €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-success w-100" onclick="posti(10)">Scegli posti</button>
+</div>
+
+
+<div id="tabella_posti" class="conatiner w-25 h-25 d-none mt-3" style="margin-left: 30%;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">A</th>
+                <th scope="col">B</th>
+                <th scope="col">C</th>
+                <th scope="col">D</th>
+                <th scope="col">E</th>
+                <th scope="col">F</th>
+            </tr>
+        </thead>
+        <tbody id="posti">
+        </tbody>
+    </table>
+    <form action="{% url 'dati_utente' %}" method="post">
+        {% csrf_token %}
+        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        {{form_prenota.posti_prenotati}}
+        <button type="submit" class="btn btn-success w-100" style="margin-left: 25%;">Continua</button>
+    </form>
+</div>
+
+{% endblock %}

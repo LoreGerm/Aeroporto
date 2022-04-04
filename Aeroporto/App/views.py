@@ -1,12 +1,147 @@
+import json
 from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
-from App.models import Admin
 from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
-from django.views.generic import CreateView
+from django.templatetags.static import static
+from django.core.mail import send_mail
+from django.http import JsonResponse
 
 # Create your views here.
 
+def prenota_utente(request):
+    voli = []
+    if request.method == 'POST':
+        partenza = request.POST['aeroporto_di_partenza']
+        arrivo = request.POST['aeroporto_di_arrivo']
+        data_partenza = request.POST['data_di_partenza']
+        data_arrivo = request.POST['data_di_arrivo']
+        voli = Volo.objects.filter(Q(aeroporto_di_partenza = partenza) & Q(aeroporto_di_arrivo = arrivo) & Q(data_di_partenza = data_partenza) & Q(data_di_arrivo = data_arrivo))
+
+    content = {
+        'form_volo': VoloForm,
+        'voli': voli,
+    }
+    return render(request, 'App/pagine_utente/prenota/prenota.html', content)
+
+def scelta_posti(request, id):
+    volo = Volo.objects.get(id = id)
+    content = {
+        'form_prenota': PrenotaForm,
+        'volo': volo,
+    }
+    return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
+
+def dati_utente(request):
+    if request.method == 'POST':
+        volo_id = request.POST.get('id_volo', '')
+        volo = Volo.objects.get(id = volo_id)
+        posti = request.POST['posti_prenotati']
+
+    content = {
+        'form_utente': utente_form,
+        'volo': volo,
+        'posti': posti,
+        'prezzo_tot': int(volo.prezzo_unitario) * len(list(posti.split(","))),
+    }
+    return render(request, 'App/pagine_utente/prenota/form_utente.html', content)
+
+def recap(request):
+    if request.method == 'POST':
+        nome_ut = request.POST['nome']
+        cognome_ut = request.POST['cognome']
+        email_ut = request.POST['email']
+        telefono_ut = request.POST['telefono']
+        volo_id = request.POST.get('id_volo', '')
+        volo = Volo.objects.get(id = volo_id)
+        posti = request.POST['posti']
+        prezzo_tot = request.POST['prezzo_tot']
+
+    content = {
+        'prenota_form': PrenotaForm,
+        'nome_ut': nome_ut,
+        'cognome_ut': cognome_ut,
+        'email_ut': email_ut,
+        'telefono_ut': telefono_ut,
+        'volo': volo,
+        'posti': posti,
+        'prezzo_tot': prezzo_tot,
+    }
+    return render(request, 'App/pagine_utente/prenota/recap.html', content)
+
+def acquista(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome', '')
+        cognome = request.POST.get('cognome', '')
+        email = request.POST.get('email', '')
+        telefono = int(request.POST.get('telefono', ''))
+        utente = Utente(nome=nome, cognome=cognome, email=email, telefono=telefono)
+        utente.save()
+
+        codice_pre = request.POST['codice']
+        volo_id = request.POST.get('volo', '')
+        volo = Volo.objects.get(id=volo_id)
+        posti = request.POST.get('posti', '')
+        prezzo_tot = request.POST.get('prezzo_tot', '')
+        prenotazione = Prenotazioni(codice=codice_pre, utente=utente, volo=volo, posti_prenotati=posti, prezzo_totale=prezzo_tot)
+        prenotazione.save()
+
+        send_mail(
+            'Codice prenotazione Starlato Airline',
+            'Codice della prenotazione: '+codice_pre ,
+            'loregerm149@gmail.com',
+            [email],
+            fail_silently=False,
+        )
+
+    content = {
+        'codice': codice_pre,
+    }
+    return render(request, 'App/pagine_utente/prenota/acquista.html', content)
+
+
+
+
+def i_tuoi_voli(request):
+    prenotazione = []
+    if request.method == 'POST':
+        cerca = request.POST['cerca']
+        prenotazione = Prenotazioni.objects.filter(codice=cerca)
+
+    content = {
+        'prenotazione': prenotazione,
+    }
+    return render(request, 'App/pagine_utente/i_tuoi_voli.html', content)
+
+def cancella_prenotazione(request,id):
+    pren = Prenotazioni.objects.get(id = id)
+    pren.delete()
+    
+    return redirect('i_tuoi_voli')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################################################################
 
 def gestione_accesso(request):
     return render(request, 'App/pagina_gestione/log_in.html')
@@ -33,6 +168,7 @@ def gestione_voli(request):
         'active_v': 'active',
         'active_p': '',
         'active_a': '',
+        'active_ae': '',
         'obj':'voli',
         'voli':voli,
         'cerca': 'cerca_voli',
@@ -47,6 +183,7 @@ def gestione_prenotazioni(request):
         'active_v': '',
         'active_p': 'active',
         'active_a': '',
+        'active_ae': '',
         'obj': 'pren',
         'pren': pren,
         'cerca': 'cerca_prenotazioni',
@@ -61,9 +198,25 @@ def gestione_aeroporti(request):
         'active_v': '',
         'active_p': '',
         'active_a': 'active',
+        'active_ae': '',
         'obj': 'Aeroporti',
         'aeroporti': aeroporti,
         'cerca': 'cerca_aeroporti',
+    }
+    return render(request, 'App/pagina_gestione/gestione.html', content)
+
+
+def gestione_aerei(request):
+    aerei = Aereo.objects.all()
+    content = {
+        'agg': 'aggiungi_aereo',
+        'active_v': '',
+        'active_p': '',
+        'active_a': '',
+        'active_ae': 'active',
+        'obj': 'aerei',
+        'aerei': aerei,
+        'cerca': 'cerca_aereo',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
@@ -92,6 +245,14 @@ def elimina_prenotazione(request, id):
     pren.delete()
     
     return redirect('gestione_prenotazioni')
+
+
+def elimina_aereo(request, id):
+    aereo = Aereo.objects.get(id = id)
+    aereo.delete()
+    
+    return redirect('gestione_aerei')
+
 
 
 
@@ -180,6 +341,36 @@ def modifica_prenotazione(request, id):
     return render(request, 'App/pagina_gestione/form/form_prenota.html', content) 
 
 
+def modifica_aereo(request, id):
+    aereo = Aereo.objects.get(id = id)
+    field = {
+        'targa': aereo.targa,
+        'modello': aereo.modello,
+        'stato': aereo.stato,
+        'km_totali': aereo.km_totali,
+        'km_da_ultima_manutenzione': aereo.km_da_ultima_manutenzione,
+        'data_ultima_manutenzione': aereo.data_ultima_manutenzione,
+        'posti_prima_classe': aereo.posti_prima_classe,
+        'posti_seconda_classe': aereo.posti_seconda_classe,
+        'posti_terza_classe': aereo.posti_terza_classe,
+    }
+    form = aereo_form(initial=field)
+    messages = ''
+    if request.method == 'POST':
+        form = aereo_form(request.POST, instance=aereo)
+        if form.is_valid():
+            form.save()
+            messages = 'Salvato'
+        else:
+            messages = 'Errore'
+
+    content = {
+        'form': form,
+        'messaggio': messages,
+        'home': 'gestione_aerei',
+    }
+    return render(request, 'App/pagina_gestione/form/form_aereo.html', content)
+
 
 
 
@@ -206,7 +397,6 @@ def agg_voli(request):
 
 def agg_prenotazioni(request):
     messages = ''
-    volo = Volo.objects.all()
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
         if form.is_valid():
@@ -216,7 +406,6 @@ def agg_prenotazioni(request):
             messages = 'Errore'
 
     content = {
-        'volo': volo,
         'form': PrenotaForm,
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
@@ -260,20 +449,35 @@ def agg_indirizzo_a(request):
     return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
 
 
+
+
 def agg_aereo(request):
     messages = ''
     if request.method == 'POST':
         form = aereo_form(request.POST)
+        print()
         if form.is_valid():
             form.save()
             messages = 'Salvato'
+            
+            aereo = Aereo.objects.get(targa=request.POST.get('targa', ''))             
+            posti = {
+                'id': aereo.id,
+                'prima': aereo.posti_prima_classe,
+                'seconda': aereo.posti_seconda_classe,
+                'terza': aereo.posti_terza_classe,
+            }
+            json_posti = JsonResponse(posti)
+            print(json_posti)
         else:
             messages = 'Errore'
+    
 
     content = {
         'form': aereo_form,
         'messaggio': messages,
         'home': 'gestione_voli',
+        #'json_posti':json_posti,
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
@@ -305,12 +509,13 @@ def cerca_voli(request):
         voli = Volo.objects.filter(codice__icontains=cerca)
         
     content = {
+        'agg': 'aggiungi_voli',
         'active_v': 'active',
         'active_p': '',
         'active_a': '',
-        'agg': 'aggiungi_voli',
-        'obj': 'voli',
-        'voli': voli,
+        'active_ae': '',
+        'obj':'voli',
+        'voli':voli,
         'cerca': 'cerca_voli',
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)
@@ -323,10 +528,11 @@ def cerca_prenotazioni(request):
         pren = Prenotazioni.objects.filter(Q(codice__icontains=cerca) | Q(utente__nome__icontains=cerca) | Q(utente__cognome__icontains=cerca))
 
     content = {
+        'agg': 'aggiungi_prenotazioni',
         'active_v': '',
         'active_p': 'active',
         'active_a': '',
-        'agg': 'aggiungi_prenotazioni',
+        'active_ae': '',
         'obj': 'pren',
         'pren': pren,
         'cerca': 'cerca_prenotazioni',
@@ -341,12 +547,40 @@ def cerca_aeroporti(request):
         aeroporto = Aeroporto.objects.filter(Q(codice__icontains=cerca) | Q(nome__icontains=cerca))
 
     content = {
+        'agg': 'aggiungi_aeroporti',
         'active_v': '',
         'active_p': '',
         'active_a': 'active',
-        'agg': 'aggiungi_aeroporti',
+        'active_ae': '',
         'obj': 'Aeroporti',
         'aeroporti': aeroporto,
         'cerca': 'cerca_aeroporti',
     }
     return render(request, 'App/pagina_gestione/cerca.html', content)
+
+
+def cerca_aereo(request):
+    aereo = []
+    if request.method == 'POST':
+        cerca = request.POST.get('cerca', '')
+        aereo = Aereo.objects.filter(Q(targa__icontains=cerca) | Q(modello__icontains=cerca))
+
+    content = {
+        'agg': 'aggiungi_aereo',
+        'active_v': '',
+        'active_p': '',
+        'active_a': '',
+        'active_ae': 'active',
+        'obj': 'aerei',
+        'aerei': aereo,
+        'cerca': 'cerca_aereo',
+    }
+    return render(request, 'App/pagina_gestione/cerca.html', content)
+
+
+
+
+def json_posti(request):
+
+    f = open('static/js/posti.json', 'w')
+    f.write(json.dumps())

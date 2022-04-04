@@ -48,8 +48,8 @@ class UtenteAdmin(admin.ModelAdmin):
 admin.site.register(Utente, UtenteAdmin)
 
 class PrenotazioniAdmin(admin.ModelAdmin):
-    list_display = ('utente', 'volo', 'posti_prenotati')
-    list_filter = ('utente', 'volo', 'posti_prenotati')
+    list_display = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
+    list_filter = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
 admin.site.register(Prenotazioni, PrenotazioniAdmin)
 
 class Indirizzo_p_Admin(admin.ModelAdmin):

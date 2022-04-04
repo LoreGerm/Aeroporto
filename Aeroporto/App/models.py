@@ -31,9 +31,12 @@ class Aereo(models.Model):
     km_totali = models.IntegerField(null=True)
     km_da_ultima_manutenzione = models.IntegerField(null=True)
     data_ultima_manutenzione = models.DateField(null=True)
+    posti_prima_classe = models.IntegerField()
+    posti_seconda_classe = models.IntegerField()
+    posti_terza_classe = models.IntegerField()
 
     def __str__(self) -> str:
-        return self.targa +' '+ self.modello
+        return self.targa + ' ' + self.modello
 
 
 class Posti(models.Model):
@@ -151,7 +154,8 @@ class Prenotazioni(models.Model):
     codice = models.CharField(max_length=200, null=False, unique=True)
     utente = models.ForeignKey(Utente, on_delete=models.CASCADE)
     volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
-    posti_prenotati = ArrayField(models.CharField(max_length=10, null=True))
+    posti_prenotati = models.CharField(max_length=10, null=True)
+    prezzo_totale = models.FloatField(null=True)
 
 
 

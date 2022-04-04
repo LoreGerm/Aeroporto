@@ -1,0 +1,47 @@
+{% extends 'App/pagine_utente/prenota/nav_bar.html' %}
+
+{% block contenuto %}
+
+<div class="mt-5">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <label for="" class="form-label">Partenza</label>
+        {{form_volo.aeroporto_di_partenza}}
+      </div>
+      <div class="col">
+        <label for="" class="form-label">Arrivo</label>
+        {{form_volo.aeroporto_di_arrivo}}
+      </div>
+      <div class="col">
+        <label for="" class="form-label">Data di partenza</label>
+        <input type="date" name="data_di_partenza" class="form-control">
+      </div>
+      <div class="col">
+        <label for="" class="form-label">Data di arrivo</label>
+        <input type="date" name="data_di_arrivo" class="form-control">
+      </div>
+      <div class="col position-relative">
+        <button class="btn btn-lg btn-success position-absolute bottom-0" type="submit"><i
+            class="bi bi-search"></i></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  {% for v in voli %}
+  <div class="card mt-5">
+    <div class="card-body">
+      <h5 class="card-subtitle mb-3 text-muted">{{v.aeroporto_di_partenza}} --> {{v.aeroporto_di_arrivo}}</h5>
+      <h5 class="card-subtitle mb-3 text-muted">{{v.data_di_partenza}} --> {{v.data_di_arrivo}}</h5>
+      <h5 class="card-subtitle mb-3 text-muted">{{v.ora_di_partenza}} --> {{v.ora_di_arrivo}}</h5>
+      <h6 class="card-subtitle mb-3 text-muted">{{v.prezzo_unitario}} €</h6>
+      <a href="{% url 'scelta_posti' v.id %}" class="btn btn-success">Acquista</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
