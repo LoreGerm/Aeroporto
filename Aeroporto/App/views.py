@@ -1,12 +1,10 @@
 import json
-from wsgiref.handlers import format_date_time
 from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
-from App.models import Admin
 from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
-from django.views.generic import CreateView
 from django.templatetags.static import static
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -87,6 +85,14 @@ def acquista(request):
         prenotazione = Prenotazioni(codice=codice_pre, utente=utente, volo=volo, posti_prenotati=posti, prezzo_totale=prezzo_tot)
         prenotazione.save()
 
+        send_mail(
+            'Codice prenotazione Starlato Airline',
+            "Ecco il codice coglione: "+codice_pre+"" ,
+            'loregerm149@gmail.com',
+            [email],
+            fail_silently=False,
+        )
+
     content = {
         'codice': codice_pre,
     }
@@ -96,9 +102,22 @@ def acquista(request):
 
 
 def i_tuoi_voli(request):
+    prenotazione = []
+    if request.method == 'POST':
+        cerca = request.POST['cerca']
+        prenotazione = Prenotazioni.objects.filter(codice=cerca)
+
     content = {
+        'prenotazione': prenotazione,
     }
     return render(request, 'App/pagine_utente/i_tuoi_voli.html', content)
+
+def cancella_prenotazione(request,id):
+    pren = Prenotazioni.objects.get(id = id)
+    pren.delete()
+    
+    return redirect('i_tuoi_voli')
+
 
 
 
