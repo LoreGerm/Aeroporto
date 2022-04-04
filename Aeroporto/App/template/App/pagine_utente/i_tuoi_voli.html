@@ -8,7 +8,10 @@
       <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
       Starvato
     </a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav">
         <a class="nav-link" href="{% url 'prenota_utente' %}">Prenota</a>
         <a class="nav-link active" href="">I tuoi voli</a>

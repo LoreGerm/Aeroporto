@@ -8,13 +8,15 @@
       <img src="{% static 'img/aereo.png' %}" alt="" width="60" height="60" class="d-inline-block align-text-center">
       Starvato
     </a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav">
         <a class="nav-link {{active_v}}" href="{% url 'gestione_voli' %}">Voli</a>
         <a class="nav-link {{active_p}}" href="{% url 'gestione_prenotazioni' %}">Prenotazioni</a>
         <a class="nav-link {{active_a}}" href="{% url 'gestione_aeroporti' %}">Aeroporti</a>
         <a class="nav-link {{active_ae}}" href="{% url 'gestione_aerei' %}">Aerei</a>
-        <a class="btn btn-success" aria-current="page" href="{% url agg %}">Aggiungi</a>
       </div>
     </div>
   </div>
@@ -22,9 +24,14 @@
 
 <form action="{% url cerca %}" method="post">
   {% csrf_token %}
-  <div class="input-group mt-3 w-25">
-    <button type="submit" class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
-    <input type="text" name="cerca" class="form-control" placeholder="Cerca">
+  <div class="row mt-3">
+    <div class="input-group  w-25 col-4">
+      <button type="submit" class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
+      <input type="text" name="cerca" class="form-control" placeholder="Cerca">
+    </div>
+    <div class="col">
+      <a class="btn btn-success" type="button" aria-current="page" href="{% url agg %}">Aggiungi</a>
+    </div>
   </div>
 </form>
 
@@ -32,8 +39,8 @@
   {% if obj == 'voli' %}
   <thead>
     <th>Codice</th>
-    <th>Aeroporto di partenza</th>
-    <th>Aeroporto di arrivo</th>
+    <th>Partenza</th>
+    <th>Arrivo</th>
     <th>Prezzo unitario</th>
     <th>Ora di partenza</th>
     <th>Ora d'arrivo</th>
@@ -56,8 +63,8 @@
       <td>{{i.km}}</td>
       <td>{{i.aereo.targa}}</td>
       <td class="row">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
-        <a href="{% url 'modifica_volo' i.id %}" class="btn btn-success">Modifica</a>
+        <a href="{% url 'modifica_volo' i.id %}" class="btn btn-success col">Modifica</a>
+        <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
       </td>
     </tr>
 
@@ -82,10 +89,10 @@
   {% elif obj == 'pren' %}
   <thead>
     <th>Codice</th>
-    <th>Nome dell'utente</th>
-    <th>Cognome dell'utente</th>
-    <th>email dell'utente</th>
-    <th>Telefono dell'utente</th>
+    <th>Nome utente</th>
+    <th>Cognome utente</th>
+    <th>email utente</th>
+    <th>Telefono utente</th>
     <th>Codice volo</th>
     <th>Posti prenotati</th>
     <th>Prezzo totale</th>
@@ -102,8 +109,8 @@
       <td>{{i.posti_prenotati}}</td>
       <td>{{i.prezzo_totale}}</td>
       <td class="row">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
-        <a href="{% url 'modifica_prenotazione' i.id %}" class="btn btn-success">Modifica</a>
+        <a href="{% url 'modifica_prenotazione' i.id %}" class="btn btn-success col">Modifica</a>
+        <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
       </td>
     </tr>
 
@@ -148,8 +155,8 @@
       <td>{{i.indirizzo.citta}}</td>
       <td>{{i.indirizzo.provincia}}</td>
       <td class="row">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
-        <a href="{% url 'modifica_aeroporto' i.id %}" class="btn btn-success">Modifica</a>
+        <a href="{% url 'modifica_aeroporto' i.id %}" class="btn btn-success col">Modifica</a>
+        <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#{{i.codice}}">Elimina</button>
       </td>
     </tr>
 
@@ -196,8 +203,8 @@
       <td>{{i.posti_seconda_classe}}</td>
       <td>{{i.posti_terza_classe}}</td>
       <td class="row">
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{i.targa}}">Elimina</button>
-        <a href="{% url 'modifica_aereo' i.id %}" class="btn btn-success">Modifica</a>
+        <a href="{% url 'modifica_aereo' i.id %}" class="btn btn-success col">Modifica</a>
+        <button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#{{i.targa}}">Elimina</button>
       </td>
     </tr>
 
