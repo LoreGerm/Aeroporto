@@ -5,6 +5,7 @@ from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
 from django.templatetags.static import static
 from django.core.mail import send_mail
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -87,7 +88,7 @@ def acquista(request):
 
         send_mail(
             'Codice prenotazione Starlato Airline',
-            "Ecco il codice coglione: "+codice_pre+"" ,
+            'Codice della prenotazione: '+codice_pre ,
             'loregerm149@gmail.com',
             [email],
             fail_silently=False,
@@ -422,9 +423,6 @@ def agg_aeroporti(request):
         else:
             messages = 'Errore'
 
-    # INSERISCI NEL FILE JSON IL NUMERO DI POSTI E FALLO LEGGERE AL JS PER GENEREARE I POSTI
-    # {'prima':numero-posti, 'seconda':numero-posti, 'terza':numero-posti,}
-
     content = {
         'messaggio': messages,
         'home': 'gestione_aeroporti',
@@ -453,33 +451,18 @@ def agg_indirizzo_a(request):
 
 
 
-def Stampa(file):
-    f = open(file, "r")
-    a = f.read()
-    f.close()
-    return a
-
-def Over_write(file,x):
-    f = open(file, "w")
-    f.write(json.dumps(x)) 
-    f.close()
-
-
 def agg_aereo(request):
     messages = ''
     if request.method == 'POST':
         form = aereo_form(request.POST)
         if form.is_valid():
-            all_posti = []
-            all_posti.append(Stampa(static('js/posti.json')))
             posti = {
                 'targa': request.POST['targa'],
                 'prima': request.POST['prima_classe'],
                 'seconda': request.POST['seconda_classe'],
                 'terza': request.POST['terza_classe'],
             }
-            all_posti.append(posti)
-            Over_write('static/js/posti.json',all_posti)
+            json_posti = JsonResponse(posti)
             form.save()
             messages = 'Salvato'
         else:
@@ -489,6 +472,7 @@ def agg_aereo(request):
         'form': aereo_form,
         'messaggio': messages,
         'home': 'gestione_voli',
+        'json_posti':json_posti,
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
