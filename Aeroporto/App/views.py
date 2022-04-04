@@ -251,7 +251,7 @@ def elimina_aereo(request, id):
     aereo = Aereo.objects.get(id = id)
     aereo.delete()
     
-    return redirect('gestione_prenotazioni')
+    return redirect('gestione_aerei')
 
 
 
@@ -455,24 +455,28 @@ def agg_aereo(request):
     messages = ''
     if request.method == 'POST':
         form = aereo_form(request.POST)
+        print()
         if form.is_valid():
-            posti = {
-                'targa': request.POST['targa'],
-                'prima': request.POST['prima_classe'],
-                'seconda': request.POST['seconda_classe'],
-                'terza': request.POST['terza_classe'],
-            }
-            json_posti = JsonResponse(posti)
             form.save()
             messages = 'Salvato'
+            aereo = Aereo.objects.get(targa=request.POST.get('targa', ''))
+            posti = {
+                'id': aereo.id,
+                'prima': aereo.posti_prima_classe,
+                'seconda': aereo.posti_seconda_classe,
+                'terza': aereo.posti_terza_classe,
+            }
+            json_posti = JsonResponse(posti)
+            print(json_posti)
         else:
             messages = 'Errore'
+    
 
     content = {
         'form': aereo_form,
         'messaggio': messages,
         'home': 'gestione_voli',
-        'json_posti':json_posti
+        #'json_posti':json_posti,
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 

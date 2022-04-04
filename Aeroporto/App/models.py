@@ -36,7 +36,7 @@ class Aereo(models.Model):
     posti_terza_classe = models.IntegerField()
 
     def __str__(self) -> str:
-        return self.targa +' '+ self.modello
+        return self.targa + ' ' + self.modello
 
 
 class Posti(models.Model):
