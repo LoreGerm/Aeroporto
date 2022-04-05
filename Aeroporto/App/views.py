@@ -7,6 +7,30 @@ from django.templatetags.static import static
 from django.core.mail import send_mail
 from django.http import JsonResponse
 
+
+from rest_framework import viewsets
+from .serializers import VoloJson, AereoJson, AeroportoJson, Indirizzo_A_Json
+
+
+class VoloApi(viewsets.ModelViewSet):
+    queryset = Volo.objects.all()
+    serializer_class = VoloJson
+
+class AereoApi(viewsets.ModelViewSet):
+    queryset = Aereo.objects.all()
+    serializer_class = AereoJson
+
+class AeroportoApi(viewsets.ModelViewSet):
+    queryset = Aeroporto.objects.all()
+    serializer_class = AeroportoJson
+    
+class Indirizzo_A_Api(viewsets.ModelViewSet):
+    queryset = Indirizzo_a.objects.all()
+    serializer_class = Indirizzo_A_Json
+
+
+
+
 # Create your views here.
 
 def prenota_utente(request):
