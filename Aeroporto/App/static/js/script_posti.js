@@ -33,10 +33,14 @@ function genera_posti(id_volo='') {
                 });
         })
         .catch(err => console.log(err));
-    
-    //volo = document.getElementById('volo').value; // ID
-    //console.log(volo);
 }
+
+
+function prezzo_totale(){
+    
+}
+
+
 
 function fila(i) {
     const node = document.createElement('tr');
