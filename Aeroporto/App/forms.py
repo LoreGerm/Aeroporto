@@ -40,7 +40,7 @@ class AerportoForm(forms.ModelForm):
         fields = ('codice', 'nome', 'indirizzo', 'descrizione')
 
         widgets =  {
-            'codice': forms.TextInput(attrs={'class':'form-control'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'nome': forms.TextInput(attrs={'class':'form-control'}),
             'indirizzo': forms.Select(attrs={'class':'form-select'}),
             'descrizione': forms.Textarea(attrs={'class':'form-control'}),
@@ -68,7 +68,7 @@ class aereo_form(forms.ModelForm):
         fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
         widgets =  {
-            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'targa'}),
+            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'targa', 'id':'codice'}),
             'modello': forms.TextInput(attrs={'class':'form-control'}),
             'stato': forms.Select(attrs={'class':'form-select'}),
             'km_totali': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),
