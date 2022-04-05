@@ -300,7 +300,7 @@ def modifica_aeroporto(request, id):
     }
     form = AerportoForm(initial=field)
     if request.method == 'POST':
-        form = AerportoForm(request.POST)
+        form = AerportoForm(request.POST, instance=aeroporto)
         if form.is_valid():
             form.save()
             messages = 'Salvato'
@@ -323,10 +323,11 @@ def modifica_prenotazione(request, id):
         'utente': pren.utente,
         'volo': pren.volo,
         'posti_prenotati': pren.posti_prenotati,
+        'prezzo_totale': pren.prezzo_totale,
     }
     form = PrenotaForm(initial=field)
     if request.method == 'POST':
-        form = PrenotaForm(request.POST)
+        form = PrenotaForm(request.POST, instance=pren)
         if form.is_valid():
             form.save()
             messages = 'Salvato'
