@@ -4,7 +4,7 @@ from .models import Aereo, Indirizzo_a, Utente, Volo, Aeroporto, Prenotazioni
 class VoloForm(forms.ModelForm):
     class Meta:
         model = Volo
-        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_disponibili_prima_classe', 'posti_disponibili_seconda_classe', 'posti_disponibili_terza_classe')
+        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
 
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
@@ -16,7 +16,7 @@ class VoloForm(forms.ModelForm):
             'data_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'data_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'km': forms.TextInput(attrs={'class':'form-control'}),
-            'aereo': forms.Select(attrs={'class':'form-select'}),   #CREARE IL FORM PER GLI AEREI
+            'aereo': forms.Select(attrs={'class':'form-select'}),
         }
 
 

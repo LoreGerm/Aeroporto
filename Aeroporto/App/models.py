@@ -123,11 +123,11 @@ class Volo(models.Model):
     data_di_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-
+    """
     posti_disponibili_prima_classe = models.IntegerField(null=True)
     posti_disponibili_seconda_classe = models.IntegerField(null=True)
     posti_disponibili_terza_classe = models.IntegerField(null=True)
-
+    """
     def __str__(self) -> str:
             return self.codice
 
