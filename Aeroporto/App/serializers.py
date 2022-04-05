@@ -4,7 +4,7 @@ from .models import Volo, Aeroporto, Aereo, Indirizzo_a
 class VoloJson(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Volo
-        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
+        fields = ('id', 'codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
 
     
 class AeroportoJson(serializers.HyperlinkedModelSerializer):

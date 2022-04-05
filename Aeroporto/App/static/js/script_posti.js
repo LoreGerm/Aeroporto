@@ -1,13 +1,34 @@
 
 
-function posti(posti) {
+function genera_posti(id_volo) {
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+    fetch(API_VOLI)
+        .then(response => response.json())
+        .then(data => {
+            id_volo = parseInt(document.getElementById('volo').value)
+            let aereo = '';
+            for(let i=0; i<data.length; i++){
+                if(data[i].id == id_volo){
+                    aereo=data[i].aereo;
+                    break
+                }
+            }
+            fetch(aereo)
+                .then(response => response.json())
+                .then(data => {
+                    posti = parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe);
+                    console.log(posti);
+                    document.getElementById('tabella_posti').classList.remove('d-none');
+                    for (let i = 1; i <= posti; i++) {
+                        document.getElementById('posti').append(fila(i));
+                    }
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    
     //volo = document.getElementById('volo').value; // ID
     //console.log(volo);
-    document.getElementById('tabella_posti').classList.remove('d-none');
-    let n = posti;
-    for (let i = 1; i <= n; i++) {
-        document.getElementById('posti').append(fila(i));
-    }
 }
 
 function fila(i) {
@@ -37,7 +58,28 @@ function scelta(id) {
     }
 }
 
+/*
 function ottieni_posti(){
-    console.log('ciao');
-    document.getElementById('id_volo').value = document.getElementById('volo').value;
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+
+    fetch(API_VOLI)
+        .then(response => response.json())
+        .then(data => {
+            id_volo = parseInt(document.getElementById('volo').value)
+            aereo = '';
+            for(let i=0; i<data.length; i++){
+                if(data[i].id == id_volo){
+                    aereo=data[i].aereo;
+                    break
+                }
+            }
+            fetch(aereo)
+                .then(response => response.json())
+                .then(data => {
+                    prima
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
 }
+*/
