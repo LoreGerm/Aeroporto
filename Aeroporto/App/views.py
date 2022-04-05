@@ -398,6 +398,7 @@ def agg_voli(request):
 
 def agg_prenotazioni(request):
     messages = ''
+    
     if request.method == 'POST':
         form = PrenotaForm(request.POST)
         if form.is_valid():

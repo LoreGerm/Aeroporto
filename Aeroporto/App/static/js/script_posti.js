@@ -36,3 +36,8 @@ function scelta(id) {
         document.getElementById(id).classList.add('btn-light');
     }
 }
+
+function ottieni_posti(){
+    console.log('ciao');
+    document.getElementById('id_volo').value = document.getElementById('volo').value;
+}
