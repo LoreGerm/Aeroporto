@@ -1,14 +1,18 @@
 
 
-function genera_posti(id_volo) {
+function genera_posti(id_volo='') {
+    console.log(id_volo);
     const API_VOLI = 'http://localhost:8000/apivolo/';
     fetch(API_VOLI)
         .then(response => response.json())
         .then(data => {
-            id_volo = parseInt(document.getElementById('volo').value)
+            if(id_volo == ''){
+                id_volo = parseInt(document.getElementById('volo').value);
+            }
+            console.log(id_volo)
             let aereo = '';
             for(let i=0; i<data.length; i++){
-                if(data[i].id == id_volo){
+                if(data[i].id == ''){
                     aereo=data[i].aereo;
                     break
                 }
@@ -17,13 +21,15 @@ function genera_posti(id_volo) {
                 .then(response => response.json())
                 .then(data => {
                     posti = parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe);
-                    console.log(posti);
                     document.getElementById('tabella_posti').classList.remove('d-none');
                     for (let i = 1; i <= posti; i++) {
                         document.getElementById('posti').append(fila(i));
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err =>{
+                    console.log(err) 
+                    document.getElementById('posti').innerHTML = ''
+                });
         })
         .catch(err => console.log(err));
     
