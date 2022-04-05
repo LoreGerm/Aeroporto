@@ -2,8 +2,8 @@
 
 {% block contenuto %}
 
-<div class="mt-3">
-    <table class="table">
+<div class="mt-3 bg-dark p-3 rounded bg-opacity-75">
+    <table class="table text-light">
         <thead>
             <tr>
                 <th>Aeroporto di partenza</th>
@@ -33,6 +33,12 @@
 
 
 <div id="tabella_posti" class="conatiner w-25 h-25 d-none mt-3" style="margin-left: 30%;">
+    <form action="{% url 'dati_utente' %}" method="post">
+        {% csrf_token %}
+        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        {{form_prenota.posti_prenotati}}
+        <button type="submit" class="btn btn-success w-100" style="margin-left: 25%;">Continua</button>
+    </form>
     <table class="table text-light">
         <thead>
             <tr>
@@ -48,12 +54,6 @@
         <tbody id="posti">
         </tbody>
     </table>
-    <form action="{% url 'dati_utente' %}" method="post">
-        {% csrf_token %}
-        <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
-        {{form_prenota.posti_prenotati}}
-        <button type="submit" class="btn btn-success w-100" style="margin-left: 25%;">Continua</button>
-    </form>
 </div>
 
 {% endblock %}

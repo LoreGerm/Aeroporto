@@ -2,8 +2,8 @@
 
 {% block contenuto %}
 
-<div class="mt-3">
-    <table class="table">
+<div class="mt-3 bg-dark p-3 rounded bg-opacity-75">
+    <table class="table text-light">
         <thead>
             <tr>
                 <th>Aeroporto di partenza</th>
@@ -33,7 +33,7 @@
     </table>
 </div>
 
-<div class="mt-5">
+<div class="mt-3">
     <form action="{% url 'recap' %}" method="post">
         {% csrf_token %}
         <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
@@ -57,8 +57,8 @@
                 {{form_utente.telefono}}
             </div>
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-success">Avanti</button>
+        <div class="">
+            <button type="submit" class="btn btn-success w-100">Avanti</button>
         </div>
     </form>
 </div>
