@@ -12,8 +12,8 @@ admin.site.index_title = ''
 
 
 class VoloAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
-    list_filter = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
+    list_display = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_disponibili_prima_classe', 'posti_disponibili_seconda_classe', 'posti_disponibili_terza_classe')
+    list_filter = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_disponibili_prima_classe', 'posti_disponibili_seconda_classe', 'posti_disponibili_terza_classe')
 admin.site.register(Volo, VoloAdmin)
 
 
