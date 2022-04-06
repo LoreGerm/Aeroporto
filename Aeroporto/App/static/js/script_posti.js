@@ -19,10 +19,10 @@ function genera_posti(id_volo='') {
                 'prezzo_seconda_classe': data[0].prezzo_unitario_seconda_classe,
                 'prezzo_terza_classe': data[0].prezzo_unitario_terza_classe,
     
-                'posti_prima_classe': data[0].aereo.posti_prima_classe/6,
-                'posti_seconda_classe': data[0].aereo.posti_seconda_classe/6,
-                'posti_terza_classe': data[0].aereo.posti_terza_classe/6,
-                'posti': data[0].aereo.posti_prima_classe/6 + data[0].aereo.posti_seconda_classe/6 + data[0].aereo.posti_terza_classe/6,
+                'posti_prima_classe': data[0].aereo.posti_prima_classe,
+                'posti_seconda_classe': data[0].aereo.posti_seconda_classe,
+                'posti_terza_classe': data[0].aereo.posti_terza_classe,
+                'posti': (data[0].aereo.posti_prima_classe + data[0].aereo.posti_seconda_classe + data[0].aereo.posti_terza_classe)/6,
             }
 
             document.getElementById('tabella_posti').classList.remove('d-none');
@@ -72,11 +72,11 @@ function fila(i,content) {
     let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
     for (let j = 0; j < 6; j++) {
-        if (i <= content.posti_prima_classe){
+        if (i <= content.posti_prima_classe/6){
             td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-danger" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
             Resto(content.posti_prima_classe, i,  'prima', content)
         }
-        else if(i <= content.posti_seconda_classe){
+        else if(i <= content.posti_seconda_classe/6){
             td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
             Resto(content.posti_seconda_classe, i, 'seconda', content)
         }
