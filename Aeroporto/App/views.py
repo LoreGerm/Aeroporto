@@ -1,11 +1,9 @@
-import json
+
 from django.shortcuts import redirect, render
 from App.models import Volo, Prenotazioni, Aeroporto, Indirizzo_a, Aereo, Utente
 from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
-from django.templatetags.static import static
 from django.core.mail import send_mail
-from django.http import JsonResponse
 
 
 from rest_framework import viewsets
@@ -485,16 +483,6 @@ def agg_aereo(request):
         if form.is_valid():
             form.save()
             messages = 'Salvato'
-            
-            aereo = Aereo.objects.get(targa=request.POST.get('targa', ''))             
-            posti = {
-                'id': aereo.id,
-                'prima': aereo.posti_prima_classe,
-                'seconda': aereo.posti_seconda_classe,
-                'terza': aereo.posti_terza_classe,
-            }
-            json_posti = JsonResponse(posti)
-            print(json_posti)
         else:
             messages = 'Errore'
     

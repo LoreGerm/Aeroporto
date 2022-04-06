@@ -21,7 +21,7 @@ function genera_posti(id_volo='') {
             fetch(aereo)
                 .then(response => response.json())
                 .then(data => {
-                    posti = parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe);
+                    posti = (parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe))/6;
                     document.getElementById('tabella_posti').classList.remove('d-none');
                     for (let i = 1; i <= posti; i++) {
                         document.getElementById('posti').append(fila(i));
