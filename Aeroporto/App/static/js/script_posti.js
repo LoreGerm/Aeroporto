@@ -1,14 +1,46 @@
 
 
-function posti(posti) {
-    //volo = document.getElementById('volo').value; // ID
-    //console.log(volo);
-    document.getElementById('tabella_posti').classList.remove('d-none');
-    let n = posti;
-    for (let i = 1; i <= n; i++) {
-        document.getElementById('posti').append(fila(i));
-    }
+function genera_posti(id_volo='') {
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+    fetch(API_VOLI)
+        .then(response => response.json())
+        .then(data => {
+            if(id_volo == ''){
+                id_volo = parseInt(document.getElementById('volo').value);
+            }
+            else{
+                id_volo = parseInt(id_volo);
+            }
+            let aereo = '';
+            for(let i=0; i<data.length; i++){
+                if(data[i].id == id_volo){
+                    aereo=data[i].aereo;
+                    break
+                }
+            }
+            fetch(aereo)
+                .then(response => response.json())
+                .then(data => {
+                    posti = (parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe))/6;
+                    document.getElementById('tabella_posti').classList.remove('d-none');
+                    for (let i = 1; i <= posti; i++) {
+                        document.getElementById('posti').append(fila(i));
+                    }
+                })
+                .catch(err =>{
+                    console.log(err) 
+                    document.getElementById('posti').innerHTML = ''
+                });
+        })
+        .catch(err => console.log(err));
 }
+
+
+function prezzo_totale(){
+    
+}
+
+
 
 function fila(i) {
     const node = document.createElement('tr');
@@ -36,3 +68,29 @@ function scelta(id) {
         document.getElementById(id).classList.add('btn-light');
     }
 }
+
+/*
+function ottieni_posti(){
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+
+    fetch(API_VOLI)
+        .then(response => response.json())
+        .then(data => {
+            id_volo = parseInt(document.getElementById('volo').value)
+            aereo = '';
+            for(let i=0; i<data.length; i++){
+                if(data[i].id == id_volo){
+                    aereo=data[i].aereo;
+                    break
+                }
+            }
+            fetch(aereo)
+                .then(response => response.json())
+                .then(data => {
+                    prima
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+}
+*/

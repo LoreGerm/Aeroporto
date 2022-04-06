@@ -1,7 +1,18 @@
 from . import views
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'volo', views.VoloApi)
+router.register(r'aereo', views.AereoApi)
+router.register(r'aeroporto', views.AeroportoApi)
+router.register(r'indirizzo_a', views.Indirizzo_A_Api)
 
 urlpatterns = [
+    path('api', include(router.urls)),
+    path('api_auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+
     path('',views.prenota_utente, name='prenota_utente'),
     path('posti/<int:id>',views.scelta_posti, name='scelta_posti'),
     path('posti/utente',views.dati_utente, name='dati_utente'),

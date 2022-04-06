@@ -124,10 +124,10 @@ class Volo(models.Model):
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
     """
-    posti_disponibili_prima_classe = models.IntegerField(default=aereo.posti_prima_classe)
-    posti_disponibili_seconda_classe = models.IntegerField(default=aereo.posti_seconda_classe)
-    posti_disponibili_terza_classe = models.IntegerField(default=aereo.posti_terza_classe)
-"""
+    posti_disponibili_prima_classe = models.IntegerField(null=True)
+    posti_disponibili_seconda_classe = models.IntegerField(null=True)
+    posti_disponibili_terza_classe = models.IntegerField(null=True)
+    """
     def __str__(self) -> str:
             return self.codice
 

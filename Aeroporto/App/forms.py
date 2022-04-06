@@ -16,7 +16,7 @@ class VoloForm(forms.ModelForm):
             'data_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'data_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'km': forms.TextInput(attrs={'class':'form-control'}),
-            'aereo': forms.Select(attrs={'class':'form-select'}),   #CREARE IL FORM PER GLI AEREI
+            'aereo': forms.Select(attrs={'class':'form-select'}),
         }
 
 
