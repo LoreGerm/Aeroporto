@@ -36,6 +36,7 @@
     <form action="{% url 'dati_utente' %}" method="post">
         {% csrf_token %}
         <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        <input type="number" value="0" class="d-none" id="id_prezzo_totale" name="prezzo_tot">
         {{form_prenota.posti_prenotati}}
         <button type="submit" class="btn btn-success w-25">Continua</button>
     </form>
