@@ -91,11 +91,12 @@ function fila(i,content) {
 
 let posti_scelti = [];
 function scelta(id, prezzo) {
-    if (document.getElementById(id).classList == 'btn btn-light') {
+    if (!document.getElementById(id).classList.contains('btn-success')) {
         posti_scelti.push(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
+
         document.getElementById(id).classList.remove('btn-light');
         document.getElementById(id).classList.add('btn-success');
     }
@@ -104,6 +105,7 @@ function scelta(id, prezzo) {
         document.getElementById('posti_prenotati').value = posti_scelti;
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
+        
         document.getElementById(id).classList.remove('btn-success');
         document.getElementById(id).classList.add('btn-light');
     }
