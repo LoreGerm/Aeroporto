@@ -58,18 +58,16 @@ class Volo(models.Model):
     codice = models.CharField(max_length=200, null=True, unique=True)
     aeroporto_di_partenza = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_partenza')
     aeroporto_di_arrivo = models.ForeignKey(Aeroporto, on_delete=models.CASCADE, related_name='aeroporto_arrivo', default=None)
-    prezzo_unitario = models.FloatField(null=True, default=0.0)
+    prezzo_unitario_prima_classe = models.FloatField(null=True, default=0.0)
+    prezzo_unitario_seconda_classe = models.FloatField(null=True, default=0.0)
+    prezzo_unitario_terza_classe = models.FloatField(null=True, default=0.0)    
     ora_di_partenza = models.TimeField(auto_now=False, auto_now_add=False)
     ora_di_arrivo = models.TimeField(auto_now=False, auto_now_add=False)
     data_di_partenza = models.DateField(null=True)
     data_di_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-    """
-    posti_disponibili_prima_classe = models.IntegerField(null=True)
-    posti_disponibili_seconda_classe = models.IntegerField(null=True)
-    posti_disponibili_terza_classe = models.IntegerField(null=True)
-    """
+
     def __str__(self) -> str:
             return self.codice
 

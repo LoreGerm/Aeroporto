@@ -2,7 +2,8 @@
 
 function genera_posti(id_volo='') {
     const API_VOLI = 'http://localhost:8000/apivolo/';
-    fetch(API_VOLI)
+    const API_AEREI = 'http://localhost:8000/apiaereo/';
+    fetch(API_VOLI+id_volo)
         .then(response => response.json())
         .then(data => {
             if(id_volo == ''){
@@ -11,28 +12,23 @@ function genera_posti(id_volo='') {
             else{
                 id_volo = parseInt(id_volo);
             }
-            let prezzo_tot_posti = 0;
-            let aereo = '';
-            for(let i=0; i<data.length; i++){
-                if(data[i].id == id_volo){
-                    aereo=data[i].aereo;
-                    prezzo_posti = parseFloat(data[i].prezzo_unitario);
-                    break
-                }
+
+
+            content = {
+                'prezzo_prima_classe': data[0].prezzo_unitario_prima_classe,
+                'prezzo_seconda_classe': data[0].prezzo_unitario_seconda_classe,
+                'prezzo_terza_classe': data[0].prezzo_unitario_terza_classe,
+    
+                'posti_prima_classe': data[0].aereo.posti_prima_classe/6,
+                'posti_seconda_classe': data[0].aereo.posti_seconda_classe/6,
+                'posti_terza_classe': data[0].aereo.posti_terza_classe/6,
+                'posti': data[0].aereo.posti_prima_classe/6 + data[0].aereo.posti_seconda_classe/6 + data[0].aereo.posti_terza_classe/6,
             }
-            fetch(aereo)
-                .then(response => response.json())
-                .then(data => {
-                    posti = (parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe))/6;
-                    document.getElementById('tabella_posti').classList.remove('d-none');
-                    for (let i = 1; i <= posti; i++) {
-                        document.getElementById('posti').append(fila(i, prezzo_posti));
-                    }
-                })
-                .catch(err =>{
-                    console.log(err) 
-                    document.getElementById('posti').innerHTML = ''
-                });
+
+            document.getElementById('tabella_posti').classList.remove('d-none');
+            for (let i = 1; i <= content.posti; i++){
+                document.getElementById('posti').append(fila(i,content));
+            }
         })
         .catch(err => console.log(err));
 }
@@ -43,13 +39,51 @@ function prezzo_totale(){
 }
 
 
+function Resto(posti, i, classe, content){
+    const node = document.createElement('tr');     
+    let td = '<th scope="row">' + i + '</th>';
+    let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
+    let resto = posti%6;
+    if(resto!=0){
+        if (classe == 'prima'){
+            for(let j=0 ; j<resto; j++){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-danger" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }
+        }
+        else if (classe == 'seconda'){
+            for(let j=0 ; j<resto; j++){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }            
+        }
+        else{
+            for(let j=0 ; j<resto; j++){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }   
 
-function fila(i,prezzo) {
+        }
+    }
+    node.innerHTML = td;
+    return node;
+}
+
+
+function fila(i,content) {
     const node = document.createElement('tr');
-    let td = '<th scope="row">' + i + '</th>'
+    let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
     for (let j = 0; j < 6; j++) {
-        td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+prezzo+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+        if (i <= content.posti_prima_classe){
+            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-danger" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            Resto(content.posti_prima_classe, i,  'prima', content)
+        }
+        else if(i <= content.posti_seconda_classe){
+            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            Resto(content.posti_seconda_classe, i, 'seconda', content)
+        }
+        else{
+            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            Resto(content.posti_terza_classe, i, 'terza', content)
+        }
     }
     node.innerHTML = td;
     return node;

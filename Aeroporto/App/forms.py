@@ -4,13 +4,15 @@ from .models import Aereo, Indirizzo_a, Utente, Volo, Aeroporto, Prenotazioni
 class VoloForm(forms.ModelForm):
     class Meta:
         model = Volo
-        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
+        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
 
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
             'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select', 'name':'aeroporto_di_partenza'}),
             'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select', 'name': 'aeroporto_di_arrivo'}),
-            'prezzo_unitario': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
+            'prezzo_unitario_prima_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
+            'prezzo_unitario_seconda_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
+            'prezzo_unitario_terza_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
             'ora_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
             'ora_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
             'data_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
