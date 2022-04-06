@@ -11,10 +11,12 @@ function genera_posti(id_volo='') {
             else{
                 id_volo = parseInt(id_volo);
             }
+            let prezzo_tot_posti = 0;
             let aereo = '';
             for(let i=0; i<data.length; i++){
                 if(data[i].id == id_volo){
                     aereo=data[i].aereo;
+                    prezzo_posti = parseFloat(data[i].prezzo_unitario);
                     break
                 }
             }
@@ -24,7 +26,7 @@ function genera_posti(id_volo='') {
                     posti = (parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe))/6;
                     document.getElementById('tabella_posti').classList.remove('d-none');
                     for (let i = 1; i <= posti; i++) {
-                        document.getElementById('posti').append(fila(i));
+                        document.getElementById('posti').append(fila(i, prezzo_posti));
                     }
                 })
                 .catch(err =>{
@@ -42,28 +44,32 @@ function prezzo_totale(){
 
 
 
-function fila(i) {
+function fila(i,prezzo) {
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>'
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
     for (let j = 0; j < 6; j++) {
-        td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id)"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+        td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+prezzo+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
     }
     node.innerHTML = td;
     return node;
 }
 
 let posti_scelti = [];
-function scelta(id) {
+function scelta(id, prezzo) {
     if (document.getElementById(id).classList == 'btn btn-light') {
         posti_scelti.push(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
+        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
+        document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
         document.getElementById(id).classList.remove('btn-light');
         document.getElementById(id).classList.add('btn-success');
     }
     else {
         posti_scelti.pop(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
+        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
+        document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
         document.getElementById(id).classList.remove('btn-success');
         document.getElementById(id).classList.add('btn-light');
     }

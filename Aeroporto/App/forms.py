@@ -30,7 +30,7 @@ class PrenotaForm(forms.ModelForm):
             'utente': forms.Select(attrs={'class':'form-select'}),
             'volo': forms.Select(attrs={'class':'form-select', 'id':'volo'}),
             'posti_prenotati': forms.TextInput(attrs={'class':'d-none', 'id':'posti_prenotati', 'name':'posti_prenotati'}),
-            'prezzo_totale': forms.TextInput(attrs={'class':'form-control'}),
+            'prezzo_totale': forms.NumberInput(attrs={'class':'form-control', 'value':0}),
         }
 
 

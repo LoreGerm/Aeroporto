@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Volo, Aeroporto, Aereo, Indirizzo_a
+from .models import Utente, Volo, Aeroporto, Aereo, Indirizzo_a, Prenotazioni
+
 
 class VoloJson(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,3 +24,15 @@ class Indirizzo_A_Json(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Indirizzo_a
         fields = ('via', 'numero', 'citta', 'provincia', 'stato')
+
+
+class Prenotazioni_Json(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Prenotazioni
+        fields = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
+
+
+class Utente_Json(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Utente
+        fields = ('nome', 'cognome', 'email', 'telefono') 
