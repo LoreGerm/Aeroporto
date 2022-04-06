@@ -37,7 +37,9 @@
       <h5 class="card-subtitle mb-3">{{v.aeroporto_di_partenza}} --> {{v.aeroporto_di_arrivo}}</h5>
       <h5 class="card-subtitle mb-3">{{v.data_di_partenza}} --> {{v.data_di_arrivo}}</h5>
       <h5 class="card-subtitle mb-3">{{v.ora_di_partenza}} --> {{v.ora_di_arrivo}}</h5>
-      <h6 class="card-subtitle mb-3">{{v.prezzo_unitario}} €</h6>
+      <h6 class="card-subtitle mb-3">Prima classe: {{v.prezzo_unitario_prima_classe}} €</h6>
+      <h6 class="card-subtitle mb-3">Seconda classe: {{v.prezzo_unitario_seconda_classe}} €</h6>
+      <h6 class="card-subtitle mb-3">Terza classe: {{v.prezzo_unitario_terza_classe}} €</h6>
       <a href="{% url 'scelta_posti' v.id %}" class="btn btn-success">Acquista</a>
     </div>
   </div>
