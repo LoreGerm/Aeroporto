@@ -7,19 +7,19 @@
     {% csrf_token %}
     <div class="row">
       <div class="col">
-        <label for="" class="form-label">Partenza</label>
+        <label for="" class="form-label">Andata</label>
         {{form_volo.aeroporto_di_partenza}}
       </div>
       <div class="col">
-        <label for="" class="form-label">Arrivo</label>
+        <label for="" class="form-label">Ritorno</label>
         {{form_volo.aeroporto_di_arrivo}}
       </div>
       <div class="col">
-        <label for="" class="form-label">Data di partenza</label>
+        <label for="" class="form-label">Data di andata</label>
         <input type="date" name="data_di_partenza" class="form-control">
       </div>
       <div class="col">
-        <label for="" class="form-label">Data di arrivo</label>
+        <label for="" class="form-label">Data di ritorno</label>
         <input type="date" name="data_di_arrivo" class="form-control">
       </div>
       <div class="col position-relative">

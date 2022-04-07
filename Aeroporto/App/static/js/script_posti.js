@@ -1,12 +1,40 @@
 
 
-function genera_posti(id_volo='') {
+
+function Posti_prenotati(id_volo){
+
+    const API_PREN = 'http://localhost:8000/apiprenotazione/';
+    fetch(API_PREN)
+        .then(response => response.json())
+        .then(data => {
+
+            let posti_prenotati = '';
+            for(let i=0; i<data.length; i++){
+                if(data[i].volo == id_volo){
+                    posti_prenotati = data[i].posti_prenotati;
+                }
+            }
+
+            posti_prenotati = posti_prenotati.split(',');
+            console.log(posti_prenotati);
+            return posti_prenotati;
+        })
+        .catch(err => console.log(err));
+    
+}
+
+
+function Genera_posti(id_volo='') {
+
     if(id_volo == ''){
         id_volo = parseInt(document.getElementById('volo').value);
     }
     else{
         id_volo = parseInt(id_volo);
     }
+    let posti_prenotati = Posti_prenotati(id_volo);
+    console.log(posti_prenotati);
+
     const API_VOLI = 'http://localhost:8000/apivolo/';
     fetch(API_VOLI+id_volo)
         .then(response => response.json())
@@ -24,70 +52,40 @@ function genera_posti(id_volo='') {
 
             document.getElementById('tabella_posti').classList.remove('d-none');
             for (let i = 1; i <= content.posti; i++){
-                document.getElementById('posti').append(fila(i,content));
+                document.getElementById('posti').append(Fila(i,content, posti_prenotati));
             }
         })
         .catch(err => console.log(err));
 }
 
 
-function prezzo_totale(){
-    
-}
 
+function Fila(i,content, posti_prenotati) {
 
-function Resto(posti, i, classe, content){
-    const node = document.createElement('tr');     
-    let td = '<th scope="row">' + i + '</th>';
-    let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
-    let resto = posti%6;
-    if(resto!=0){
-        if (classe == 'prima'){
-            for(let j=0 ; j<resto; j++){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            }
-        }
-        else if (classe == 'seconda'){
-            for(let j=0 ; j<resto; j++){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="scelta(this.id,'+content.prezzo_seconda_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            }            
-        }
-        else{
-            for(let j=0 ; j<resto; j++){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+content.prezzo_terza_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            }   
-
-        }
-    }
-    node.innerHTML = td;
-    return node;
-}
-
-
-function fila(i,content) {
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
     for (let j = 0; j < 6; j++) {
-        if (i <= content.posti_prima_classe/6){
-            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            Resto(content.posti_prima_classe, i,  'prima', content)
-        }
-        else if(i <= content.posti_seconda_classe/6){
-            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="scelta(this.id,'+content.prezzo_seconda_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            Resto(content.posti_seconda_classe, i, 'seconda', content)
-        }
-        else{
-            td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id,'+content.prezzo_terza_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
-            Resto(content.posti_terza_classe, i, 'terza', content)
-        }
+            if (content.posti_prima_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_prima_classe--;
+            }
+            else if(content.posti_seconda_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.id,'+content.prezzo_prima_classe+'))"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_seconda_classe--;
+            }
+            else{
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }
     }
     node.innerHTML = td;
     return node;
 }
 
+
+
 let posti_scelti = [];
-function scelta(id, prezzo) {
+function Scelta(id, prezzo) {
     if (!document.getElementById(id).classList.contains('btn-lg')) {
         posti_scelti.push(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
@@ -104,28 +102,3 @@ function scelta(id, prezzo) {
     }
 }
 
-/*
-function ottieni_posti(){
-    const API_VOLI = 'http://localhost:8000/apivolo/';
-
-    fetch(API_VOLI)
-        .then(response => response.json())
-        .then(data => {
-            id_volo = parseInt(document.getElementById('volo').value)
-            aereo = '';
-            for(let i=0; i<data.length; i++){
-                if(data[i].id == id_volo){
-                    aereo=data[i].aereo;
-                    break
-                }
-            }
-            fetch(aereo)
-                .then(response => response.json())
-                .then(data => {
-                    prima
-                })
-                .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
-}
-*/

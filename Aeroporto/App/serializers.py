@@ -1,10 +1,20 @@
 from rest_framework import serializers
 from .models import Utente, Volo, Aeroporto, Aereo, Indirizzo_a, Prenotazioni
 
+
+
+
+
+class Indirizzo_A_Json(serializers.ModelSerializer):
+    class Meta:
+        model = Indirizzo_a
+        fields = ('via', 'numero', 'citta', 'provincia', 'stato')
+
 class AeroportoJson(serializers.ModelSerializer):
     class Meta:
         model = Aeroporto
         fields = ('codice', 'nome', 'indirizzo', 'descrizione')
+
 
 class AereoJson(serializers.ModelSerializer):
     class Meta:
@@ -22,13 +32,11 @@ class VoloJson(serializers.ModelSerializer):
 
     
 
-
-
-
-class Indirizzo_A_Json(serializers.ModelSerializer):
+class Utente_Json(serializers.ModelSerializer):
     class Meta:
-        model = Indirizzo_a
-        fields = ('via', 'numero', 'citta', 'provincia', 'stato')
+        model = Utente
+        fields = ('nome', 'cognome', 'email', 'telefono') 
+
 
 
 class Prenotazioni_Json(serializers.ModelSerializer):
@@ -37,7 +45,3 @@ class Prenotazioni_Json(serializers.ModelSerializer):
         fields = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
 
 
-class Utente_Json(serializers.ModelSerializer):
-    class Meta:
-        model = Utente
-        fields = ('nome', 'cognome', 'email', 'telefono') 
