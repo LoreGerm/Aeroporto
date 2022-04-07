@@ -12,7 +12,9 @@
                 <th>Data d'arrivo</th>
                 <th>Ora di partenza</th>
                 <th>Ora d'arrivo</th>
-                <th>Prezzo unitario</th>
+                <th>Prezzo 1° classe</th>
+                <th>Prezzo 2° classe</th>
+                <th>Prezzo 3° classe</th>
             </tr>
         </thead>
         <tbody>
@@ -23,12 +25,14 @@
                 <td>{{volo.data_di_arrivo}}</td>
                 <td>{{volo.ora_di_partenza}}</td>
                 <td>{{volo.ora_di_partenza}}</td>
-                <td>{{volo.prezzo_unitario}} €</td>
+                <td>{{volo.prezzo_unitario_prima_classe}} €</td>
+                <td>{{volo.prezzo_unitario_seconda_classe}} €</td>
+                <td>{{volo.prezzo_unitario_terza_classe}} €</td>
             </tr>
         </tbody>
     </table>
 
-    <button class="btn btn-success w-100" onclick="genera_posti('{{volo.id}}')">Scegli posti</button>
+    <button class="btn btn-success w-100" onclick="Posti('{{volo.id}}')">Scegli posti</button>
 </div>
 
 
@@ -36,6 +40,7 @@
     <form action="{% url 'dati_utente' %}" method="post">
         {% csrf_token %}
         <input type="text" value="{{volo.id}}" class="d-none" name="id_volo">
+        <input type="number" value="0" class="d-none" id="id_prezzo_totale" name="prezzo_tot">
         {{form_prenota.posti_prenotati}}
         <button type="submit" class="btn btn-success w-25">Continua</button>
     </form>

@@ -5,9 +5,8 @@ from django.db.models import Q
 from .forms import AerportoForm, Indirizzo_a_form, PrenotaForm, VoloForm, aereo_form, utente_form
 from django.core.mail import send_mail
 
-
 from rest_framework import viewsets
-from .serializers import VoloJson, AereoJson, AeroportoJson, Indirizzo_A_Json
+from .serializers import Prenotazioni_Json, Utente_Json, VoloJson, AereoJson, AeroportoJson, Indirizzo_A_Json
 
 
 class VoloApi(viewsets.ModelViewSet):
@@ -25,6 +24,14 @@ class AeroportoApi(viewsets.ModelViewSet):
 class Indirizzo_A_Api(viewsets.ModelViewSet):
     queryset = Indirizzo_a.objects.all()
     serializer_class = Indirizzo_A_Json
+
+class PrenotazioneApi(viewsets.ModelViewSet):
+    queryset = Prenotazioni.objects.all()
+    serializer_class = Prenotazioni_Json
+
+class UtenteApi(viewsets.ModelViewSet):
+    queryset = Utente.objects.all()
+    serializer_class = Utente_Json
 
 
 
@@ -59,12 +66,13 @@ def dati_utente(request):
         volo_id = request.POST.get('id_volo', '')
         volo = Volo.objects.get(id = volo_id)
         posti = request.POST['posti_prenotati']
+        prezzo_tot = request.POST.get('prezzo_tot', '')
 
     content = {
         'form_utente': utente_form,
         'volo': volo,
         'posti': posti,
-        'prezzo_tot': int(volo.prezzo_unitario) * len(list(posti.split(","))),
+        'prezzo_tot': prezzo_tot,
     }
     return render(request, 'App/pagine_utente/prenota/form_utente.html', content)
 
@@ -491,7 +499,6 @@ def agg_aereo(request):
         'form': aereo_form,
         'messaggio': messages,
         'home': 'gestione_voli',
-        #'json_posti':json_posti,
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
@@ -593,8 +600,3 @@ def cerca_aereo(request):
 
 
 
-
-def json_posti(request):
-
-    f = open('static/js/posti.json', 'w')
-    f.write(json.dumps())

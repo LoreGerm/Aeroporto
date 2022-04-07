@@ -1,96 +1,117 @@
 
 
-function genera_posti(id_volo='') {
-    const API_VOLI = 'http://localhost:8000/apivolo/';
-    fetch(API_VOLI)
+
+function Posti(id_volo=''){
+
+    if(id_volo == ''){
+        id_volo = parseInt(document.getElementById('volo').value);
+    }
+    else{
+        id_volo = parseInt(id_volo);
+    }
+    const API_PREN = 'http://localhost:8000/apiprenotazione/';
+    fetch(API_PREN)
         .then(response => response.json())
         .then(data => {
-            if(id_volo == ''){
-                id_volo = parseInt(document.getElementById('volo').value);
-            }
-            else{
-                id_volo = parseInt(id_volo);
-            }
-            let aereo = '';
+
+            let posti_prenotati = '';
             for(let i=0; i<data.length; i++){
-                if(data[i].id == id_volo){
-                    aereo=data[i].aereo;
-                    break
+                if(data[i].volo == id_volo){
+                    posti_prenotati = data[i].posti_prenotati;
                 }
             }
-            fetch(aereo)
-                .then(response => response.json())
-                .then(data => {
-                    posti = (parseInt(data.posti_prima_classe) + parseInt(data.posti_seconda_classe) + parseInt(data.posti_terza_classe))/6;
-                    document.getElementById('tabella_posti').classList.remove('d-none');
-                    for (let i = 1; i <= posti; i++) {
-                        document.getElementById('posti').append(fila(i));
-                    }
-                })
-                .catch(err =>{
-                    console.log(err) 
-                    document.getElementById('posti').innerHTML = ''
-                });
+
+            posti_prenotati = posti_prenotati.split(',');
+            Genera_posti(id_volo, posti_prenotati)
+        })
+        .catch(err => console.log(err));
+    
+}
+
+
+function Genera_posti(id_volo, posti_prenotati) {
+    
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+    fetch(API_VOLI+id_volo)
+        .then(response => response.json())
+        .then(data => {
+            content = {
+                'prezzo_prima_classe': data.prezzo_unitario_prima_classe,
+                'prezzo_seconda_classe': data.prezzo_unitario_seconda_classe,
+                'prezzo_terza_classe': data.prezzo_unitario_terza_classe,
+    
+                'posti_prima_classe': data.aereo.posti_prima_classe,
+                'posti_seconda_classe': data.aereo.posti_seconda_classe,
+                'posti_terza_classe': data.aereo.posti_terza_classe,
+                'posti': (data.aereo.posti_prima_classe + data.aereo.posti_seconda_classe + data.aereo.posti_terza_classe)/6,
+            }
+
+            document.getElementById('tabella_posti').classList.remove('d-none');
+            for (let i = 1; i <= content.posti; i++){
+                document.getElementById('posti').append(Fila(i,content, posti_prenotati));
+            }
         })
         .catch(err => console.log(err));
 }
 
 
-function prezzo_totale(){
-    
-}
 
+function Fila(i,content, posti_prenotati) {
 
-
-function fila(i) {
     const node = document.createElement('tr');
-    let td = '<th scope="row">' + i + '</th>'
+    let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
+
     for (let j = 0; j < 6; j++) {
-        td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="scelta(this.id)"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+
+        if(!posti_prenotati.includes(lettere[j] + i.toString())){
+            if (content.posti_prima_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.id,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_prima_classe--;
+            }
+            else if(content.posti_seconda_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.id,'+content.prezzo_seconda_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_seconda_classe--;
+            }
+            else{
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.id,'+content.prezzo_terza_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }
+        }
+        else{
+            if (content.posti_prima_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_prima_classe--;
+            }
+            else if(content.posti_seconda_classe!=0){
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                content.posti_seconda_classe--;
+            }
+            else{
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+            }
+        }
     }
     node.innerHTML = td;
     return node;
 }
 
+
+
 let posti_scelti = [];
-function scelta(id) {
-    if (document.getElementById(id).classList == 'btn btn-light') {
+function Scelta(id, prezzo) {
+    if (!document.getElementById(id).classList.contains('btn-lg')) {
         posti_scelti.push(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
-        document.getElementById(id).classList.remove('btn-light');
-        document.getElementById(id).classList.add('btn-success');
+        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
+        document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
+        document.getElementById(id).classList.add('btn-lg');
     }
     else {
         posti_scelti.pop(id);
         document.getElementById('posti_prenotati').value = posti_scelti;
-        document.getElementById(id).classList.remove('btn-success');
-        document.getElementById(id).classList.add('btn-light');
+        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
+        document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
+        document.getElementById(id).classList.remove('btn-lg');
     }
 }
 
-/*
-function ottieni_posti(){
-    const API_VOLI = 'http://localhost:8000/apivolo/';
-
-    fetch(API_VOLI)
-        .then(response => response.json())
-        .then(data => {
-            id_volo = parseInt(document.getElementById('volo').value)
-            aereo = '';
-            for(let i=0; i<data.length; i++){
-                if(data[i].id == id_volo){
-                    aereo=data[i].aereo;
-                    break
-                }
-            }
-            fetch(aereo)
-                .then(response => response.json())
-                .then(data => {
-                    prima
-                })
-                .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
-}
-*/

@@ -7,6 +7,8 @@ router.register(r'volo', views.VoloApi)
 router.register(r'aereo', views.AereoApi)
 router.register(r'aeroporto', views.AeroportoApi)
 router.register(r'indirizzo_a', views.Indirizzo_A_Api)
+router.register(r'utente', views.UtenteApi)
+router.register(r'prenotazione', views.PrenotazioneApi)
 
 urlpatterns = [
     path('api', include(router.urls)),
@@ -52,5 +54,4 @@ urlpatterns = [
     path('gestione/home/aeroporti/cerca', views.cerca_aeroporti, name='cerca_aeroporti'),
     path('gestione/home/aereo/cerca', views.cerca_aereo, name='cerca_aereo'),
 
-    path('gestione/home/prenotazioni', views.json_posti, name='json_posti'),
 ]

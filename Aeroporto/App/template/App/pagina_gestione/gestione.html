@@ -37,19 +37,21 @@
 
 
 <div class="bg-dark p-3 mt-5 rounded bg-opacity-75">
-  <table class="table text-light fw-bold ">
+  <table class="table text-light fs-6">
     {% if obj == 'voli' %}
     <thead>
       <th>Codice</th>
       <th>Partenza</th>
       <th>Arrivo</th>
-      <th>Prezzo unitario</th>
+      <th>Prezzo 1° classe</th>
+      <th>Prezzo 2° classe</th>
+      <th>Prezzo 3° classe</th>
       <th>Ora di partenza</th>
       <th>Ora d'arrivo</th>
       <th>Data di partenza</th>
       <th>Data d'arrivo</th>
       <th>Km</th>
-      <th>targa aereo</th>
+      <th>Targa aereo</th>
     </thead>
     <tbody>
       {% for i in voli %}
@@ -57,7 +59,9 @@
         <td>{{i.codice}}</td>
         <td>{{i.aeroporto_di_partenza}}</td>
         <td>{{i.aeroporto_di_arrivo}}</td>
-        <td>{{i.prezzo_unitario}} €</td>
+        <td>{{i.prezzo_unitario_prima_classe}} €</td>
+        <td>{{i.prezzo_unitario_seconda_classe}} €</td>
+        <td>{{i.prezzo_unitario_terza_classe}} €</td>
         <td>{{i.ora_di_partenza}}</td>
         <td>{{i.ora_di_arrivo}}</td>
         <td>{{i.data_di_partenza}}</td>

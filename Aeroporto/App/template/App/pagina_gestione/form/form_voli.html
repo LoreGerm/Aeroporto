@@ -11,16 +11,6 @@
         </div>
     </div>
     <div class="col">
-        <label class="form-label">Prezzo</label>
-        <div class="input-group">
-            {{form.prezzo_unitario}}
-            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
-        </div>
-    </div>
-</div>
-
-<div class="mb-2 row">
-    <div class="col">
         <label class="form-label">Aeroporto di partenza</label>
         <div class="input-group">
             {{form.aeroporto_di_partenza}}
@@ -34,6 +24,30 @@
             {{form.aeroporto_di_arrivo}}
             <a href="{% url 'aggiungi_aeroporti' %}" target="_blank" class="input-group-text btn btn-primary"
                 type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="mb-2 row">
+    <div class="col">
+        <label class="form-label">Prezzo prima classe</label>
+        <div class="input-group">
+            {{form.prezzo_unitario_prima_classe}}
+            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label">Prezzo seconda classe</label>
+        <div class="input-group">
+            {{form.prezzo_unitario_seconda_classe}}
+            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label">Prezzo terza classe</label>
+        <div class="input-group">
+            {{form.prezzo_unitario_terza_classe}}
+            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
         </div>
     </div>
 </div>
