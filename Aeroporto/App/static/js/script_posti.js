@@ -121,3 +121,22 @@ function Scelta(id, prezzo) {
     }
 }
 
+
+
+
+
+function Imposta_posti_volo(){
+
+    const API_PREN = 'http://localhost:8000/apiaereo/';
+    fetch(API_PREN + document.getElementById('aereo').value)
+        .then(response => response.json())
+        .then(data => {
+            
+            document.getElementById('posti_prima_classe').value = data.posti_prima_classe;
+            document.getElementById('posti_seconda_classe').value = data.posti_seconda_classe;
+            document.getElementById('posti_terza_classe').value = data.posti_terza_classe;
+
+        })
+        .catch(err => console.log(err));
+}
+

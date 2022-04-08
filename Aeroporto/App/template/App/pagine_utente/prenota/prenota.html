@@ -22,11 +22,26 @@
         <label for="" class="form-label">Data di ritorno</label>
         <input type="date" name="data_di_arrivo" class="form-control">
       </div>
-      <div class="col position-relative">
-        <button class="btn btn-lg btn-success position-absolute bottom-0" type="submit"><i
-            class="bi bi-search"></i></button>
+      <div class="col">
+        <label for="" class="form-label">Classe</label>
+        <select class="form-select" name="classe" required>
+          <option value="prima" selected>Prima</option>
+          <option value="seconda">Seconda</option>
+          <option value="terza">Terza</option>
+        </select>
       </div>
-    </div>
+      <div class="col">
+        <label name="n_posti" class="form-label">Numero di posti</label>
+        <div class="input-group ">
+          <button type="button" class="btn btn-danger" onclick="Diminuisci()"><i class="bi bi-dash-lg"></i></i></button>
+          <input type="number" value="0" name="n_posti" class="form-control text-center" id="n_posti">
+          <button type="button" class="btn btn-success" onclick="Aumenta()"><i class="bi bi-plus-lg"></i></i></button>
+        </div>
+      </div>
+        <div class="col position-relative">
+          <button class="btn btn-lg btn-success position-absolute bottom-0" type="submit"><i class="bi bi-search"></i></button>
+        </div>
+      </div>
   </form>
 </div>
 

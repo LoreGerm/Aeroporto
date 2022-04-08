@@ -9,11 +9,11 @@
             <a href="{% url home %}" class="btn btn-primary border col"> Home </a>
             <button type="submit" class="btn btn-primary border col"> Invia </button>
         </div>
-
-        {% block contenuto %}
-        
-        {% endblock %}
-
+        <div class="bg-dark p-3 mt-5 rounded bg-opacity-75">
+            {% block contenuto %}
+            
+            {% endblock %}
+        </div>
     </form>
     <h1 class="bg-dark text-center rounded mt-2">{{messaggio}}</h1>
 </div>

@@ -4,7 +4,7 @@ from .models import Aereo, Indirizzo_a, Utente, Volo, Aeroporto, Prenotazioni
 class VoloForm(forms.ModelForm):
     class Meta:
         model = Volo
-        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo')
+        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
         widgets =  {
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
@@ -18,7 +18,10 @@ class VoloForm(forms.ModelForm):
             'data_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'data_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
             'km': forms.TextInput(attrs={'class':'form-control'}),
-            'aereo': forms.Select(attrs={'class':'form-select'}),
+            'aereo': forms.Select(attrs={'class':'form-select', 'onchange':'Imposta_posti_volo()', 'id':'aereo'}),
+            'posti_prima_classe': forms.NumberInput(attrs={'id':'posti_prima_classe', 'name':'posti_prima_classe'}),
+            'posti_seconda_classe': forms.NumberInput(attrs={'id':'posti_seconda_classe', 'name':'posti_seconda_classe'}),
+            'posti_terza_classe': forms.NumberInput(attrs={'id':'posti_terza_classe', 'name':'posti_terza_classe'}),
         }
 
 
