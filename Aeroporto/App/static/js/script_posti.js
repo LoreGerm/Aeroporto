@@ -79,15 +79,15 @@ function Fila(i,content, posti_prenotati) {
         }
         else{
             if (content.posti_prima_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-warning opacity-50" disabled"><img src="/static/img/poltrona_disable.png" height=30 width=30></button></td>';
                 content.posti_prima_classe--;
             }
             else if(content.posti_seconda_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-primary opacity-50" disabled"><img src="/static/img/poltrona_disable.png" height=30 width=30></button></td>';
                 content.posti_seconda_classe--;
             }
             else{
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light opacity-50" disabled"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" class="btn btn-light opacity-50" disabled"><img src="/static/img/poltrona_disable.png" height=30 width=30></button></td>';
             }
         }
     }
@@ -105,6 +105,9 @@ function Scelta(id, prezzo) {
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
         document.getElementById(id).classList.add('btn-lg');
+        document.getElementById(id).classList.add('border');
+        document.getElementById(id).classList.add('border-success');
+        document.getElementById(id).classList.add('border-5');
     }
     else {
         posti_scelti.pop(id);
@@ -112,6 +115,9 @@ function Scelta(id, prezzo) {
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
         document.getElementById(id).classList.remove('btn-lg');
+        document.getElementById(id).classList.remove('border');
+        document.getElementById(id).classList.remove('border-success');
+        document.getElementById(id).classList.remove('border-5');
     }
 }
 
