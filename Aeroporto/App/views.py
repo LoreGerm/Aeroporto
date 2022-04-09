@@ -303,6 +303,7 @@ def modifica_volo(request, id):
         'data_di_arrivo': volo.data_di_arrivo,
         'km': volo.km,
         'aereo': volo.aereo,
+        'posti_totali':volo.posti_totali,
     }
     form = VoloForm(initial=field)
     messages = ''
@@ -431,8 +432,11 @@ def agg_voli(request):
 
 def agg_prenotazioni(request):
     messages = ''
-    
     if request.method == 'POST':
+        id_volo = request.POST.get('volo', '')
+        volo = Volo.objects.get(id = id_volo)
+        form_volo = VoloForm(instance=volo)
+        
         form = PrenotaForm(request.POST)
         if form.is_valid():
             form.save()

@@ -67,9 +67,7 @@ class Volo(models.Model):
     data_di_arrivo = models.DateField(null=True)
     km = models.FloatField(null=True)
     aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-    posti_prima_classe = models.IntegerField()
-    posti_seconda_classe = models.IntegerField()
-    posti_terza_classe = models.IntegerField()
+    posti_totali = models.IntegerField()
 
     def __str__(self) -> str:
             return self.codice
