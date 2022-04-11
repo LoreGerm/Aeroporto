@@ -39,7 +39,6 @@ class UtenteApi(viewsets.ModelViewSet):
 # Create your views here.
 
 def prenota_utente(request):
-    """    
     voli = []
     if request.method == 'POST':
         partenza = request.POST['aeroporto_di_partenza']
@@ -53,8 +52,8 @@ def prenota_utente(request):
         'form_volo': VoloForm,
         'voli': voli,
     }
-    """
-    return render(request, 'App/pagine_utente/prenota/prenota.html')
+
+    return render(request, 'App/pagine_utente/prenota/prenota.html', content)
 
 
 def scelta_posti(request):
