@@ -45,10 +45,9 @@ def prenota_utente(request):
         arrivo = request.POST['aeroporto_di_arrivo']
         data_partenza = request.POST['data_di_partenza']
         data_arrivo = request.POST['data_di_arrivo']
-        classe = request.POST['classe']
         n_posti = request.POST['n_posti']
         
-        voli = Volo.objects.filter(Q(aeroporto_di_partenza = partenza) & Q(aeroporto_di_arrivo = arrivo) & Q(data_di_partenza = data_partenza) & Q(data_di_arrivo = data_arrivo))
+        voli = Volo.objects.filter(Q(aeroporto_di_partenza = partenza) & Q(aeroporto_di_arrivo = arrivo) & Q(data_di_partenza = data_partenza) & Q(data_di_arrivo = data_arrivo) & Q(posti_totali__gte = n_posti))
 
     content = {
         'form_volo': VoloForm,
