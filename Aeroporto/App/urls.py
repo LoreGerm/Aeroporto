@@ -16,7 +16,7 @@ urlpatterns = [
 
 
     path('',views.prenota_utente, name='prenota_utente'),
-    path('posti/<int:id>',views.scelta_posti, name='scelta_posti'),
+    path('posti',views.scelta_posti, name='scelta_posti'),
     path('posti/utente',views.dati_utente, name='dati_utente'),
     path('posti/utente/recap',views.recap, name='recap'),
     path('posti/utente/recap/acquista',views.acquista, name='acquista'),

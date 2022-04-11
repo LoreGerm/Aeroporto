@@ -3,50 +3,73 @@
 {% block contenuto %}
 
 <div class="mt-5">
-  <form action="" method="post">
-    {% csrf_token %}
-    <div class="row">
-      <div class="col">
-        <label for="" class="form-label">Andata</label>
-        {{form_volo.aeroporto_di_partenza}}
+  <div class="row">
+    <div class="col">
+      <label for="" class="form-label">Andata</label>
+      {{form_volo.aeroporto_di_partenza}}
+    </div>
+    <div class="col">
+      <label for="" class="form-label">Ritorno</label>
+      {{form_volo.aeroporto_di_arrivo}}
+    </div>
+    <div class="col">
+      <label for="" class="form-label">Data di andata</label>
+      <input type="date" name="data_di_partenza" class="form-control" id="data_andata" required>
+    </div>
+    <div class="col">
+      <label for="" class="form-label">Data di ritorno</label>
+      <input type="date" name="data_di_ritorno" class="form-control" id="data_ritorno" required>
+    </div>
+    <div class="col">
+      <label name="n_posti" class="form-label">Numero di posti</label>
+      <div class="input-group ">
+        <button type="button" class="btn btn-danger" onclick="Diminuisci()"><i class="bi bi-dash-lg"></i></i></button>
+        <input type="number" value="0" name="n_posti" class="form-control text-center" id="n_posti">
+        <button type="button" class="btn btn-success" onclick="Aumenta()"><i class="bi bi-plus-lg"></i></i></button>
       </div>
-      <div class="col">
-        <label for="" class="form-label">Ritorno</label>
-        {{form_volo.aeroporto_di_arrivo}}
-      </div>
-      <div class="col">
-        <label for="" class="form-label">Data di andata</label>
-        <input type="date" name="data_di_partenza" class="form-control">
-      </div>
-      <div class="col">
-        <label name="n_posti" class="form-label">Numero di posti</label>
-        <div class="input-group ">
-          <button type="button" class="btn btn-danger" onclick="Diminuisci()"><i class="bi bi-dash-lg"></i></i></button>
-          <input type="number" value="0" name="n_posti" class="form-control text-center" id="n_posti">
-          <button type="button" class="btn btn-success" onclick="Aumenta()"><i class="bi bi-plus-lg"></i></i></button>
-        </div>
-      </div>
-        <div class="col position-relative">
-          <button class="btn btn-lg btn-success position-absolute bottom-0" type="submit"><i class="bi bi-search"></i></button>
-        </div>
-      </div>
-  </form>
+    </div>
+    <div class="col position-relative">
+      <button class="btn btn-lg btn-success position-absolute bottom-0" type="button" onclick="Voli()"><i class="bi bi-search"></i></button>
+    </div>
+  </div>
 </div>
 
 <div class="row">
-  {% for v in voli %}
-  <div class="card mt-5 text-dark">
-    <div class="card-body">
-      <h5 class="card-subtitle mb-3">{{v.aeroporto_di_partenza}} --> {{v.aeroporto_di_arrivo}}</h5>
-      <h5 class="card-subtitle mb-3">{{v.data_di_partenza}} --> {{v.data_di_arrivo}}</h5>
-      <h5 class="card-subtitle mb-3">{{v.ora_di_partenza}} --> {{v.ora_di_arrivo}}</h5>
-      <h6 class="card-subtitle mb-3">Prima classe: {{v.prezzo_unitario_prima_classe}} €</h6>
-      <h6 class="card-subtitle mb-3">Seconda classe: {{v.prezzo_unitario_seconda_classe}} €</h6>
-      <h6 class="card-subtitle mb-3">Terza classe: {{v.prezzo_unitario_terza_classe}} €</h6>
-      <a href="{% url 'scelta_posti' v.id %}" class="btn btn-success">Acquista</a>
+  <form action="{% url 'scelta_posti' %}" method="post">
+    <button type="submit" class="btn btn-success mt-3 w-100" id="avanti">Avanti</button>
+    {% for v in voli_andata %}
+    <div class="card mt-3 text-dark col">
+      <div class="card-body">
+        <h5 class="card-subtitle mb-3">{{v.aeroporto_di_partenza}} --> {{v.aeroporto_di_arrivo}}</h5>
+        <h5 class="card-subtitle mb-3">{{v.data_di_partenza}} --> {{v.data_di_arrivo}}</h5>
+        <h5 class="card-subtitle mb-3">{{v.ora_di_partenza}} --> {{v.ora_di_arrivo}}</h5>
+        <h6 class="card-subtitle mb-3">Prima classe: {{v.prezzo_unitario_prima_classe}} €</h6>
+        <h6 class="card-subtitle mb-3">Seconda classe: {{v.prezzo_unitario_seconda_classe}} €</h6>
+        <h6 class="card-subtitle mb-3">Terza classe: {{v.prezzo_unitario_terza_classe}} €</h6>
+        <div class="">
+          <input type="checkbox" class="btn-check" name="andata" id="andata" autocomplete="off" value="{{v.id}}">
+          <label class="btn btn-outline-success" for="andata">Seleziona</label>
+        </div>
+      </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+    {% for v in voli_ritorno %}
+    <div class="card mt-3 text-dark col">
+      <div class="card-body">
+        <h5 class="card-subtitle mb-3">{{v.aeroporto_di_partenza}} --> {{v.aeroporto_di_arrivo}}</h5>
+        <h5 class="card-subtitle mb-3">{{v.data_di_partenza}} --> {{v.data_di_arrivo}}</h5>
+        <h5 class="card-subtitle mb-3">{{v.ora_di_partenza}} --> {{v.ora_di_arrivo}}</h5>
+        <h6 class="card-subtitle mb-3">Prima classe: {{v.prezzo_unitario_prima_classe}} €</h6>
+        <h6 class="card-subtitle mb-3">Seconda classe: {{v.prezzo_unitario_seconda_classe}} €</h6>
+        <h6 class="card-subtitle mb-3">Terza classe: {{v.prezzo_unitario_terza_classe}} €</h6>
+        <div class="">
+          <input type="checkbox" class="btn-check" name="ritorno" id="ritorno" autocomplete="off" value="{{v.id}}">
+          <label class="btn btn-outline-success" for="ritorno">Seleziona</label>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </form>
 </div>
 
 {% endblock %}

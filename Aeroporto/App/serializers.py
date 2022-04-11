@@ -13,7 +13,7 @@ class Indirizzo_A_Json(serializers.ModelSerializer):
 class AeroportoJson(serializers.ModelSerializer):
     class Meta:
         model = Aeroporto
-        fields = ('codice', 'nome', 'indirizzo', 'descrizione')
+        fields = ('id', 'codice', 'nome', 'indirizzo', 'descrizione')
 
 
 class AereoJson(serializers.ModelSerializer):
