@@ -71,7 +71,7 @@
 
 
 <div id="tabella_posti" class="conatiner mt-3 row">
-    <div id="andata" class="col d-none">
+    <div id="andata" class="col d-none p-3 bg-dark bg-opacity-75 rounded">
         <form action="{% url 'dati_utente' %}" method="post">
             {% csrf_token %}
             <div class="d-none">
@@ -81,7 +81,7 @@
             </div>
             <button type="submit" class="btn btn-success w-25">Continua</button>
         </form>
-        <table class="mt-2 table text-light bg-dark p-3 rounded bg-opacity-75">
+        <table class="mt-2 table text-light">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -98,7 +98,7 @@
         </table>
     </div>
 
-    <div id="ritorno" class="col d-none">
+    <div id="ritorno" class="col d-none p-3 bg-dark bg-opacity-75 rounded">
         <form action="{% url 'dati_utente' %}" method="post">
             {% csrf_token %}
             <div class="d-none">
@@ -108,7 +108,7 @@
             </div>
             <button type="submit" class="btn btn-success w-25">Continua</button>
         </form>
-        <table class="mt-2 table text-light bg-dark p-3 rounded bg-opacity-75">
+        <table class="mt-2 table text-light">
             <thead>
                 <tr>
                     <th scope="col"></th>
