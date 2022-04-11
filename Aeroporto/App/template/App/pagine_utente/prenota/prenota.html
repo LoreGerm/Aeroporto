@@ -34,12 +34,15 @@
   </div>
 </div>
 
-<div class="row d-none" id="div_voli">
-  <button class="btn btn-success mt-3 w-100" id="avanti">Avanti</button>
-  <div class="col" id="voli_andata">
-  </div>
-  <div class="col" id="voli_ritorno">
-  </div>
+<div class="d-none mt-5" id="div_voli">
+  <form action="{% url 'scelta_posti' %}" method="post" class="row">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success mt-3 w-100" id="avanti" >Avanti</button>
+    <div class="col" id="voli_andata">
+    </div>
+    <div class="col" id="voli_ritorno">
+    </div>
+  </form>
 </div>
 
 {% endblock %}

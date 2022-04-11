@@ -36,10 +36,10 @@ function Voli() {
         }
         
         for(let i=0; i<voli_andata.length; i++){
-            document.getElementById('voli_andata').append(Genera_card(voli_andata[i]));
+            document.getElementById('voli_andata').append(Genera_card(voli_andata[i], 'andata'));
         }
         for(let i=0; i<voli_ritorno.length; i++){
-            document.getElementById('voli_ritorno').append(Genera_card(voli_ritorno[i]));
+            document.getElementById('voli_ritorno').append(Genera_card(voli_ritorno[i], 'ritorno'));
         }
     
     })
@@ -47,7 +47,7 @@ function Voli() {
 }
 
 
-function Genera_card(volo){
+function Genera_card(volo, check){
     const node = document.createElement('div');
     let card = '<div class="card mt-3 text-dark">'
                 +'<div class="card-body">'
@@ -57,7 +57,7 @@ function Genera_card(volo){
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'
-                +'<div> <input type="checkbox" class="btn-check" name="andata" id="andata" autocomplete="off" value="{{v.id}}"><label class="btn btn-outline-success" for="andata">Seleziona</label></div>'
+                +'<div> <input type="checkbox" class="btn-check" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="btn btn-outline-success" for="'+check+'">Seleziona</label></div>'
                 +'</div></div>';
     node.innerHTML = card;
     return node

@@ -19,20 +19,49 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{volo.aeroporto_di_partenza}}</td>
-                <td>{{volo.aeroporto_di_arrivo}}</td>
-                <td>{{volo.data_di_partenza}}</td>
-                <td>{{volo.data_di_arrivo}}</td>
-                <td>{{volo.ora_di_partenza}}</td>
-                <td>{{volo.ora_di_partenza}}</td>
-                <td>{{volo.prezzo_unitario_prima_classe}} €</td>
-                <td>{{volo.prezzo_unitario_seconda_classe}} €</td>
-                <td>{{volo.prezzo_unitario_terza_classe}} €</td>
+                <td>{{volo_andata.aeroporto_di_partenza}}</td>
+                <td>{{volo_andata.aeroporto_di_arrivo}}</td>
+                <td>{{volo_andata.data_di_partenza}}</td>
+                <td>{{volo_andata.data_di_arrivo}}</td>
+                <td>{{volo_andata.ora_di_partenza}}</td>
+                <td>{{volo_andata.ora_di_partenza}}</td>
+                <td>{{volo_andata.prezzo_unitario_prima_classe}} €</td>
+                <td>{{volo_andata.prezzo_unitario_seconda_classe}} €</td>
+                <td>{{volo_andata.prezzo_unitario_terza_classe}} €</td>
             </tr>
         </tbody>
     </table>
 
-    <button class="btn btn-success w-100" onclick="Posti('{{volo.id}}')">Scegli posti</button>
+    <table class="table text-light">
+        <thead>
+            <tr>
+                <th>Aeroporto di partenza</th>
+                <th>Aeroporto di arrivo</th>
+                <th>Data di partenza</th>
+                <th>Data d'arrivo</th>
+                <th>Ora di partenza</th>
+                <th>Ora d'arrivo</th>
+                <th>Prezzo 1° classe</th>
+                <th>Prezzo 2° classe</th>
+                <th>Prezzo 3° classe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{volo_ritorno.aeroporto_di_partenza}}</td>
+                <td>{{volo_ritorno.aeroporto_di_arrivo}}</td>
+                <td>{{volo_ritorno.data_di_partenza}}</td>
+                <td>{{volo_ritorno.data_di_arrivo}}</td>
+                <td>{{volo_ritorno.ora_di_partenza}}</td>
+                <td>{{volo_ritorno.ora_di_partenza}}</td>
+                <td>{{volo_ritorno.prezzo_unitario_prima_classe}} €</td>
+                <td>{{volo_ritorno.prezzo_unitario_seconda_classe}} €</td>
+                <td>{{volo_ritorno.prezzo_unitario_terza_classe}} €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-success w-100" onclick="Posti('{{volo_ritorno.id}}')">Scegli posti ritorno</button>
 </div>
 
 

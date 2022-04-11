@@ -54,11 +54,16 @@ def prenota_utente(request):
     }
     return render(request, 'App/pagine_utente/prenota/prenota.html', content)
 
-def scelta_posti(request, id):
-    volo = Volo.objects.get(id = id)
+def scelta_posti(request):
+    codice_volo_andata = request.POST.get('andata', '')
+    codice_volo_ritorno = request.POST.get('ritorno', '')
+    volo_andata = Volo.objects.get(codice = codice_volo_andata)
+    volo_ritorno = Volo.objects.get(codice = codice_volo_ritorno)
+
     content = {
         'form_prenota': PrenotaForm,
-        'volo': volo,
+        'volo_andata': volo_andata,
+        'volo_ritorno': volo_ritorno,
     }
     return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
 
