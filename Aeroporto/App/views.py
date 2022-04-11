@@ -437,8 +437,10 @@ def agg_prenotazioni(request):
     if request.method == 'POST':
         id_volo = request.POST.get('volo', '')
         volo = Volo.objects.get(id = id_volo)
-        form_volo = VoloForm(instance=volo)
-        
+        posti = list(request.POST.get('posti_prenotati', '').split(','))
+        volo.posti_totali -= len(posti)
+        volo.save()
+
         form = PrenotaForm(request.POST)
         if form.is_valid():
             form.save()
