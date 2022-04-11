@@ -23,17 +23,17 @@ function Voli() {
 
     const API_VOLI = 'http://localhost:8000/apivolo/';
     fetch(API_VOLI)
-      .then(response => response.json())
-      .then(data => {
+    .then(response => response.json())
+    .then(data => {
         let voli = [];
         for (let i = 0; i < data.lenght; i++) {
-           console.log('for');
-          if (data[i].aeroporto_di_partenza.id == aeroporto_andata & data[i].aeroporto_di_arrivo.id == aeroporto_ritorno & data[i].data_di_partenza == data_andata & data[i].data_di_arrivo == data_ritorno & data[i].posti_totali >= n_posti) {
-            console.log('mammita')
-            voli.push(data);
-          }
+            console.log('for');
+            if (data[i].aeroporto_di_partenza.id == aeroporto_andata & data[i].aeroporto_di_arrivo.id == aeroporto_ritorno & data[i].data_di_partenza == data_andata & data[i].data_di_arrivo == data_ritorno & data[i].posti_totali >= n_posti) {
+                console.log('mammita');
+                voli.push(data);
+            }
         }
         console.log(voli);
-      })
-      .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 }
