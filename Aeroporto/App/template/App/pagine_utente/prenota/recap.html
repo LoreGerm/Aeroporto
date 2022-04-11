@@ -20,13 +20,13 @@
                 <form action="{% url 'acquista' %}" method="post">
                     {% csrf_token %}
                     <div class="d-none">
-                        <input type="text" value="{{nome_ut}}" class="d-none" name="nome">
-                        <input type="text" value="{{cognome_ut}}" class="d-none" name="cognome">
-                        <input type="text" value="{{email_ut}}" class="d-none" name="email">
-                        <input type="text" value="{{telefono_ut}}" class="d-none" name="telefono">
-                        <input type="text" value="{{volo.id}}" class="d-none" name="volo">
-                        <input type="text" value="{{posti}}" class="d-none" name="posti">
-                        <input type="text" value="{{prezzo_tot}}" class="d-none" name="prezzo_tot">
+                        <input type="text" value="{{nome_ut}}" name="nome">
+                        <input type="text" value="{{cognome_ut}}" name="cognome">
+                        <input type="text" value="{{email_ut}}" name="email">
+                        <input type="text" value="{{telefono_ut}}" name="telefono">
+                        <input type="text" value="{{volo.id}}" name="volo">
+                        <input type="text" value="{{posti}}" name="posti">
+                        <input type="text" value="{{prezzo_tot}}" name="prezzo_tot">
                         {{prenota_form.codice}}
                     </div>
                     <button type="submit" class="btn btn-success btn-lg w-50">Acquista</button>
