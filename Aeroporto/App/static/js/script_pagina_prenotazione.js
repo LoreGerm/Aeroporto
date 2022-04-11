@@ -26,7 +26,7 @@ function Voli() {
     .then(response => response.json())
     .then(data => {
         let voli = [];
-        for (let i = 0; i < data.lenght; i++) {
+        for (let i=0; i<data.lenght; i++) {
             console.log('for');
             if (data[i].aeroporto_di_partenza.id == aeroporto_andata & data[i].aeroporto_di_arrivo.id == aeroporto_ritorno & data[i].data_di_partenza == data_andata & data[i].data_di_arrivo == data_ritorno & data[i].posti_totali >= n_posti) {
                 console.log('mammita');
