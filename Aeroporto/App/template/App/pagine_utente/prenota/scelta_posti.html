@@ -72,24 +72,27 @@
 </div>
 
 
-<div id="tabella_posti" class="conatiner mt-3 row d-none p-3 bg-dark bg-opacity-75 rounded">
+<div id="tabella_posti" class="conatiner mt-3 d-none p-3 bg-dark bg-opacity-75 rounded">
 
-    <form action="{% url 'dati_utente' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn-lg btn-success w-25">Avanti</button>
-        <div class="d-none">
-            <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
-            <input type="number" value="0" id="id_prezzo_totale" name="prezzo_tot">
-            <input type="text" id="posti_prenotati_andata">
-            <input type="text" id="posti_prenotati_andata">
-            <!--{{form_prenota_andata.posti_prenotati}}-->
-        </div>
-    </form>
+    <div class="d-none" id="form">
+        <form action="{% url 'dati_utente' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-lg btn-success w-25">Avanti</button>
+            <div class="d-none">
+                <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
+                <input type="number" value="0" id="id_prezzo_totale" name="prezzo_tot">
+                <input type="text" id="posti_prenotati_andata">
+                <input type="text" id="posti_prenotati_ritorno">
+                <!--{{form_prenota_andata.posti_prenotati}}-->
+            </div>
+        </form>
+
+    </div>
 
 
-    <div id="andata" class="col d-none mt-2">
-        <button type="submit" class="btn btn-success w-25">Conferma</button>
-        <table class="mt-2 table text-light">
+    <div id="andata" class=" d-none mt-2">
+        <button type="submit" class="btn btn-success w-25" onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Conferma</button>
+        <table class="mt-2 table text-light w-25">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -107,8 +110,7 @@
     </div>
 
 
-
-    <div id="ritorno" class="col d-none p-3 bg-dark bg-opacity-75 rounded">
+    <div id="ritorno" class=" d-none p-3 bg-dark bg-opacity-75 rounded">
 
         <button type="submit" class="btn btn-success w-25">Continua</button>
 

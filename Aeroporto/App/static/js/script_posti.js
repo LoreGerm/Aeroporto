@@ -32,7 +32,7 @@ function Posti(id_volo='', id_div_posti){
 
 function Genera_posti(id_volo, posti_prenotati, id_div_posti) {
     document.getElementById('id_prezzo_totale').value = 0;
-    document.getElementById(id_div_posti).innerHTML = '';
+    document.getElementById('posti_'+id_div_posti).innerHTML = '';
     const API_VOLI = 'http://localhost:8000/apivolo/';
     fetch(API_VOLI+id_volo)
         .then(response => response.json())
@@ -52,7 +52,7 @@ function Genera_posti(id_volo, posti_prenotati, id_div_posti) {
             document.getElementById('tabella_posti').classList.remove('d-none');
 
             for (let i = 1; i <= content.posti; i++){
-                document.getElementById(id_div_posti).append(Fila(i,content, posti_prenotati));
+                document.getElementById('posti_'+id_div_posti).append(Fila(i,content, posti_prenotati, id_div_posti));
             }
         })
         .catch(err => console.log(err));
@@ -60,7 +60,7 @@ function Genera_posti(id_volo, posti_prenotati, id_div_posti) {
 
 
 
-function Fila(i,content, posti_prenotati) {
+function Fila(i,content, posti_prenotati, id_div_posti) {
 
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>';
@@ -70,15 +70,15 @@ function Fila(i,content, posti_prenotati) {
 
         if(!posti_prenotati.includes(lettere[j] + i.toString())){
             if (content.posti_prima_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.value,'+content.prezzo_prima_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.value,'+content.prezzo_prima_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_prima_classe--;
             }
             else if(content.posti_seconda_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.value,'+content.prezzo_seconda_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.value,'+content.prezzo_seconda_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_seconda_classe--;
             }
             else{
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.value,'+content.prezzo_terza_classe+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.value,'+content.prezzo_terza_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
             }
         }
         else{
@@ -101,10 +101,10 @@ function Fila(i,content, posti_prenotati) {
 
 
 
-function Scelta(id, prezzo) {
+function Scelta(id, prezzo, id_div_posti) {
     if (!document.getElementById(id).classList.contains('btn-lg')) {
         posti_scelti.push(id);
-        document.getElementById('posti_prenotati').value = posti_scelti;
+        document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
         document.getElementById(id).classList.add('btn-lg');
@@ -114,7 +114,7 @@ function Scelta(id, prezzo) {
     }
     else {
         posti_scelti.pop(id);
-        document.getElementById('posti_prenotati').value = posti_scelti;
+        document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
         let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
         document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
         document.getElementById(id).classList.remove('btn-lg');
