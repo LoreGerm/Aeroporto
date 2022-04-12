@@ -74,13 +74,15 @@ def dati_utente(request):
     if request.method == 'POST':
         volo_id = request.POST.get('id_volo', '')
         volo = Volo.objects.get(id = volo_id)
-        posti = request.POST['posti_prenotati']
+        posti_prenotati_andata = request.POST['posti_prenotati_andata']
+        posti_prenotati_ritorno = request.POST['posti_prenotati_ritorno']
         prezzo_tot = request.POST.get('prezzo_tot', '')
 
     content = {
         'form_utente': utente_form,
         'volo': volo,
-        'posti': posti,
+        'posti_prenotati_andata': posti_prenotati_andata,
+        'posti_prenotati_ritorno': posti_prenotati_ritorno,
         'prezzo_tot': prezzo_tot,
     }
     return render(request, 'App/pagine_utente/prenota/form_utente.html', content)

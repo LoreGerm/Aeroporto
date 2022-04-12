@@ -64,23 +64,31 @@
     </table>
 
     <div class="row">
-        <button class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata')">Scegli posti andata</button>
-        <button class="btn btn-success border border-dark col" onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Scegli posti ritorno</button>
+        <button class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata')">Scegli
+            posti andata</button>
+        <button class="btn btn-success border border-dark col d-none"
+            onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Scegli posti ritorno</button>
     </div>
 </div>
 
 
-<div id="tabella_posti" class="conatiner mt-3 row">
-    <div id="andata" class="col d-none p-3 bg-dark bg-opacity-75 rounded">
-        <form action="{% url 'dati_utente' %}" method="post">
-            {% csrf_token %}
-            <div class="d-none">
-                <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
-                <input type="number" value="0" id="id_prezzo_totale" name="prezzo_tot">
-                {{form_prenota_andata.posti_prenotati}}
-            </div>
-            <button type="submit" class="btn btn-success w-25">Continua</button>
-        </form>
+<div id="tabella_posti" class="conatiner mt-3 row d-none p-3 bg-dark bg-opacity-75 rounded">
+
+    <form action="{% url 'dati_utente' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-lg btn-success w-25">Avanti</button>
+        <div class="d-none">
+            <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
+            <input type="number" value="0" id="id_prezzo_totale" name="prezzo_tot">
+            <input type="text" id="posti_prenotati_andata">
+            <input type="text" id="posti_prenotati_andata">
+            <!--{{form_prenota_andata.posti_prenotati}}-->
+        </div>
+    </form>
+
+
+    <div id="andata" class="col d-none mt-2">
+        <button type="submit" class="btn btn-success w-25">Conferma</button>
         <table class="mt-2 table text-light">
             <thead>
                 <tr>
@@ -98,16 +106,12 @@
         </table>
     </div>
 
+
+
     <div id="ritorno" class="col d-none p-3 bg-dark bg-opacity-75 rounded">
-        <form action="{% url 'dati_utente' %}" method="post">
-            {% csrf_token %}
-            <div class="d-none">
-                <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
-                <input type="number" value="0" id="id_prezzo_totale" name="prezzo_tot">
-                {{form_prenota_ritorna.posti_prenotati}}
-            </div>
-            <button type="submit" class="btn btn-success w-25">Continua</button>
-        </form>
+
+        <button type="submit" class="btn btn-success w-25">Continua</button>
+
         <table class="mt-2 table text-light">
             <thead>
                 <tr>
@@ -124,7 +128,8 @@
             </tbody>
         </table>
     </div>
-    
+
 </div>
+
 
 {% endblock %}
