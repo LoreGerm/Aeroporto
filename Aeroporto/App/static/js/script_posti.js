@@ -2,7 +2,17 @@
 
 
 let posti_scelti = [];
-function Posti(id_volo='', id_div_posti){
+function Posti(id_volo='', id_div_posti=''){
+
+    if(id_div_posti == 'andata'){
+        document.getElementById('ritorno').classList.add('d-none');
+        document.getElementById('andata').classList.remove('d-none');
+    }
+    else{
+        document.getElementById('andata').classList.add('d-none');
+        document.getElementById('ritorno').classList.remove('d-none');
+    }
+
     posti_scelti = [];
     if(id_volo == ''){
         id_volo = parseInt(document.getElementById('volo').value);
@@ -31,7 +41,7 @@ function Posti(id_volo='', id_div_posti){
 
 
 function Genera_posti(id_volo, posti_prenotati, id_div_posti) {
-    document.getElementById('id_prezzo_totale').value = 0;
+    document.getElementById('prezzo_totale_'+id_div_posti).value = 0;
     document.getElementById('posti_'+id_div_posti).innerHTML = '';
     const API_VOLI = 'http://localhost:8000/apivolo/';
     fetch(API_VOLI+id_volo)
@@ -105,8 +115,8 @@ function Scelta(id, prezzo, id_div_posti) {
     if (!document.getElementById(id).classList.contains('btn-lg')) {
         posti_scelti.push(id);
         document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
-        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
-        document.getElementById('id_prezzo_totale').value = input_prezzo + prezzo;
+        let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
+        document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo + prezzo;
         document.getElementById(id).classList.add('btn-lg');
         document.getElementById(id).classList.add('border');
         document.getElementById(id).classList.add('border-success');
@@ -115,8 +125,8 @@ function Scelta(id, prezzo, id_div_posti) {
     else {
         posti_scelti.pop(id);
         document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
-        let input_prezzo = document.getElementById('id_prezzo_totale').valueAsNumber;
-        document.getElementById('id_prezzo_totale').value = input_prezzo - prezzo;
+        let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
+        document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo - prezzo;
         document.getElementById(id).classList.remove('btn-lg');
         document.getElementById(id).classList.remove('border');
         document.getElementById(id).classList.remove('border-success');
