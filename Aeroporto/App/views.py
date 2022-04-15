@@ -39,20 +39,9 @@ class UtenteApi(viewsets.ModelViewSet):
 # Create your views here.
 
 def prenota_utente(request):
-    voli = []
-    if request.method == 'POST':
-        partenza = request.POST['aeroporto_di_partenza']
-        arrivo = request.POST['aeroporto_di_arrivo']
-        data_partenza = request.POST['data_di_partenza']
-        n_posti = request.POST['n_posti']
-        
-        voli = Volo.objects.filter(Q(aeroporto_di_partenza = partenza) & Q(aeroporto_di_arrivo = arrivo) & Q(data_di_partenza = data_partenza) & Q(posti_totali__gte = n_posti))
-
     content = {
         'form_volo': VoloForm,
-        'voli': voli,
     }
-
     return render(request, 'App/pagine_utente/prenota/prenota.html', content)
 
 
@@ -72,18 +61,23 @@ def scelta_posti(request):
 
 def dati_utente(request):
     if request.method == 'POST':
-        volo_id = request.POST.get('id_volo', '')
-        volo = Volo.objects.get(id = volo_id)
-        posti_prenotati_andata = request.POST['posti_prenotati_andata']
-        posti_prenotati_ritorno = request.POST['posti_prenotati_ritorno']
-        prezzo_tot = request.POST.get('prezzo_tot', '')
+        id_volo_andata = request.POST.get('id_volo_andata', '')
+        id_volo_ritorno = request.POST.get('id_volo_ritorno', '')
+        volo_andata = Volo.objects.get(id = id_volo_andata)
+        volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
+        posti_prenotati_andata = request.POST.get('posti_prenotati_andata', '')
+        posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+        prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
+        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
 
     content = {
         'form_utente': utente_form,
-        'volo': volo,
+        'volo_andata': volo_andata,
+        'volo_ritorno': volo_ritorno,
         'posti_prenotati_andata': posti_prenotati_andata,
         'posti_prenotati_ritorno': posti_prenotati_ritorno,
-        'prezzo_tot': prezzo_tot,
+        'prezzo_totale_andata': prezzo_totale_andata,
+        'prezzo_totale_ritorno': prezzo_totale_ritorno,
     }
     return render(request, 'App/pagine_utente/prenota/form_utente.html', content)
 
@@ -93,10 +87,14 @@ def recap(request):
         cognome_ut = request.POST['cognome']
         email_ut = request.POST['email']
         telefono_ut = request.POST['telefono']
-        volo_id = request.POST.get('id_volo', '')
-        volo = Volo.objects.get(id = volo_id)
-        posti = request.POST['posti']
-        prezzo_tot = request.POST['prezzo_tot']
+        id_volo_andata = request.POST.get('id_volo_andata', '')
+        id_volo_ritorno = request.POST.get('id_volo_ritorno', '')
+        volo_andata = Volo.objects.get(id = id_volo_andata)
+        volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
+        posti_prenotati_andata = request.POST.get('posti_prenotati_andata', '')
+        posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+        prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
+        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
 
     content = {
         'prenota_form': PrenotaForm,
@@ -104,9 +102,12 @@ def recap(request):
         'cognome_ut': cognome_ut,
         'email_ut': email_ut,
         'telefono_ut': telefono_ut,
-        'volo': volo,
-        'posti': posti,
-        'prezzo_tot': prezzo_tot,
+        'volo_andata': volo_andata,
+        'volo_ritorno': volo_ritorno,
+        'posti_prenotati_andata': posti_prenotati_andata,
+        'posti_prenotati_ritorno': posti_prenotati_ritorno,
+        'prezzo_totale_andata': prezzo_totale_andata,
+        'prezzo_totale_ritorno': prezzo_totale_ritorno,
     }
     return render(request, 'App/pagine_utente/prenota/recap.html', content)
 

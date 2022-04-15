@@ -64,15 +64,28 @@
     </table>
 
     <div class="row">
-        <button class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata')">Scegli
-            posti andata</button>
-        <button class="btn btn-success border border-dark col d-none"
-            onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Scegli posti ritorno</button>
+        <button id="btn-andata" class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata')">Scegli posti andata</button>
+        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none" onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Scegli posti ritorno</button>
+        <div class="d-none col" id="form">
+            <form action="{% url 'dati_utente' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-lg btn-success w-100">Avanti</button>
+                <div class="d-none">
+                    <input type="text" value="{{volo_ritorno.id}}" name="id_volo_ritorno">
+                    <input type="text" value="{{volo_andata.id}}" name="id_volo_andata">
+                    <input type="number" value="0" id="prezzo_totale_andata" name="prezzo_totale_andata" required>
+                    <input type="number" value="0" id="prezzo_totale_ritorno" name="prezzo_totale_ritorno" required>
+                    <input type="text" id="posti_prenotati_andata" name="posti_prenotati_andata" required>
+                    <input type="text" id="posti_prenotati_ritorno" name="posti_prenotati_ritorno" required>
+                    <!--{{form_prenota_andata.posti_prenotati}}-->
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 
-<div id="tabella_posti" class="row conatiner mt-3 d-none p-3 bg-dark bg-opacity-75 rounded">
+<div id="tabella_posti" class="row  mt-3 d-none p-3 bg-dark bg-opacity-75 rounded">
 
     <div class="d-flex justify-content-center">
         <span class="bg-warning p-1 rounded text-dark">Prima classe</span>
@@ -81,25 +94,8 @@
     </div>
 
 
-    <div class="d-non" id="form">
-        <form action="{% url 'dati_utente' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn-lg btn-success w-25">Avanti</button>
-            <div class="d-non">
-                <input type="text" value="{{volo_ritorno.id}}" name="id_volo">
-                <input type="number" value="0" id="prezzo_totale_andata" name="prezzo_totale_andata">
-                <input type="number" value="0" id="prezzo_totale_ritorno" name="prezzo_totale_ritorno">
-                <input type="text" id="posti_prenotati_andata">
-                <input type="text" id="posti_prenotati_ritorno">
-                <!--{{form_prenota_andata.posti_prenotati}}-->
-            </div>
-        </form>
 
-    </div>
-
-
-    <div id="andata" class="d-none mt-2 col">
-        <button type="submit" class="btn btn-success w-50" onclick="Posti('{{volo_ritorno.id}}', 'ritorno')">Conferma</button>
+    <div id="andata" class="d-none mt-2 col d-flex justify-content-center">
         <table class="mt-2 table text-light w-50">
             <thead>
                 <tr>
@@ -118,10 +114,7 @@
     </div>
 
 
-    <div id="ritorno" class=" d-none mt-2 col">
-
-        <button type="submit" class="btn btn-success w-50">Continua</button>
-
+    <div id="ritorno" class=" d-none mt-2 col d-flex justify-content-center">
         <table class="mt-2 table text-light w-50">
             <thead>
                 <tr>
