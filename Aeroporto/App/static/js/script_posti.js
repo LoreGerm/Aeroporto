@@ -4,7 +4,10 @@
 let posti_scelti = [];
 function Posti(id_volo='', id_div_posti=''){
 
-    if(id_div_posti == 'andata'){
+    if(id_div_posti == ''){
+        document.getElementById('tabella_posti').classList.remove('d-none');
+    }
+    else if(id_div_posti == 'andata'){
         document.getElementById('btn-ritorno').classList.remove('d-none');
         document.getElementById('btn-andata').classList.add('d-none');
 

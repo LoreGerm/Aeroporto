@@ -58,12 +58,21 @@
 
 <form action="{% url 'acquista' %}" method="post" class="mt-3">
     {% csrf_token %}
-    <div class="d-non">
-        <input type="text" value="{{volo_ritorno.id}}" name="volo_ritorno">
+    <div class="d-none">
+        <input type="text" value="{{nome_ut}}" name="nome">
+        <input type="text" value="{{cognome_ut}}" name="cognome">
+        <input type="text" value="{{email_ut}}" name="email">
+        <input type="text" value="{{telefono_ut}}" name="telefono">
+
+        <input type="text" value="{{volo_ritorno.id}}" name="volo_ritorno_id">
+        <input type="text" value="{{volo_andata.id}}" name="volo_andata_id">
+
         <input type="text" value="{{posti_prenotati_ritorno}}" name="posti_prenotati_ritorno">
+        <input type="text" value="{{posti_prenotati_andata}}" name="posti_prenotati_andata">
         <input type="text" value="{{prezzo_totale_ritorno}}" name="prezzo_totale_ritorno">
-        {{prenota_form_ritorno.codice}}
+        <input type="text" value="{{prezzo_totale_andata}}" name="prezzo_totale_andata">
         {{prenota_form_andata.codice}}
+        {{prenota_form_ritorno.codice}}
     </div>
     <button type="submit" class="btn btn-success btn-lg w-100">Acquista</button>
 </form>

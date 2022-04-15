@@ -121,22 +121,30 @@ def acquista(request):
         utente = Utente(nome=nome, cognome=cognome, email=email, telefono=telefono)
         utente.save()
 
-        codice_pre = request.POST['codice']
-        volo_id = request.POST.get('volo', '')
-        volo = Volo.objects.get(id=volo_id)
-        posti = request.POST.get('posti', '')
-        prezzo_tot = request.POST.get('prezzo_tot', '')
-        prenotazione = Prenotazioni(codice=codice_pre, utente=utente, volo=volo, posti_prenotati=posti, prezzo_totale=prezzo_tot)
-        prenotazione.save()
+        codice_pre = request.POST.getlist('codice')
+
+        volo_andata_id = request.POST.get('volo_andata_id', '')
+        volo_andata = Volo.objects.get(id=volo_andata_id)
+        volo_ritorno_id = request.POST.get('volo_ritorno_id', '')
+        volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
+
+        posti_andata = request.POST.get('posti_prenotati_andata', '')
+        posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+        prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
+        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
+
+        prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
+        prenotazione_andata.save()
+        prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
+        prenotazione_ritorno.save()
 
         send_mail(
             'Codice prenotazione Starlato Airline',
-            'Codice della prenotazione: '+codice_pre ,
+            'Codice della prenotazione:   Andata --> '+codice_pre[0] + ' Ritorno --> '+codice_pre[1] ,
             'loregerm149@gmail.com',
             [email],
             fail_silently=False,
         )
-
     content = {
         'codice': codice_pre,
     }
