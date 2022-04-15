@@ -97,7 +97,8 @@ def recap(request):
         prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
 
     content = {
-        'prenota_form': PrenotaForm,
+        'prenota_form_andata': PrenotaForm,
+        'prenota_form_ritorno': PrenotaForm,
         'nome_ut': nome_ut,
         'cognome_ut': cognome_ut,
         'email_ut': email_ut,

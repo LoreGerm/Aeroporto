@@ -7,7 +7,7 @@ class VoloForm(forms.ModelForm):
         fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_totali')
 
         widgets =  {
-            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice', 'name':'codice'}),
             'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select', 'name':'aeroporto_di_partenza', 'id':'aeroporto_di_partenza'}),
             'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select', 'name': 'aeroporto_di_arrivo', 'id':'aeroporto_di_arrivo'}),
             'prezzo_unitario_prima_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
@@ -43,7 +43,7 @@ class AerportoForm(forms.ModelForm):
         fields = ('codice', 'nome', 'indirizzo', 'descrizione')
 
         widgets =  {
-            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice', 'name':'codice'}),
             'nome': forms.TextInput(attrs={'class':'form-control'}),
             'indirizzo': forms.Select(attrs={'class':'form-select'}),
             'descrizione': forms.Textarea(attrs={'class':'form-control'}),
@@ -71,7 +71,7 @@ class aereo_form(forms.ModelForm):
         fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
         widgets =  {
-            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'targa', 'id':'codice'}),
+            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'codice', 'id':'codice'}),
             'modello': forms.TextInput(attrs={'class':'form-control'}),
             'stato': forms.Select(attrs={'class':'form-select'}),
             'km_totali': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),

@@ -37,20 +37,6 @@
                     <h5 class="card-text">{{volo_andata.ora_di_partenza}} --> {{volo_andata.ora_di_arrivo}}</h5>
                     <h5 class="card-text">{{posti_prenotati_andata}} --> {{prezzo_totale_andata}} €</h5>
                 </div>
-                <form action="{% url 'acquista' %}" method="post">
-                    {% csrf_token %}
-                    <div class="d-non">
-                        <input type="text" value="{{nome_ut}}" name="nome">
-                        <input type="text" value="{{cognome_ut}}" name="cognome">
-                        <input type="text" value="{{email_ut}}" name="email">
-                        <input type="text" value="{{telefono_ut}}" name="telefono">
-                        <input type="text" value="{{volo_andata.id}}" name="volo_andata">
-                        <input type="text" value="{{posti_prenotati_andata}}" name="posti_prenotati_andata">
-                        <input type="text" value="{{prezzo_totale_andata}}" name="prezzo_totale_andata">
-                        {{prenota_form.codice}}
-                    </div>
-                    <button type="submit" class="btn btn-success btn-lg w-50">Acquista</button>
-                </form>
             </div>
         </div>
     </div>
@@ -65,23 +51,21 @@
                     <h5 class="card-text">{{volo_ritorno.ora_di_partenza}} --> {{volo_ritorno.ora_di_arrivo}}</h5>
                     <h5 class="card-text">{{posti_prenotati_ritorno}} --> {{prezzo_totale_ritorno}} €</h5>
                 </div>
-                <form action="{% url 'acquista' %}" method="post">
-                    {% csrf_token %}
-                    <div class="d-non">
-                        <input type="text" value="{{nome_ut}}" name="nome">
-                        <input type="text" value="{{cognome_ut}}" name="cognome">
-                        <input type="text" value="{{email_ut}}" name="email">
-                        <input type="text" value="{{telefono_ut}}" name="telefono">
-                        <input type="text" value="{{volo_ritorno.id}}" name="volo_ritorno">
-                        <input type="text" value="{{posti_prenotati_ritorno}}" name="posti_prenotati_ritorno">
-                        <input type="text" value="{{prezzo_totale_ritorno}}" name="prezzo_totale_ritorno">
-                        {{prenota_form.codice}}
-                    </div>
-                    <button type="submit" class="btn btn-success btn-lg w-50">Acquista</button>
-                </form>
             </div>
         </div>
     </div>
 </div>
+
+<form action="{% url 'acquista' %}" method="post" class="mt-3">
+    {% csrf_token %}
+    <div class="d-non">
+        <input type="text" value="{{volo_ritorno.id}}" name="volo_ritorno">
+        <input type="text" value="{{posti_prenotati_ritorno}}" name="posti_prenotati_ritorno">
+        <input type="text" value="{{prezzo_totale_ritorno}}" name="prezzo_totale_ritorno">
+        {{prenota_form_ritorno.codice}}
+        {{prenota_form_andata.codice}}
+    </div>
+    <button type="submit" class="btn btn-success btn-lg w-100">Acquista</button>
+</form>
 
 {% endblock %}
