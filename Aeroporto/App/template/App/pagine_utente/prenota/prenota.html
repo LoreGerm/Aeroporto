@@ -3,20 +3,31 @@
 {% block contenuto %}
 
 <div class="mt-5">
-  <div class="row">
+  <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="scelta" id="solo-andata" value="solo-andata" onclick="radio_btn(this.id)" checked>
+      <label class="form-check-label"> Solo andata </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="scelta" id="andata-ritorno" value="andata-ritorno" onclick="radio_btn(this.id)">
+      <label class="form-check-label"> Andata e ritorno </label>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
     <div class="col">
-      <label for="" class="form-label">Andata</label>
+      <label for="" class="form-label">Partenza</label>
       {{form_volo.aeroporto_di_partenza}}
     </div>
     <div class="col">
-      <label for="" class="form-label">Ritorno</label>
+      <label for="" class="form-label">Arrivo</label>
       {{form_volo.aeroporto_di_arrivo}}
     </div>
     <div class="col">
-      <label for="" class="form-label">Data di andata</label>
+      <label for="" class="form-label">Data di partenza</label>
       <input type="date" name="data_di_partenza" class="form-control" id="data_andata" required>
     </div>
-    <div class="col">
+    <div class="col d-none" id="div-data-ritorno">
       <label for="" class="form-label">Data di ritorno</label>
       <input type="date" name="data_di_ritorno" class="form-control" id="data_ritorno" required>
     </div>
@@ -29,7 +40,8 @@
       </div>
     </div>
     <div class="col position-relative">
-      <button class="btn btn-lg btn-success position-absolute bottom-0" type="button" onclick="Voli()"><i class="bi bi-search"></i></button>
+      <button class="btn btn-lg btn-success position-absolute bottom-0" type="button" onclick="Voli()"><i
+          class="bi bi-search"></i></button>
     </div>
   </div>
 </div>
@@ -37,10 +49,10 @@
 <div class="d-none mt-5" id="div_voli">
   <form action="{% url 'scelta_posti' %}" method="post" class="row">
     {% csrf_token %}
-    <button type="submit" class="btn btn-success mt-3 w-100" id="avanti" >Avanti</button>
+    <button type="submit" class="btn btn-success mt-3 w-100" id="avanti">Avanti</button>
     <div class="col" id="voli_andata">
     </div>
-    <div class="col" id="voli_ritorno">
+    <div class="col d-none" id="voli_ritorno">
     </div>
   </form>
 </div>

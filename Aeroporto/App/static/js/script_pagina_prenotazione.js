@@ -11,6 +11,22 @@ function Diminuisci(){
 }
 
 
+function radio_btn(id){
+    if(id=='andata-ritorno'){
+        document.getElementById('div-data-ritorno').classList.remove('d-none');
+        document.getElementById('voli_andata').innerHTML = '';
+        document.getElementById('voli_ritorno').innerHTML = '';
+        document.getElementById('div_voli').classList.add('d-none');
+    }
+    else{
+        document.getElementById('div-data-ritorno').classList.add('d-none');    
+        document.getElementById('voli_andata').innerHTML = '';
+        document.getElementById('voli_ritorno').innerHTML = '';
+        document.getElementById('div_voli').classList.add('d-none');
+    }
+}
+
+
 
 function Voli() {
     document.getElementById('div_voli').classList.remove('d-none');
@@ -38,8 +54,11 @@ function Voli() {
         for(let i=0; i<voli_andata.length; i++){
             document.getElementById('voli_andata').append(Genera_card(voli_andata[i], 'andata'));
         }
-        for(let i=0; i<voli_ritorno.length; i++){
-            document.getElementById('voli_ritorno').append(Genera_card(voli_ritorno[i], 'ritorno'));
+        if(data_ritorno != ''){
+            document.getElementById('voli_ritorno').classList.remove('d-none');
+            for(let i=0; i<voli_ritorno.length; i++){
+                document.getElementById('voli_ritorno').append(Genera_card(voli_ritorno[i], 'ritorno'));
+            }
         }
     
     })
