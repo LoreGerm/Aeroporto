@@ -22,7 +22,9 @@ function radio_btn(id){
         document.getElementById('div-data-ritorno').classList.add('d-none');    
         document.getElementById('voli_andata').innerHTML = '';
         document.getElementById('voli_ritorno').innerHTML = '';
+        document.getElementById('voli_ritorno').classList.add('d-none');
         document.getElementById('div_voli').classList.add('d-none');
+        document.getElementById('data_ritorno').value = '';
     }
 }
 
