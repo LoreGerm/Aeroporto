@@ -2,6 +2,8 @@
 
 {% block contenuto %}
 
+{% load static %}
+
 <div class="mt-3 bg-dark p-3 rounded bg-opacity-75">
     <h3>Andata</h3>
     <table class="table text-light">
@@ -134,5 +136,7 @@
 
 </div>
 
+
+<script src="{% static 'js/script_posti_andata_ritorno.js' %}"></script>
 
 {% endblock %}

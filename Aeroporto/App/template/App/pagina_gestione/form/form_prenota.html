@@ -1,6 +1,8 @@
 {% extends 'App/pagina_gestione/form/base_form.html' %}
 {% block contenuto %}
 
+{% load static %}
+
 <div class="mb-2 row">
     <div class="col">
         <label class="form-label">Codice</label>
@@ -60,5 +62,6 @@
 </div>
 
 
+<script src="{% static 'js/script_posti_singoli.js' %}"></script>
 
 {% endblock %}
