@@ -2,25 +2,32 @@
 
 
 let posti_scelti = [];
-function Posti(id_volo='', id_div_posti=''){
+function Posti(id_volo='', id_div_posti='', volo_ritorno=''){
 
     if(id_div_posti == ''){
         document.getElementById('tabella_posti').classList.remove('d-none');
     }
-    else if(id_div_posti == 'andata'){
+    else if(id_div_posti == 'andata' && volo_ritorno!=''){
         document.getElementById('btn-ritorno').classList.remove('d-none');
         document.getElementById('btn-andata').classList.add('d-none');
 
         document.getElementById('ritorno').classList.add('d-none');
         document.getElementById('andata').classList.remove('d-none');
     }
-    else{
+    else if(id_div_posti == 'ritorno' && volo_ritorno!=''){
         document.getElementById('form').classList.remove('d-none');
 
         document.getElementById('btn-ritorno').classList.add('d-none');
 
         document.getElementById('andata').classList.add('d-none');
         document.getElementById('ritorno').classList.remove('d-none');
+    }
+    else{
+        document.getElementById('btn-andata').classList.add('d-none');
+        document.getElementById('form').classList.remove('d-none');
+
+        document.getElementById('ritorno').classList.add('d-none');
+        document.getElementById('andata').classList.remove('d-none');        
     }
 
     posti_scelti = [];

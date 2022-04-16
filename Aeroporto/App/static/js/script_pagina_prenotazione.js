@@ -30,7 +30,10 @@ function radio_btn(id){
 
 
 
-function Voli() {
+function Voli() {    
+    document.getElementById('voli_andata').innerHTML = '';
+    document.getElementById('voli_ritorno').innerHTML = '';
+
     document.getElementById('div_voli').classList.remove('d-none');
     aeroporto_andata = document.getElementById('aeroporto_di_partenza').value;
     aeroporto_ritorno = document.getElementById('aeroporto_di_arrivo').value;

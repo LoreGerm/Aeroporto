@@ -48,8 +48,10 @@ def prenota_utente(request):
 def scelta_posti(request):
     codice_volo_andata = request.POST.get('andata', '')
     codice_volo_ritorno = request.POST.get('ritorno', '')
+    volo_ritorno = ''
     volo_andata = Volo.objects.get(codice = codice_volo_andata)
-    volo_ritorno = Volo.objects.get(codice = codice_volo_ritorno)
+    if codice_volo_ritorno != '':
+        volo_ritorno = Volo.objects.get(codice = codice_volo_ritorno)
 
     content = {
         'form_prenota_andata': PrenotaForm,
@@ -64,11 +66,16 @@ def dati_utente(request):
         id_volo_andata = request.POST.get('id_volo_andata', '')
         id_volo_ritorno = request.POST.get('id_volo_ritorno', '')
         volo_andata = Volo.objects.get(id = id_volo_andata)
-        volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
         posti_prenotati_andata = request.POST.get('posti_prenotati_andata', '')
-        posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
-        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
+
+        volo_ritorno = ''
+        posti_prenotati_ritorno = ''
+        prezzo_totale_ritorno = ''
+        if id_volo_ritorno != '':
+            volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
+            posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
 
     content = {
         'form_utente': utente_form,
@@ -89,12 +96,18 @@ def recap(request):
         telefono_ut = request.POST['telefono']
         id_volo_andata = request.POST.get('id_volo_andata', '')
         id_volo_ritorno = request.POST.get('id_volo_ritorno', '')
+
         volo_andata = Volo.objects.get(id = id_volo_andata)
-        volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
         posti_prenotati_andata = request.POST.get('posti_prenotati_andata', '')
-        posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
-        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
+
+        volo_ritorno = ''
+        posti_prenotati_ritorno = ''
+        prezzo_totale_ritorno = ''
+        if id_volo_ritorno != '':
+            volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
+            posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
 
     content = {
         'prenota_form_andata': PrenotaForm,
@@ -123,30 +136,42 @@ def acquista(request):
 
         codice_pre = request.POST.getlist('codice')
 
+        volo_ritorno_id = request.POST.get('volo_ritorno_id', '')
+        volo_ritorno = ''
+        if volo_ritorno_id != '':
+            volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
+            posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
+            prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
+            prenotazione_ritorno.save()
+
         volo_andata_id = request.POST.get('volo_andata_id', '')
         volo_andata = Volo.objects.get(id=volo_andata_id)
-        volo_ritorno_id = request.POST.get('volo_ritorno_id', '')
-        volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
-
         posti_andata = request.POST.get('posti_prenotati_andata', '')
-        posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
-        prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
-
         prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
         prenotazione_andata.save()
-        prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
-        prenotazione_ritorno.save()
 
-        send_mail(
-            'Codice prenotazione Starlato Airline',
-            'Codice della prenotazione:   Andata --> '+codice_pre[0] + ' Ritorno --> '+codice_pre[1] ,
-            'loregerm149@gmail.com',
-            [email],
-            fail_silently=False,
-        )
+        if volo_ritorno_id != '':
+            send_mail(
+                'Codice prenotazione Starlato Airline',
+                'Codice della prenotazione:   Andata --> '+codice_pre[0] + ' Ritorno --> '+codice_pre[1],
+                'loregerm149@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+        else:
+            send_mail(
+                'Codice prenotazione Starlato Airline',
+                'Codice della prenotazione:   Andata --> '+codice_pre[0],
+                'loregerm149@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+
     content = {
         'codice': codice_pre,
+        'volo_ritorno': volo_ritorno,
     }
     return render(request, 'App/pagine_utente/prenota/acquista.html', content)
 
