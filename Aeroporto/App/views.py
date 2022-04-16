@@ -527,7 +527,7 @@ def agg_aereo(request):
     content = {
         'form': aereo_form,
         'messaggio': messages,
-        'home': 'gestione_voli',
+        'home': 'gestione_aerei',
     }
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
