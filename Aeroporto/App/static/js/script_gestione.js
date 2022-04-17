@@ -193,12 +193,13 @@ function Genera_tbody(data, obj){
                 +'</div>';
     }
     else if(obj == 'aerei'){
+        let data_m = data.data_ultima_manutenzione.slice(8,10)+'/'+data.data_ultima_manutenzione.slice(5,7)+'/'+data.data_ultima_manutenzione.slice(0,4)
         td = '<td>'+data.targa+'</td>'
                 +'<td>'+data.modello+'</td>'
                 +'<td>'+data.stato+'</td>'
                 +'<td>'+data.km_totali+'</td>'
                 +'<td>'+data.km_da_ultima_manutenzione+'</td>'
-                +'<td>'+data.data_ultima_manutenzione+'</td>'
+                +'<td>'+data_m+'</td>'
                 +'<td>'+data.posti_prima_classe+'</td>'
                 +'<td>'+data.posti_seconda_classe+'</td>'
                 +'<td>'+data.posti_terza_classe+'</td>'
