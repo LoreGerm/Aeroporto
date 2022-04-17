@@ -238,7 +238,6 @@ def verifica_accesso(request):
 
 
 def gestione_voli(request):
-    voli = Volo.objects.all()
     content = {
         'agg': 'aggiungi_voli',
         'active_v': 'active',
@@ -246,14 +245,12 @@ def gestione_voli(request):
         'active_a': '',
         'active_ae': '',
         'obj':'voli',
-        'voli':voli,
         'cerca': 'cerca_voli',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_prenotazioni(request):
-    pren = Prenotazioni.objects.all()
     content = {
         'agg': 'aggiungi_prenotazioni',
         'active_v': '',
@@ -261,29 +258,25 @@ def gestione_prenotazioni(request):
         'active_a': '',
         'active_ae': '',
         'obj': 'pren',
-        'pren': pren,
         'cerca': 'cerca_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_aeroporti(request):
-    aeroporti = Aeroporto.objects.all()
     content = {
         'agg': 'aggiungi_aeroporti',
         'active_v': '',
         'active_p': '',
         'active_a': 'active',
         'active_ae': '',
-        'obj': 'Aeroporti',
-        'aeroporti': aeroporti,
+        'obj': 'aeroporti',
         'cerca': 'cerca_aeroporti',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_aerei(request):
-    aerei = Aereo.objects.all()
     content = {
         'agg': 'aggiungi_aereo',
         'active_v': '',
@@ -291,7 +284,6 @@ def gestione_aerei(request):
         'active_a': '',
         'active_ae': 'active',
         'obj': 'aerei',
-        'aerei': aerei,
         'cerca': 'cerca_aereo',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)

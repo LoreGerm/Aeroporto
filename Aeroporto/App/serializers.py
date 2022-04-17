@@ -19,7 +19,7 @@ class AeroportoJson(serializers.ModelSerializer):
 class AereoJson(serializers.ModelSerializer):
     class Meta:
         model = Aereo
-        fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
+        fields = ('id', 'targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
 
 class VoloJson(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class VoloJson(serializers.ModelSerializer):
     aereo = AereoJson()
     class Meta:
         model = Volo
-        fields = ('codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_totali')
+        fields = ('id', 'codice', 'aeroporto_di_partenza', 'aeroporto_di_arrivo', 'prezzo_unitario_prima_classe', 'prezzo_unitario_seconda_classe', 'prezzo_unitario_terza_classe', 'ora_di_partenza', 'ora_di_arrivo', 'data_di_partenza', 'data_di_arrivo', 'km', 'aereo', 'posti_totali')
 
     
 
@@ -42,6 +42,6 @@ class Utente_Json(serializers.ModelSerializer):
 class Prenotazioni_Json(serializers.ModelSerializer):
     class Meta:
         model = Prenotazioni
-        fields = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
+        fields = ('id', 'codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
 
 
