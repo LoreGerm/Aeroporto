@@ -141,6 +141,8 @@ def acquista(request):
         if volo_ritorno_id != '':
             volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
             posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            volo_ritorno.posti_totali -= len(list(posti_ritorno.split(',')))
+            volo_ritorno.save()
             prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
             prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
             prenotazione_ritorno.save()
@@ -148,6 +150,8 @@ def acquista(request):
         volo_andata_id = request.POST.get('volo_andata_id', '')
         volo_andata = Volo.objects.get(id=volo_andata_id)
         posti_andata = request.POST.get('posti_prenotati_andata', '')
+        volo_andata.posti_totali -= len(list(posti_andata.split(',')))
+        volo_andata.save()
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
         prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
         prenotazione_andata.save()
