@@ -223,7 +223,7 @@ function Genera_tbody(data, obj){
                 +'</div>';
     }
     tr.innerHTML = td;
-    div_modal = document.getElementById('modal').innerHTML = modal;
+    document.getElementById('modal').append(modal);
 
     return tr
 }
