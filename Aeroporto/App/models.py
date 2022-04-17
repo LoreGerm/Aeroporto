@@ -12,7 +12,7 @@ class Admin(models.Model):
 
 
 class Aereo(models.Model):
-    targa = models.CharField(max_length=50, null=True, unique=True)
+    codice = models.CharField(max_length=50, null=True, unique=True)
     modello = models.CharField(max_length=50, null=True, unique=True)
     in_volo = 'In volo'
     pronto = 'Pronto'

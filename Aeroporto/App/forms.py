@@ -68,10 +68,10 @@ class Indirizzo_a_form(forms.ModelForm):
 class aereo_form(forms.ModelForm):
     class Meta:
         model = Aereo
-        fields = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
+        fields = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
         widgets =  {
-            'targa': forms.TextInput(attrs={'class':'form-control', 'name':'codice', 'id':'codice'}),
+            'codice': forms.TextInput(attrs={'class':'form-control', 'name':'codice', 'id':'codice'}),
             'modello': forms.TextInput(attrs={'class':'form-control'}),
             'stato': forms.Select(attrs={'class':'form-select'}),
             'km_totali': forms.NumberInput(attrs={'class':'form-control', 'type':'number'}),

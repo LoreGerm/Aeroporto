@@ -1,87 +1,89 @@
 
 
-function Genera_gestione(obj){
+function Cerca(obj, cerca) {
 
     let API = '';
 
-    if(obj == 'voli'){
+    if (obj == 'voli') {
         API = 'http://localhost:8000/apivolo/';
     }
-    else if(obj == 'pren'){
+    else if (obj == 'pren') {
         API = 'http://localhost:8000/apiprenotazione/';
     }
-    else if(obj == 'aeroporti'){
+    else if (obj == 'aeroporti') {
         API = 'http://localhost:8000/apiaeroporto/';
     }
-    else if(obj == 'aerei'){
+    else if (obj == 'aerei') {
         API = 'http://localhost:8000/apiaereo/';
     }
 
-    
+
     document.getElementById('thead').innerHTML = Genera_thead(obj);
 
     fetch(API)
-    .then(response => response.json())
-    .then(data => {
+        .then(response => response.json())
+        .then(data => {
 
-        for(let i=0; i < data.length; i++){
-            document.getElementById('tbody').append(Genera_tbody(data[i], obj));
-        }
+            for (let i = 0; i < data.length; i++) {
+                if(data[i].codice.includes(cerca)){
+                    document.getElementById('tbody').append(Genera_tbody(data[i], obj));
+                }
+            }
 
-    })
-    .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
 }
 
 
 
 
-function Genera_thead(obj){
+function Genera_thead(obj) {
     let thead = '';
-    if(obj == 'voli'){
+    if (obj == 'voli') {
         thead = '<th>Codice</th>'
-                    +'<th>Partenza</th>'
-                    +'<th>Arrivo</th>'
-                    +'<th>Prezzo 1° classe</th>'
-                    +'<th>Prezzo 2° classe</th>'
-                    +'<th>Prezzo 3° classe</th>'
-                    +'<th>Posti totali</th>'
-                    +'<th>Ora di partenza</th>'
-                    +'<th>Ora di arrivo</th>'
-                    +'<th>Data di partenza</th>'
-                    +'<th>Data di arrivo</th>'
-                    +'<th>Km</th>'
-                    +'<th>Aereo</th>';
+            + '<th>Partenza</th>'
+            + '<th>Arrivo</th>'
+            + '<th>Prezzo 1° classe</th>'
+            + '<th>Prezzo 2° classe</th>'
+            + '<th>Prezzo 3° classe</th>'
+            + '<th>Posti totali</th>'
+            + '<th>Ora di partenza</th>'
+            + '<th>Ora di arrivo</th>'
+            + '<th>Data di partenza</th>'
+            + '<th>Data di arrivo</th>'
+            + '<th>Km</th>'
+            + '<th>Aereo</th>';
     }
-    else if(obj == 'pren'){
+    else if (obj == 'pren') {
         thead = '<th>Codice</th>'
-                    +'<th>Nome utente</th>'
-                    +'<th>Cognome utente</th>'
-                    +'<th>email utente</th>'
-                    +'<th>Telefono utente</th>'
-                    +'<th>Codice volo</th>'
-                    +'<th>Posti prenotati</th>'
-                    +'<th>Prezzo totale</th>';
+            + '<th>Nome utente</th>'
+            + '<th>Cognome utente</th>'
+            + '<th>email utente</th>'
+            + '<th>Telefono utente</th>'
+            + '<th>Codice volo</th>'
+            + '<th>Posti prenotati</th>'
+            + '<th>Prezzo totale</th>';
     }
-    else if(obj == 'aeroporti'){
+    else if (obj == 'aeroporti') {
         thead = '<th>Codice</th>'
-                    +'<th>Nome</th>'
-                    +'<th>Descrizione</th>'
-                    +'<th>Via</th>'
-                    +'<th>Numero civico</th>'
-                    +'<th>Stato</th>'
-                    +'<th>Citta</th>'
-                    +'<th>Provincia</th>';
+            + '<th>Nome</th>'
+            + '<th>Descrizione</th>'
+            + '<th>Via</th>'
+            + '<th>Numero civico</th>'
+            + '<th>Stato</th>'
+            + '<th>Citta</th>'
+            + '<th>Provincia</th>';
     }
-    else if(obj == 'aerei'){
+    else if (obj == 'aerei') {
         thead = '<th>Codice</th>'
-                    +'<th>Modello</th>'
-                    +'<th>Stato</th>'
-                    +'<th>Km totali</th>'
-                    +'<th>Km ultima manutenzione</th>'
-                    +'<th>Data ultima manutenzione</th>'
-                    +'<th>Posti 1° classe</th>'
-                    +'<th>Posti 2° classe</th>'
-                    +'<th>Posti 3° classe</th>';
+            + '<th>Modello</th>'
+            + '<th>Stato</th>'
+            + '<th>Km totali</th>'
+            + '<th>Km ultima manutenzione</th>'
+            + '<th>Data ultima manutenzione</th>'
+            + '<th>Posti 1° classe</th>'
+            + '<th>Posti 2° classe</th>'
+            + '<th>Posti 3° classe</th>';
     }
     return thead;
 }

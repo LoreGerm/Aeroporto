@@ -20,7 +20,7 @@ class AeroportoJson(serializers.ModelSerializer):
 class AereoJson(serializers.ModelSerializer):
     class Meta:
         model = Aereo
-        fields = ('id', 'targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
+        fields = ('id', 'codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione', 'posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe')
 
 
 class VoloJson(serializers.ModelSerializer):

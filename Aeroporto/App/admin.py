@@ -28,8 +28,8 @@ class PersonaleAdmin(admin.ModelAdmin):
 admin.site.register(Personale, PersonaleAdmin)
 
 class AereoAdmin(admin.ModelAdmin):
-    list_display = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
-    list_filter = ('targa', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
+    list_display = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
+    list_filter = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
 admin.site.register(Aereo, AereoAdmin)
 
 class TurniAdmin(admin.ModelAdmin):

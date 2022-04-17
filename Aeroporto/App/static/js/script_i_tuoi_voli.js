@@ -1,5 +1,0 @@
-
-
-function Cerca_pren(){
-    
-}
