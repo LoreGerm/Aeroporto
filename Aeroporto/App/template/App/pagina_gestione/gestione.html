@@ -20,18 +20,16 @@
     </div>
   </nav>
 
-  <form action="{% url cerca %}" method="post">
-    {% csrf_token %}
-    <div class="row mt-3">
-      <div class="input-group  w-25 col-4">
-        <input type="text" name="cerca" class="form-control" placeholder="Cerca">
-        <button type="submit" class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
-      </div>
-      <div class="col">
-        <a class="btn btn-success" type="button" aria-current="page" href="{% url agg %}">Aggiungi</a>
-      </div>
+
+  <div class="row mt-3">
+    <div class="input-group  w-25 col-4">
+      <input type="text" name="cerca" class="form-control" placeholder="Cerca" id="cerca">
+      <button type="button" class="input-group-text btn btn-primary" onclick="Cerca('{{obj}}')"><i class="bi bi-search"></i></button>
     </div>
-  </form>
+    <div class="col">
+      <a class="btn btn-success" type="button" aria-current="page" href="{% url agg %}">Aggiungi</a>
+    </div>
+  </div>
 
 
   <div class="bg-dark p-3 mt-5 rounded bg-opacity-75">

@@ -1,6 +1,6 @@
 
 
-function Cerca(obj, cerca) {
+function Cerca(obj) {
 
     let API = '';
 
@@ -25,7 +25,7 @@ function Cerca(obj, cerca) {
         .then(data => {
 
             for (let i = 0; i < data.length; i++) {
-                if(data[i].codice.includes(cerca)){
+                if(data[i].codice.includes(document.getElementById('cerca').value)){
                     document.getElementById('tbody').append(Genera_tbody(data[i], obj));
                 }
             }

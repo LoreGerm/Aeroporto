@@ -97,6 +97,3 @@ class utente_form(forms.ModelForm):
         }
 
 
-
-class personale_form(forms.ModelForm):
-    pass
