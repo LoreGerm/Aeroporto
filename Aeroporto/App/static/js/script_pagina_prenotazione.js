@@ -73,11 +73,13 @@ function Voli() {
 
 function Genera_card(volo, check){
     const node = document.createElement('div');
+    let data_p = volo.data_di_partenza.slice(8,10)+'/'+volo.data_di_partenza.slice(5,7)+'/'+volo.data_di_partenza.slice(0,4)
+    let data_a = volo.data_di_arrivo.slice(8,10)+'/'+volo.data_di_arrivo.slice(5,7)+'/'+volo.data_di_arrivo.slice(0,4)
     let card = '<div class="card mt-3 text-dark">'
                 +'<div class="card-body">'
                 +'<h5 class="card-subtitle mb-3">'+volo.aeroporto_di_partenza.nome+' --> '+volo.aeroporto_di_arrivo.nome+'</h5>'
-                +'<h5 class="card-subtitle mb-3">'+volo.data_di_partenza+' --> '+volo.data_di_arrivo+'</h5>'
-                +'<h5 class="card-subtitle mb-3">'+volo.ora_di_partenza+' --> '+volo.ora_di_arrivo+'</h5>'
+                +'<h5 class="card-subtitle mb-3">'+data_p+' --> '+data_a+'</h5>'
+                +'<h5 class="card-subtitle mb-3">'+volo.ora_di_partenza.slice(0, 5)+' --> '+volo.ora_di_arrivo.slice(0, 5)+'</h5>'
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'

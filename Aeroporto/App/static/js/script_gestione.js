@@ -93,6 +93,8 @@ function Genera_tbody(data, obj){
     let modal = '';
     let td = '';
     if(obj == 'voli'){
+        let data_p = data.data_di_partenza.slice(8,10)+'/'+data.data_di_partenza.slice(5,7)+'/'+data.data_di_partenza.slice(0,4)
+        let data_a = data.data_di_arrivo.slice(8,10)+'/'+data.data_di_arrivo.slice(5,7)+'/'+data.data_di_arrivo.slice(0,4)
         td = '<td>'+data.codice+'</td>'
                 +'<td>'+data.aeroporto_di_partenza.nome+'</td>'
                 +'<td>'+data.aeroporto_di_arrivo.nome+'</td>'
@@ -100,10 +102,10 @@ function Genera_tbody(data, obj){
                 +'<td>'+data.prezzo_unitario_seconda_classe+' €</td>'
                 +'<td>'+data.prezzo_unitario_terza_classe+' €</td>'
                 +'<td>'+data.posti_totali+'</td>'
-                +'<td>'+data.ora_di_partenza+'</td>'
-                +'<td>'+data.ora_di_arrivo+'</td>'
-                +'<td>'+data.data_di_partenza+'</td>'
-                +'<td>'+data.data_di_arrivo+'</td>'
+                +'<td>'+data.ora_di_partenza.slice(0, 5)+'</td>'
+                +'<td>'+data.ora_di_arrivo.slice(0, 5)+'</td>'
+                +'<td>'+data_p+'</td>'
+                +'<td>'+data_a+'</td>'
                 +'<td>'+data.km+'</td>'
                 +'<td>'+data.aereo.targa+'</td>'
                 +'<td class="row">'
