@@ -226,7 +226,7 @@ function Genera_tbody(data, obj){
                 +'</div>';
     }
     tr.innerHTML = td;
-    document.getElementById('modal').append(modal);
+    document.getElementById('modal').innerHTML += modal;
 
     return tr
 }
