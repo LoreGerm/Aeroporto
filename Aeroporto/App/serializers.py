@@ -11,6 +11,7 @@ class Indirizzo_A_Json(serializers.ModelSerializer):
         fields = ('via', 'numero', 'citta', 'provincia', 'stato')
 
 class AeroportoJson(serializers.ModelSerializer):
+    indirizzo = Indirizzo_A_Json()
     class Meta:
         model = Aeroporto
         fields = ('id', 'codice', 'nome', 'indirizzo', 'descrizione')
@@ -40,6 +41,8 @@ class Utente_Json(serializers.ModelSerializer):
 
 
 class Prenotazioni_Json(serializers.ModelSerializer):
+    utente = Utente_Json()
+    volo = VoloJson()
     class Meta:
         model = Prenotazioni
         fields = ('id', 'codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
