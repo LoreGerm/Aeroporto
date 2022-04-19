@@ -1,6 +1,6 @@
 
 
-function Genera_gestione(obj){
+function Genera_gestione_cerca(obj){
 
     let API = '';
 
@@ -25,8 +25,10 @@ function Genera_gestione(obj){
     .then(response => response.json())
     .then(data => {
 
-        for(let i=0; i < data.length; i++){
-            document.getElementById('tbody').append(Genera_tbody(data[i], obj));
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].codice.includes(document.getElementById('cerca').value)){
+                document.getElementById('tbody').append(Genera_tbody(data[i], obj));
+            }
         }
 
     })
