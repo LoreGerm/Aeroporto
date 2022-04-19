@@ -19,6 +19,7 @@ function Cerca(obj) {
 
 
     document.getElementById('thead').innerHTML = Genera_thead(obj);
+    document.getElementById('tbody').innerHTML = '<div id="modal"> </div>';
 
     fetch(API)
         .then(response => response.json())
