@@ -26,7 +26,7 @@ function Genera_gestione_cerca(obj){
     .then(data => {
 
         for (let i = 0; i < data.length; i++) {
-            if(data[i].codice.includes(document.getElementById('cerca').value)){
+            if(data[i].codice.includes(document.getElementById('cerca').value.toUpperCase()) || data[i].codice.includes(document.getElementById('cerca').value.toLowerCase())){
                 document.getElementById('tbody').append(Genera_tbody(data[i], obj));
             }
         }
