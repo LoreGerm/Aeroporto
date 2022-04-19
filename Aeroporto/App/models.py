@@ -12,7 +12,7 @@ class Admin(models.Model):
 
 
 class Aereo(models.Model):
-    targa = models.CharField(max_length=50, null=True, unique=True)
+    codice = models.CharField(max_length=50, null=True, unique=True)
     modello = models.CharField(max_length=50, null=True, unique=True)
     in_volo = 'In volo'
     pronto = 'Pronto'
@@ -27,7 +27,7 @@ class Aereo(models.Model):
     posti_terza_classe = models.IntegerField()
 
     def __str__(self) -> str:
-        return self.targa + ' ' + self.modello
+        return self.codice + ' ' + self.modello
 
 
 

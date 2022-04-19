@@ -44,7 +44,7 @@ function Posti(id_volo='', id_div_posti='', volo_ritorno=''){
 
             let posti_prenotati = '';
             for(let i=0; i<data.length; i++){
-                if(data[i].volo == id_volo){
+                if(data[i].volo.id == id_volo){
                     posti_prenotati += data[i].posti_prenotati+',';
                 }
             }
@@ -91,7 +91,6 @@ function Fila(i,content, posti_prenotati, id_div_posti) {
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
-
     for (let j = 0; j < 6; j++) {
 
         if(!posti_prenotati.includes(lettere[j] + i.toString())){

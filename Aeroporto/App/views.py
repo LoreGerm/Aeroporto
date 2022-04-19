@@ -141,6 +141,8 @@ def acquista(request):
         if volo_ritorno_id != '':
             volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
             posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            volo_ritorno.posti_totali -= len(list(posti_ritorno.split(',')))
+            volo_ritorno.save()
             prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
             prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
             prenotazione_ritorno.save()
@@ -148,6 +150,8 @@ def acquista(request):
         volo_andata_id = request.POST.get('volo_andata_id', '')
         volo_andata = Volo.objects.get(id=volo_andata_id)
         posti_andata = request.POST.get('posti_prenotati_andata', '')
+        volo_andata.posti_totali -= len(list(posti_andata.split(',')))
+        volo_andata.save()
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
         prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
         prenotazione_andata.save()
@@ -191,7 +195,11 @@ def i_tuoi_voli(request):
 
 def cancella_prenotazione(request,id):
     pren = Prenotazioni.objects.get(id = id)
+    volo = Volo.objects.get(id = pren.volo.id)
+    posti_pren = len(list(pren.posti_prenotati.split(',')))
+    volo.posti_totali += posti_pren
     pren.delete()
+    volo.save()
     
     return redirect('i_tuoi_voli')
 
@@ -238,7 +246,6 @@ def verifica_accesso(request):
 
 
 def gestione_voli(request):
-    voli = Volo.objects.all()
     content = {
         'agg': 'aggiungi_voli',
         'active_v': 'active',
@@ -246,14 +253,12 @@ def gestione_voli(request):
         'active_a': '',
         'active_ae': '',
         'obj':'voli',
-        'voli':voli,
         'cerca': 'cerca_voli',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_prenotazioni(request):
-    pren = Prenotazioni.objects.all()
     content = {
         'agg': 'aggiungi_prenotazioni',
         'active_v': '',
@@ -261,29 +266,25 @@ def gestione_prenotazioni(request):
         'active_a': '',
         'active_ae': '',
         'obj': 'pren',
-        'pren': pren,
         'cerca': 'cerca_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_aeroporti(request):
-    aeroporti = Aeroporto.objects.all()
     content = {
         'agg': 'aggiungi_aeroporti',
         'active_v': '',
         'active_p': '',
         'active_a': 'active',
         'active_ae': '',
-        'obj': 'Aeroporti',
-        'aeroporti': aeroporti,
+        'obj': 'aeroporti',
         'cerca': 'cerca_aeroporti',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
 
 
 def gestione_aerei(request):
-    aerei = Aereo.objects.all()
     content = {
         'agg': 'aggiungi_aereo',
         'active_v': '',
@@ -291,7 +292,6 @@ def gestione_aerei(request):
         'active_a': '',
         'active_ae': 'active',
         'obj': 'aerei',
-        'aerei': aerei,
         'cerca': 'cerca_aereo',
     }
     return render(request, 'App/pagina_gestione/gestione.html', content)
@@ -318,7 +318,11 @@ def elimina_aeroporto(request, id):
 
 def elimina_prenotazione(request, id):
     pren = Prenotazioni.objects.get(id = id)
+    volo = Volo.objects.get(id = pren.volo.id)
+    posti_pren = len(list(pren.posti_prenotati.split(',')))
+    volo.posti_totali += posti_pren
     pren.delete()
+    volo.save()
     
     return redirect('gestione_prenotazioni')
 
@@ -573,84 +577,6 @@ def agg_utente(request):
         'home': 'gestione_prenotazioni',
     }
     return render(request, 'App/pagina_gestione/form/form_utente.html', content) 
-
-
-
-
-def cerca_voli(request):
-    voli = ''
-    if request.method == 'POST':
-        cerca = request.POST.get('cerca', '')
-        voli = Volo.objects.filter(codice__icontains=cerca)
-        
-    content = {
-        'agg': 'aggiungi_voli',
-        'active_v': 'active',
-        'active_p': '',
-        'active_a': '',
-        'active_ae': '',
-        'obj':'voli',
-        'voli':voli,
-        'cerca': 'cerca_voli',
-    }
-    return render(request, 'App/pagina_gestione/cerca.html', content)
-
-
-def cerca_prenotazioni(request):
-    pren = []
-    if request.method == 'POST':
-        cerca = request.POST.get('cerca', '')
-        pren = Prenotazioni.objects.filter(Q(codice__icontains=cerca) | Q(utente__nome__icontains=cerca) | Q(utente__cognome__icontains=cerca))
-
-    content = {
-        'agg': 'aggiungi_prenotazioni',
-        'active_v': '',
-        'active_p': 'active',
-        'active_a': '',
-        'active_ae': '',
-        'obj': 'pren',
-        'pren': pren,
-        'cerca': 'cerca_prenotazioni',
-    }
-    return render(request, 'App/pagina_gestione/cerca.html', content)
-
-
-def cerca_aeroporti(request):
-    aeroporto = []
-    if request.method == 'POST':
-        cerca = request.POST.get('cerca', '')
-        aeroporto = Aeroporto.objects.filter(Q(codice__icontains=cerca) | Q(nome__icontains=cerca))
-
-    content = {
-        'agg': 'aggiungi_aeroporti',
-        'active_v': '',
-        'active_p': '',
-        'active_a': 'active',
-        'active_ae': '',
-        'obj': 'Aeroporti',
-        'aeroporti': aeroporto,
-        'cerca': 'cerca_aeroporti',
-    }
-    return render(request, 'App/pagina_gestione/cerca.html', content)
-
-
-def cerca_aereo(request):
-    aereo = []
-    if request.method == 'POST':
-        cerca = request.POST.get('cerca', '')
-        aereo = Aereo.objects.filter(Q(targa__icontains=cerca) | Q(modello__icontains=cerca))
-
-    content = {
-        'agg': 'aggiungi_aereo',
-        'active_v': '',
-        'active_p': '',
-        'active_a': '',
-        'active_ae': 'active',
-        'obj': 'aerei',
-        'aerei': aereo,
-        'cerca': 'cerca_aereo',
-    }
-    return render(request, 'App/pagina_gestione/cerca.html', content)
 
 
 
