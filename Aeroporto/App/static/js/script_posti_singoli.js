@@ -17,7 +17,7 @@ function Posti(id_volo=''){
 
             let posti_prenotati = '';
             for(let i=0; i<data.length; i++){
-                if(data[i].volo == id_volo){
+                if(data[i].volo.id == id_volo){
                     posti_prenotati += data[i].posti_prenotati+',';
                 }
             }
@@ -59,7 +59,6 @@ function Genera_posti(id_volo, posti_prenotati) {
 
 
 function Fila(i,content, posti_prenotati) {
-
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
