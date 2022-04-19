@@ -396,33 +396,7 @@ def modifica_aeroporto(request, id):
         'form': form,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
-    
 
-
-def modifica_prenotazione(request, id):
-    pren = Prenotazioni.objects.get(id = id)
-    messages = ''
-    field={
-        'utente': pren.utente,
-        'volo': pren.volo,
-        'posti_prenotati': pren.posti_prenotati,
-        'prezzo_totale': pren.prezzo_totale,
-    }
-    form = PrenotaForm(initial=field)
-    if request.method == 'POST':
-        form = PrenotaForm(request.POST, instance=pren)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
-        else:
-            messages = 'Errore'
-
-    content = {
-        'messaggio': messages,
-        'home': 'gestione_prenotazioni',
-        'form': form,
-    }
-    return render(request, 'App/pagina_gestione/form/form_prenota.html', content) 
 
 
 def modifica_aereo(request, id):

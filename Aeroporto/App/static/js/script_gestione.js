@@ -143,7 +143,6 @@ function Genera_tbody(data, obj){
                 +'<td>'+data.posti_prenotati+'</td>'
                 +'<td>'+data.prezzo_totale+'</td>'
                 +'<td class="row">'
-                +'<a href="prenotazioni/modifica/'+data.id+'" class="btn btn-success col">Modifica</a>'
                 +'<button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#'+data.codice+'">Elimina</button>'
                 +'</td>';
 
