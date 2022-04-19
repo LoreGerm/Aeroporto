@@ -195,9 +195,11 @@ def i_tuoi_voli(request):
 
 def cancella_prenotazione(request,id):
     pren = Prenotazioni.objects.get(id = id)
+    utente = Utente.objects.get(id = pren.utente.id)
     volo = Volo.objects.get(id = pren.volo.id)
     posti_pren = len(list(pren.posti_prenotati.split(',')))
     volo.posti_totali += posti_pren
+    utente.delete()
     pren.delete()
     volo.save()
     
@@ -318,12 +320,14 @@ def elimina_aeroporto(request, id):
 
 def elimina_prenotazione(request, id):
     pren = Prenotazioni.objects.get(id = id)
+    utente = Utente.objects.get(id = pren.utente.id)
     volo = Volo.objects.get(id = pren.volo.id)
     posti_pren = len(list(pren.posti_prenotati.split(',')))
     volo.posti_totali += posti_pren
+    utente.delete()
     pren.delete()
     volo.save()
-    
+
     return redirect('gestione_prenotazioni')
 
 
