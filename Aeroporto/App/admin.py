@@ -22,20 +22,11 @@ class AeroportoAdmin(admin.ModelAdmin):
     list_filter = ('codice', 'nome', 'indirizzo', 'descrizione')
 admin.site.register(Aeroporto, AeroportoAdmin)
 
-class PersonaleAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
-    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
-admin.site.register(Personale, PersonaleAdmin)
 
 class AereoAdmin(admin.ModelAdmin):
     list_display = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
     list_filter = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
 admin.site.register(Aereo, AereoAdmin)
-
-class TurniAdmin(admin.ModelAdmin):
-    list_display = ('data', 'ora')
-    list_filter = ('data', 'ora')
-admin.site.register(Turni, TurniAdmin)
 
 class AdminAdmin(admin.ModelAdmin):
     list_display = ('nome', 'password')
@@ -52,15 +43,48 @@ class PrenotazioniAdmin(admin.ModelAdmin):
     list_filter = ('codice', 'utente', 'volo', 'posti_prenotati', 'prezzo_totale')
 admin.site.register(Prenotazioni, PrenotazioniAdmin)
 
-class Indirizzo_p_Admin(admin.ModelAdmin):
-    list_display = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
-    list_filter = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
-admin.site.register(Indirizzo_p, Indirizzo_p_Admin)
-
 class Indirizzo_a_Admin(admin.ModelAdmin):
     list_display = ('via', 'numero', 'citta', 'provincia', 'stato')
     list_filter = ('via', 'numero', 'citta', 'provincia', 'stato')
 admin.site.register(Indirizzo_a, Indirizzo_a_Admin)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+####################### DA ELIMINARE ######################
+
+class PersonaleAdmin(admin.ModelAdmin):
+    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
+    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
+admin.site.register(Personale, PersonaleAdmin)
+
+class TurniAdmin(admin.ModelAdmin):
+    list_display = ('data', 'ora')
+    list_filter = ('data', 'ora')
+admin.site.register(Turni, TurniAdmin)
+
+class Indirizzo_p_Admin(admin.ModelAdmin):
+    list_display = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
+    list_filter = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
+admin.site.register(Indirizzo_p, Indirizzo_p_Admin)
 
 class Posti_admin(admin.ModelAdmin):
     list_display = ('posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe', 'aereo')
