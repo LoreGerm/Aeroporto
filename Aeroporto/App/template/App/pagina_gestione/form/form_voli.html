@@ -30,6 +30,21 @@
 
 <div class="mb-2 row">
     <div class="col">
+        <label class="form-label">Aereo</label>
+        <div class="input-group">
+            {{form.aereo}}
+            <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary"
+                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label">Km</label>
+        {{form.km}}
+    </div>
+</div>
+
+<div class="mb-2 row">
+    <div class="col">
         <label class="form-label">Prezzo prima classe</label>
         <div class="input-group">
             {{form.prezzo_unitario_prima_classe}}
@@ -74,22 +89,8 @@
     </div>
 </div>
 
-<div class="mb-2 row">
-    <div class="col">
-        <label class="form-label">Km</label>
-        {{form.km}}
-    </div>
-    <div class="col">
-        <label class="form-label">Aereo</label>
-        <div class="input-group">
-            {{form.aereo}}
-            <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary"
-                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
-        </div>
-    </div>
-</div>
 
-<div class="d-none">
+<div class="d-non">
     {{form.posti_totali}}
 </div>
 

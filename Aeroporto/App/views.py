@@ -538,22 +538,5 @@ def agg_aereo(request):
     return render(request, 'App/pagina_gestione/form/form_aereo.html', content) 
 
 
-def agg_utente(request):
-    messages = ''
-    if request.method == 'POST':
-        form = utente_form(request.POST)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
-        else:
-            messages = 'Errore'
-
-    content = {
-        'form': utente_form,
-        'messaggio': messages,
-        'home': 'gestione_prenotazioni',
-    }
-    return render(request, 'App/pagina_gestione/form/form_utente.html', content) 
-
 
 
