@@ -46,7 +46,6 @@ urlpatterns = [
 
     path('gestione/home/voli/modifica/<int:id>', views.modifica_volo, name='modifica_volo'),
     path('gestione/home/aeroporti/modifica/<int:id>', views.modifica_aeroporto, name='modifica_aeroporto'),
-    path('gestione/home/prenotazioni/modifica/<int:id>', views.modifica_prenotazione, name='modifica_prenotazione'),
     path('gestione/home/aerei/modifica/<int:id>', views.modifica_aereo, name='modifica_aereo'),
 
 ]
