@@ -10,9 +10,9 @@ class VoloForm(forms.ModelForm):
             'codice': forms.TextInput(attrs={'class':'form-control', 'id':'codice', 'name':'codice'}),
             'aeroporto_di_partenza': forms.Select(attrs={'class':'form-select', 'name':'aeroporto_di_partenza', 'id':'aeroporto_di_partenza'}),
             'aeroporto_di_arrivo': forms.Select(attrs={'class':'form-select', 'name': 'aeroporto_di_arrivo', 'id':'aeroporto_di_arrivo'}),
-            'prezzo_unitario_prima_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
-            'prezzo_unitario_seconda_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
-            'prezzo_unitario_terza_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number'}),
+            'prezzo_unitario_prima_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number', 'step':'0.01'}),
+            'prezzo_unitario_seconda_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number', 'step':'0.01'}),
+            'prezzo_unitario_terza_classe': forms.TextInput(attrs={'class':'form-control', 'type':'number', 'step':'0.01'}),
             'ora_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
             'ora_di_arrivo': forms.TextInput(attrs={'class':'form-control', 'type':'time'}),
             'data_di_partenza': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
@@ -33,7 +33,7 @@ class PrenotaForm(forms.ModelForm):
             'utente': forms.Select(attrs={'class':'form-select'}),
             'volo': forms.Select(attrs={'class':'form-select', 'id':'volo', 'name':'volo'}),
             'posti_prenotati': forms.TextInput(attrs={'id':'posti_prenotati', 'name':'posti_prenotati'}),
-            'prezzo_totale': forms.NumberInput(attrs={'class':'form-control', 'value':0}),
+            'prezzo_totale': forms.NumberInput(attrs={'class':'form-control', 'value':0, 'step':'0.01', 'name':'prezzo_totale'}),
         }
 
 
@@ -93,7 +93,7 @@ class utente_form(forms.ModelForm):
             'cognome': forms.TextInput(attrs={'class':'form-control', 'name':'cognome'}),
             'nome': forms.TextInput(attrs={'class':'form-control', 'name':'nome'}),
             'email': forms.EmailInput(attrs={'class':'form-select', 'name':'email'}),
-            'telefono': forms.NumberInput(attrs={'class':'form-control', 'name': 'telefono'}),
+            'telefono': forms.NumberInput(attrs={'class':'form-control', 'name':'telefono'}),
         }
 
 

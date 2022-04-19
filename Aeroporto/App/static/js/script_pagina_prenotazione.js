@@ -5,7 +5,7 @@ function Aumenta(){
 
 function Diminuisci(){
     posti =parseInt(document.getElementById('n_posti').value);
-    if(posti != 0){
+    if(posti != 1){
         document.getElementById('n_posti').value = posti-1;
     }
 }

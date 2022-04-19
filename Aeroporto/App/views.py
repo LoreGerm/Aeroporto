@@ -456,21 +456,24 @@ def agg_voli(request):
 def agg_prenotazioni(request):
     messages = ''
     if request.method == 'POST':
-        id_volo = request.POST.get('volo', '')
-        volo = Volo.objects.get(id = id_volo)
-        posti = list(request.POST.get('posti_prenotati', '').split(','))
-        volo.posti_totali -= len(posti)
-        volo.save()
+        try:
+            utente = Utente(nome=request.POST.get('nome', ''), cognome=request.POST.get('cognome', ''), email=request.POST.get('email', ''), telefono=request.POST.get('telefono', ''))
+            utente.save()
+            id_volo = request.POST.get('volo', '')
+            volo = Volo.objects.get(id = id_volo)
+            penotazione = Prenotazioni(codice=request.POST.get('codice', ''), utente=utente, volo=volo, posti_prenotati=request.POST.get('posti_prenotati', ''), prezzo_totale=request.POST.get('prezzo_totale', ''))
+            posti = list(request.POST.get('posti_prenotati', '').split(','))
+            volo.posti_totali -= len(posti)
+            volo.save()
+            penotazione.save()
 
-        form = PrenotaForm(request.POST)
-        if form.is_valid():
-            form.save()
             messages = 'Salvato'
-        else:
+        except:
             messages = 'Errore'
 
     content = {
-        'form': PrenotaForm,
+        'form_ut': utente_form,
+        'form_pre': PrenotaForm,
         'messaggio': messages,
         'home': 'gestione_prenotazioni',
     }

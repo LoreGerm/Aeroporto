@@ -141,7 +141,7 @@ function Genera_tbody(data, obj){
                 +'<td>'+data.utente.telefono+'</td>'
                 +'<td>'+data.volo.codice+'</td>'
                 +'<td>'+data.posti_prenotati+'</td>'
-                +'<td>'+data.prezzo_totale+'</td>'
+                +'<td>'+data.prezzo_totale+' €</td>'
                 +'<td class="row">'
                 +'<button class="btn btn-danger col" data-bs-toggle="modal" data-bs-target="#'+data.codice+'">Elimina</button>'
                 +'</td>';

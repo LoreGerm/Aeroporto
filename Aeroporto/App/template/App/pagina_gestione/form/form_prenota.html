@@ -7,37 +7,53 @@
     <div class="col">
         <label class="form-label">Codice</label>
         <div class="input-group">
-            {{form.codice}}
+            {{form_pre.codice}}
             <button class="input-group-text btn btn-primary" onclick="Genera_codice()" type="button" id="basic-addon2">Genera</i></button>
         </div>
     </div>
     <div class="col">
-        <label class="form-label">Utente</label>
-        <div class="input-group">
-            {{form.utente}}
-            <a href="{% url 'aggiungi_utente' %}" target="_blank" class="input-group-text btn btn-primary"
-                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+        <div class="col">
+            <label class="form-label">Volo</label>
+            <div class="input-group">
+                {{form_pre.volo}}
+                <a href="{% url 'aggiungi_voli' %}" target="_blank" class="input-group-text btn btn-primary" type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="row mb-3">
     <div class="col">
-        <label class="form-label">Volo</label>
-        <div class="input-group">
-            {{form.volo}}
-            <a href="{% url 'aggiungi_voli' %}" target="_blank" class="input-group-text btn btn-primary" type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
-        </div>
+        <label for="" class="form-label">Nome</label>
+        {{form_ut.nome}}
     </div>
+    <div class="col">
+        <label class="form-label">Cognome</label>
+        {{form_ut.cognome}}
+    </div>
+</div>
+
+<div class="mb-2 row">
+    <div class="col">
+        <label class="form-label">Email</label>
+        {{form_ut.email}}
+    </div>
+    <div class="col">
+        <label class="form-label">Telefono</label>
+        {{form_ut.telefono}}
+    </div>
+</div>
+
+<div class="row mb-3">
     <div class="col text-center">
         <label class="form-label">Posti prenotati</label>
-        <div class="d-none">{{form.posti_prenotati}}</div>
+        <div class="d-none">{{form_pre.posti_prenotati}}</div>
         <button class="btn btn-primary" type="button" onclick="Posti()">Scegli posti</button>
     </div>
     <div class="col">
         <label class="form-label">Prezzo totale</label>
         <div class="input-group">
-            {{form.prezzo_totale}}
+            {{form_pre.prezzo_totale}}
             <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
         </div>
     </div>
