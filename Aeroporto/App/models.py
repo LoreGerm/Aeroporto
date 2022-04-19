@@ -110,6 +110,14 @@ class Prenotazioni(models.Model):
 
 
 
+
+
+
+
+####################### DA ELIMINARE ######################
+
+
+
 class Posti(models.Model):
     posti_prima_classe = models.IntegerField(null=True)
     posti_seconda_classe = models.IntegerField(null=True)
