@@ -510,25 +510,6 @@ def agg_aeroporti(request):
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
 
 
-def agg_indirizzo_a(request):
-    messages = ''
-    if request.method == 'POST':
-        form = Indirizzo_a_form(request.POST)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
-        else:
-            messages = 'Errore'
-
-    content = {
-        'form': Indirizzo_a_form,
-        'messaggio': messages,
-        'home': 'gestione_aeroporti',
-    }
-    return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
-
-
-
 
 def agg_aereo(request):
     messages = ''
