@@ -17,14 +17,14 @@
   <div class="row mt-5">
     <div class="col">
       <label for="" class="form-label">Partenza</label>
-      <select class="form-select" id="partenza" onchange="Arrivo()">
+      <select class="form-select" id="aeroporto_di_partenza" onchange="Arrivo()">
         <option value="">----------</option>
       </select>
     </div>
 
     <div class="col">
       <label for="" class="form-label" >Arrivo</label>
-      <select class="form-select" id="arrivo">
+      <select class="form-select" id="aeroporto_di_arrivo">
         <option value="">----------</option>
       </select>
     </div>
@@ -69,47 +69,53 @@
 
 
 <script>
-////////////// PARTENZA
-  document.getElementById('arrivo').disabled = true;
-  document.getElementById('arrivo').classList.add('opacity-50');
+
+  document.getElementById('aeroporto_di_arrivo').disabled = true;
+  document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
   const API_VOLI = 'http://localhost:8000/apiaeroporto/';
   fetch(API_VOLI)
   .then(response => response.json())
   .then(data => {
 
       for(let i=0; i<data.length; i++){
-          document.getElementById('partenza').append(Genera_option(data[i].nome));
+          document.getElementById('aeroporto_di_partenza').append(Genera_option(data[i]));
       }
   
   })
   .catch(err => console.log(err));
 
-function Genera_option(nome){
+function Genera_option(data){
   let option = document.createElement('option');
-  option.value = nome;
-  option.text = nome;
+  option.value = data.id;
+  option.text = data.nome;
   return option
 }
 
 function Arrivo(){
-  document.getElementById('arrivo').innerHTML = '<option value="">----------</option>';
-  document.getElementById('arrivo').disabled = false;
-  document.getElementById('arrivo').classList.remove('opacity-50');
-  let aeroporto_partenza = document.getElementById('partenza').value
+  let aeroporto_partenza = document.getElementById('aeroporto_di_partenza').value
+  document.getElementById('aeroporto_di_arrivo').innerHTML = '<option value="">----------</option>';
+  if(aeroporto_partenza == ''){
+    document.getElementById('aeroporto_di_arrivo').disabled = true;
+    document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
+  }
+  else{
+    document.getElementById('aeroporto_di_arrivo').disabled = false;
+    document.getElementById('aeroporto_di_arrivo').classList.remove('opacity-50');
 
-  const API_VOLI = 'http://localhost:8000/apivolo/';
-  fetch(API_VOLI)
-  .then(response => response.json())
-  .then(data => {
+    const API_VOLI = 'http://localhost:8000/apivolo/';
+    fetch(API_VOLI)
+    .then(response => response.json())
+    .then(data => {
 
-      for(let i=0; i<data.length; i++){
-        if(data[i].aeroporto_di_partenza.nome == aeroporto_partenza){
-          document.getElementById('arrivo').append(Genera_option(data[i].aeroporto_di_arrivo.nome));
+        for(let i=0; i<data.length; i++){
+          if(data[i].aeroporto_di_partenza.id == aeroporto_partenza){
+            document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
+          }
         }
-      }
-  
-  })
-  .catch(err => console.log(err));
+    
+    })
+    .catch(err => console.log(err));
+  }
 
 }
 
