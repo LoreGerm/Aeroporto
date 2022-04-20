@@ -60,6 +60,7 @@
 <div class="d-none mt-5" id="div_voli">
   <form action="{% url 'scelta_posti' %}" method="post" class="row">
     {% csrf_token %}
+    <input type="number" value="" class="d-none" name="posti" id="posti">
     <button type="submit" class="btn btn-success mt-3 w-100" id="avanti">Avanti</button>
     <div class="col" id="voli_andata">
     </div>

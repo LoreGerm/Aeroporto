@@ -67,12 +67,12 @@
     </table>
 
     <div class="row">
-        <button id="btn-andata" class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata', '{{volo_ritorno}}')">Scegli posti andata</button>
-        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}')">Scegli posti ritorno</button>
+        <button id="btn-andata" class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata', '{{volo_ritorno}}', '{{posti}}')">Scegli posti andata</button>
+        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}', '{{posti}}')">Scegli posti ritorno</button>
         <div class="d-none col" id="form">
             <form action="{% url 'dati_utente' %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn-lg btn-success w-100">Avanti</button>
+                <button type="submit" class="btn-lg btn-success w-100" id="btn-avanti">Avanti</button>
                 <div class="d-none">
                     <input type="text" value="{{volo_ritorno.id}}" name="id_volo_ritorno">
                     <input type="text" value="{{volo_andata.id}}" name="id_volo_andata">
@@ -138,6 +138,6 @@
 </div>
 
 
-<script src="{% static 'js/script_posti_andata_ritorno.js' %}"></script>
+<script src="{% static 'js/script_posti_utente.js' %}"></script>
 
 {% endblock %}
