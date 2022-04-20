@@ -17,13 +17,16 @@
   <div class="row mt-5">
     <div class="col">
       <label for="" class="form-label">Partenza</label>
-      <select class="form-select" id="partenza">
+      <select class="form-select" id="partenza" onchange="Arrivo()">
+        <option value="">----------</option>
       </select>
     </div>
 
     <div class="col">
-      <label for="" class="form-label">Arrivo</label>
-      {{form_volo.aeroporto_di_arrivo}}
+      <label for="" class="form-label" >Arrivo</label>
+      <select class="form-select" id="arrivo">
+        <option value="">----------</option>
+      </select>
     </div>
 
     <div class="col">
@@ -66,21 +69,49 @@
 
 
 <script>
+////////////// PARTENZA
+  document.getElementById('arrivo').disabled = true;
+  document.getElementById('arrivo').classList.add('opacity-50');
   const API_VOLI = 'http://localhost:8000/apiaeroporto/';
   fetch(API_VOLI)
   .then(response => response.json())
   .then(data => {
 
       for(let i=0; i<data.length; i++){
-          document.getElementById('andata').append(Genera_option());
+          document.getElementById('partenza').append(Genera_option(data[i].nome));
       }
   
   })
   .catch(err => console.log(err));
 
-
-function Genera_option(){
-    return '<option value="1">One</option>'
+function Genera_option(nome){
+  let option = document.createElement('option');
+  option.value = nome;
+  option.text = nome;
+  return option
 }
+
+function Arrivo(){
+  document.getElementById('arrivo').innerHTML = '<option value="">----------</option>';
+  document.getElementById('arrivo').disabled = false;
+  document.getElementById('arrivo').classList.remove('opacity-50');
+  let aeroporto_partenza = document.getElementById('partenza').value
+
+  const API_VOLI = 'http://localhost:8000/apivolo/';
+  fetch(API_VOLI)
+  .then(response => response.json())
+  .then(data => {
+
+      for(let i=0; i<data.length; i++){
+        if(data[i].aeroporto_di_partenza.nome == aeroporto_partenza){
+          document.getElementById('arrivo').append(Genera_option(data[i].aeroporto_di_arrivo.nome));
+        }
+      }
+  
+  })
+  .catch(err => console.log(err));
+
+}
+
 </script>
 {% endblock %}
