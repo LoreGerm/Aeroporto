@@ -487,17 +487,25 @@ def agg_prenotazioni(request):
 def agg_aeroporti(request):
     messages = ''
     if request.method == 'POST':
-        form = AerportoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
+        if request.POST.get('via', '') != '':
+            try:
+                indirizzo = Indirizzo_a(via=request.POST.get('via', ''), numero=request.POST.get('numero', ''), citta=request.POST.get('citta', ''), provincia=request.POST.get('provincia', ''), stato=request.POST.get('stato', ''))
+                indirizzo.save()
+                aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'
         else:
-            messages = 'Errore'
+            indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
+            aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
+            aeroporto.save()
 
     content = {
         'messaggio': messages,
         'home': 'gestione_aeroporti',
-        'form': AerportoForm,
+        'form_a': AerportoForm,
+        'form_i': Indirizzo_a_form,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
 
