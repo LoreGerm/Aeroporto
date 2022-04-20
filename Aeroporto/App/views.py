@@ -390,27 +390,33 @@ def modifica_aeroporto(request, id):
     form_a = AerportoForm(initial=field_a)
     if request.method == 'POST':
         if request.POST.get('via', '') != '':
-            indirizzo.via = request.POST.get('via', '')
-            indirizzo.numero = request.POST.get('numero', '')
-            indirizzo.citta = request.POST.get('citta', '')
-            indirizzo.provincia = request.POST.get('provincia', '')
-            indirizzo.stato = request.POST.get('stato', '')
-            indirizzo.save()
+            try:
+                indirizzo.via = request.POST.get('via', '')
+                indirizzo.numero = request.POST.get('numero', '')
+                indirizzo.citta = request.POST.get('citta', '')
+                indirizzo.provincia = request.POST.get('provincia', '')
+                indirizzo.stato = request.POST.get('stato', '')
+                indirizzo.save()
 
-            aeroporto.codice = request.POST.get('codice', '')
-            aeroporto.nome = request.POST.get('nome', '')
-            aeroporto.indirizzo = indirizzo
-            aeroporto.descrizione = request.POST.get('descrizione', '')
-            aeroporto.save()
-            messages = 'Salvato'
+                aeroporto.codice = request.POST.get('codice', '')
+                aeroporto.nome = request.POST.get('nome', '')
+                aeroporto.indirizzo = indirizzo
+                aeroporto.descrizione = request.POST.get('descrizione', '')
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'
         else:
-            indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
-            aeroporto.codice = request.POST.get('codice', '')
-            aeroporto.nome = request.POST.get('nome', '')
-            aeroporto.indirizzo = indirizzo
-            aeroporto.descrizione = request.POST.get('descrizione', '')
-            aeroporto.save()
-            messages = 'Salvato'
+            try:
+                indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
+                aeroporto.codice = request.POST.get('codice', '')
+                aeroporto.nome = request.POST.get('nome', '')
+                aeroporto.indirizzo = indirizzo
+                aeroporto.descrizione = request.POST.get('descrizione', '')
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'                
 
     content = {
         'messaggio': messages,
