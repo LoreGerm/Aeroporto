@@ -30,44 +30,51 @@ function radio_btn(id){
 
 
 
-function Voli() {    
+function Voli() {
     document.getElementById('voli_andata').innerHTML = '';
     document.getElementById('voli_ritorno').innerHTML = '';
-
-    document.getElementById('div_voli').classList.remove('d-none');
     aeroporto_andata = document.getElementById('aeroporto_di_partenza').value;
     aeroporto_ritorno = document.getElementById('aeroporto_di_arrivo').value;
-    data_andata = document.getElementById('data_andata').value;
-    data_ritorno = document.getElementById('data_ritorno').value;
-    n_posti = document.getElementById('n_posti').value;
-
-    const API_VOLI = 'http://localhost:8000/apivolo/';
-    fetch(API_VOLI)
-    .then(response => response.json())
-    .then(data => {
-        let voli_andata = [];
-        let voli_ritorno = [];
-        for (let i=0; i<data.length; i++) {
-            if (data[i].aeroporto_di_partenza.id == aeroporto_andata && data[i].aeroporto_di_arrivo.id == aeroporto_ritorno && data[i].data_di_partenza == data_andata && data[i].posti_totali >= n_posti) {
-                voli_andata.push(data[i]);
-            }
-            else if (data[i].aeroporto_di_partenza.id == aeroporto_ritorno && data[i].aeroporto_di_arrivo.id == aeroporto_andata && data[i].data_di_partenza == data_ritorno && data[i].posti_totali >= n_posti){
-                voli_ritorno.push(data[i]);
-            }
-        }
+    if (document.getElementById('n_posti').value <= 0 ){
+        document.getElementById('error').innerHTML = 'Numero di posti non valido';
+        document.getElementById('error').classList.remove('d-none');
+    }
+    else if(aeroporto_andata == '' || aeroporto_ritorno == ''){
+        document.getElementById('error').innerHTML = 'Selezionare gli aeroporti';
+        document.getElementById('error').classList.remove('d-none');    
+    }
+    else if(false){
         
-        for(let i=0; i<voli_andata.length; i++){
-            document.getElementById('voli_andata').append(Genera_card(voli_andata[i], 'andata'));
-        }
-        if(data_ritorno != ''){
-            document.getElementById('voli_ritorno').classList.remove('d-none');
-            for(let i=0; i<voli_ritorno.length; i++){
-                document.getElementById('voli_ritorno').append(Genera_card(voli_ritorno[i], 'ritorno'));
+    }
+    else{
+        document.getElementById('error').innerHTML = '';
+        document.getElementById('error').classList.add('d-none');
+
+        document.getElementById('div_voli').classList.remove('d-none');
+        data_andata = document.getElementById('data_andata').value;
+        data_ritorno = document.getElementById('data_ritorno').value;
+        n_posti = document.getElementById('n_posti').value;
+
+        const API_VOLI = 'http://localhost:8000/apivolo/';
+        fetch(API_VOLI)
+        .then(response => response.json())
+        .then(data => {
+            if(data_ritorno != ''){
+                document.getElementById('voli_ritorno').classList.remove('d-none');
             }
-        }
-    
-    })
-    .catch(err => console.log(err));
+            for (let i=0; i<data.length; i++) {
+                if (data[i].aeroporto_di_partenza.id == aeroporto_andata && data[i].aeroporto_di_arrivo.id == aeroporto_ritorno && data[i].data_di_partenza == data_andata && data[i].posti_totali >= n_posti) {
+                    document.getElementById('voli_andata').append(Genera_card(data[i], 'andata'));
+                }
+                else if (data_ritorno != '' && data[i].aeroporto_di_partenza.id == aeroporto_ritorno && data[i].aeroporto_di_arrivo.id == aeroporto_andata && data[i].data_di_partenza == data_ritorno && data[i].posti_totali >= n_posti){
+                    document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
+                }
+            }
+        
+        
+        })
+        .catch(err => console.log(err));
+    }
 }
 
 
