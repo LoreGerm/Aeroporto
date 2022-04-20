@@ -33,27 +33,38 @@ function radio_btn(id){
 function Voli() {
     document.getElementById('voli_andata').innerHTML = '';
     document.getElementById('voli_ritorno').innerHTML = '';
+
     aeroporto_andata = document.getElementById('aeroporto_di_partenza').value;
     aeroporto_ritorno = document.getElementById('aeroporto_di_arrivo').value;
-    if (document.getElementById('n_posti').value <= 0 ){
+    data_andata = document.getElementById('data_andata').value;
+    data_ritorno = document.getElementById('data_ritorno').value;
+    n_posti = document.getElementById('n_posti').value;
+
+    if (n_posti <= 0 ){
+        document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Numero di posti non valido';
         document.getElementById('error').classList.remove('d-none');
     }
     else if(aeroporto_andata == '' || aeroporto_ritorno == ''){
+        document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Selezionare gli aeroporti';
         document.getElementById('error').classList.remove('d-none');    
     }
-    else if(false){
-        
+    else if(data_andata == ''){
+        document.getElementById('div_voli').classList.add('d-none');
+        document.getElementById('error').innerHTML = 'Selezionare la data di partenza';
+        document.getElementById('error').classList.remove('d-none');   
+    }
+    else if(data_ritorno == '' && document.getElementById('andata-ritorno').checked){
+        document.getElementById('div_voli').classList.add('d-none');
+        document.getElementById('error').innerHTML = 'Selezionare la data di ritorno';
+        document.getElementById('error').classList.remove('d-none');   
     }
     else{
         document.getElementById('error').innerHTML = '';
         document.getElementById('error').classList.add('d-none');
 
         document.getElementById('div_voli').classList.remove('d-none');
-        data_andata = document.getElementById('data_andata').value;
-        data_ritorno = document.getElementById('data_ritorno').value;
-        n_posti = document.getElementById('n_posti').value;
 
         const API_VOLI = 'http://localhost:8000/apivolo/';
         fetch(API_VOLI)
