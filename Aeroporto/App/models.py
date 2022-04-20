@@ -73,13 +73,6 @@ class Volo(models.Model):
             return self.codice
 
 
-'''    
-class Has_volo(models.Model):
-    aeroporto = models.ForeignKey(Aeroporto, on_delete=models.CASCADE)
-    volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
-'''
-
-
 
 class Utente(models.Model):
     nome = models.CharField(max_length=50, null=True)
@@ -98,83 +91,6 @@ class Prenotazioni(models.Model):
     posti_prenotati = models.CharField(max_length=1000, null=True)
     prezzo_totale = models.FloatField(null=True)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################### DA ELIMINARE ######################
-
-
-
-class Posti(models.Model):
-    posti_prima_classe = models.IntegerField(null=True)
-    posti_seconda_classe = models.IntegerField(null=True)
-    posti_terza_classe = models.IntegerField(null=True)
-    aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-
-
-
-class Turni(models.Model):
-    data = models.DateField(null=True)
-    ora = models.DateField(null=True)
-    
-    def __str__(self) -> str:
-        return self.data+' '+self.ora    
-
-
-
-class Personale(models.Model):
-    codice = models.CharField(max_length=200, null=True, unique=True)
-    nome = models.CharField(max_length=50, null=True)
-    cognome = models.CharField(max_length=50, null=True)
-    email = models.CharField(max_length=100, null=True)
-    telefono = models.CharField(max_length=100, null=True)
-    stipendio = models.FloatField(null=True, default=0.0)
-    in_volo = 'In volo'
-    disp = 'Disponibile'
-    ferie = 'Ferie'
-    malattia = 'Malattia'
-    STATO = [(in_volo, 'In volo'),(disp, 'Disponibile'),(ferie, 'Ferie'),(malattia, 'Malattia')]
-    stato = models.CharField(max_length=50, null=True, choices=STATO)
-    pilota = 'pilota'
-    co_pi = 'Co-pilota'
-    hostess = 'Hostess'
-    RUOLO = [(pilota, 'Pilota'),(co_pi, 'Co-pilota'),(hostess, 'Hostess')]
-    ruolo = models.CharField(max_length=50, null=True, choices=RUOLO)
-    aereo = models.ForeignKey(Aereo, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return self.codice +' '+ self.nome+' '+self.cognome
-
-
-class Indirizzo_p(models.Model):
-    via = models.CharField(max_length=100, null=True)
-    numero = models.CharField(max_length=100, null=True)
-    citta = models.CharField(max_length=100, null=True)
-    provincia = models.CharField(max_length=2, null=True)
-    stato = models.CharField(max_length=100, null=True)
-    personale = models.ForeignKey(Personale, on_delete=models.CASCADE)
-
-    def __str__(self) -> str:
-        return self.via +' '+ self.numero+' '+self.citta + ' '+ self.provincia+' '+self.stato
-
-
-
-class Has_turni(models.Model):
-    personale = models.ForeignKey(Personale, on_delete=models.CASCADE)
-    turni = models.ForeignKey(Turni, on_delete=models.CASCADE)
 
 
 

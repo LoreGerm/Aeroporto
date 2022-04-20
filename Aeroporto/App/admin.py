@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from App.models import Aereo, Aeroporto, Personale, Posti, Turni, Volo, Admin, Utente, Prenotazioni, Indirizzo_p, Indirizzo_a
+from App.models import Aereo, Aeroporto, Volo, Admin, Utente, Prenotazioni, Indirizzo_a
 
 # Register your models here.
 admin.site.unregister(Group)
@@ -56,37 +56,3 @@ admin.site.register(Indirizzo_a, Indirizzo_a_Admin)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################### DA ELIMINARE ######################
-
-class PersonaleAdmin(admin.ModelAdmin):
-    list_display = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
-    list_filter = ('codice', 'nome', 'cognome', 'email', 'telefono', 'stipendio', 'stato', 'ruolo', 'aereo')
-admin.site.register(Personale, PersonaleAdmin)
-
-class TurniAdmin(admin.ModelAdmin):
-    list_display = ('data', 'ora')
-    list_filter = ('data', 'ora')
-admin.site.register(Turni, TurniAdmin)
-
-class Indirizzo_p_Admin(admin.ModelAdmin):
-    list_display = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
-    list_filter = ('via', 'numero', 'citta', 'provincia', 'stato', 'personale')
-admin.site.register(Indirizzo_p, Indirizzo_p_Admin)
-
-class Posti_admin(admin.ModelAdmin):
-    list_display = ('posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe', 'aereo')
-    list_filter = ('posti_prima_classe', 'posti_seconda_classe', 'posti_terza_classe', 'aereo')
-admin.site.register(Posti, Posti_admin)

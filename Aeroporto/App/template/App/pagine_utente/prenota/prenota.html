@@ -55,6 +55,8 @@
   </div>
 </div>
 
+<h3 class="mt-5 bg-danger p-3 rounded d-none text-center" id="error"></h3>
+
 <div class="d-none mt-5" id="div_voli">
   <form action="{% url 'scelta_posti' %}" method="post" class="row">
     {% csrf_token %}
