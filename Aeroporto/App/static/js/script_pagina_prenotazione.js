@@ -66,6 +66,8 @@ function Voli() {
 
         document.getElementById('div_voli').classList.remove('d-none');
 
+        document.getElementById('posti').value = n_posti;
+
         const API_VOLI = 'http://localhost:8000/apivolo/';
         fetch(API_VOLI)
         .then(response => response.json())

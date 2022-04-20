@@ -46,6 +46,7 @@ def prenota_utente(request):
 
 
 def scelta_posti(request):
+    posti = request.POST.get('posti', '')
     codice_volo_andata = request.POST.get('andata', '')
     codice_volo_ritorno = request.POST.get('ritorno', '')
     volo_ritorno = ''
@@ -58,6 +59,7 @@ def scelta_posti(request):
         'form_prenota_ritorna': PrenotaForm,
         'volo_andata': volo_andata,
         'volo_ritorno': volo_ritorno,
+        'posti': posti,
     }
     return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
 

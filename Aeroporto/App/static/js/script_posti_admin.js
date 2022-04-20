@@ -3,6 +3,7 @@
 
 let posti_scelti = [];
 function Posti(id_volo=''){
+    alert('ciao')
     posti_scelti = [];
     if(id_volo == ''){
         id_volo = parseInt(document.getElementById('volo').value);
