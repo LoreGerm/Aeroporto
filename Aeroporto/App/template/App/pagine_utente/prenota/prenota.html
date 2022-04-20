@@ -17,20 +17,25 @@
   <div class="row mt-5">
     <div class="col">
       <label for="" class="form-label">Partenza</label>
-      {{form_volo.aeroporto_di_partenza}}
+      <select class="form-select" id="partenza">
+      </select>
     </div>
+
     <div class="col">
       <label for="" class="form-label">Arrivo</label>
       {{form_volo.aeroporto_di_arrivo}}
     </div>
+
     <div class="col">
       <label for="" class="form-label">Data di partenza</label>
       <input type="date" name="data_di_partenza" class="form-control" id="data_andata">
     </div>
+
     <div class="col d-none" id="div-data-ritorno">
       <label for="" class="form-label">Data di ritorno</label>
       <input type="date" name="data_di_ritorno" class="form-control" id="data_ritorno">
     </div>
+
     <div class="col">
       <label name="n_posti" class="form-label">Numero di posti</label>
       <div class="input-group ">
@@ -39,6 +44,7 @@
         <button type="button" class="btn btn-success" onclick="Aumenta()"><i class="bi bi-plus-lg"></i></i></button>
       </div>
     </div>
+
     <div class="col position-relative">
       <button class="btn btn-lg btn-success position-absolute bottom-0" type="button" onclick="Voli()"><i
           class="bi bi-search"></i></button>
@@ -57,4 +63,24 @@
   </form>
 </div>
 
+
+
+<script>
+  const API_VOLI = 'http://localhost:8000/apiaeroporto/';
+  fetch(API_VOLI)
+  .then(response => response.json())
+  .then(data => {
+
+      for(let i=0; i<data.length; i++){
+          document.getElementById('andata').append(Genera_option());
+      }
+  
+  })
+  .catch(err => console.log(err));
+
+
+function Genera_option(){
+    return '<option value="1">One</option>'
+}
+</script>
 {% endblock %}

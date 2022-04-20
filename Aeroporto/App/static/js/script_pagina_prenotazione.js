@@ -88,3 +88,7 @@ function Genera_card(volo, check){
     node.innerHTML = card;
     return node
 }
+
+
+
+
