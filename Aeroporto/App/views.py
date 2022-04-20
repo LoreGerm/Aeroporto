@@ -378,26 +378,51 @@ def modifica_volo(request, id):
 
 def modifica_aeroporto(request, id):
     aeroporto = Aeroporto.objects.get(id = id)
+    indirizzo = Indirizzo_a.objects.get(id = aeroporto.indirizzo.id)
     messages = ''
-    field={
+    field_a={
         'codice': aeroporto.codice,
         'nome': aeroporto.nome,
         'indirizzo': aeroporto.indirizzo,
         'descrizione': aeroporto.descrizione,
     }
-    form = AerportoForm(initial=field)
+    form_i = Indirizzo_a_form()
+    form_a = AerportoForm(initial=field_a)
     if request.method == 'POST':
-        form = AerportoForm(request.POST, instance=aeroporto)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
+        if request.POST.get('via', '') != '':
+            try:
+                indirizzo.via = request.POST.get('via', '')
+                indirizzo.numero = request.POST.get('numero', '')
+                indirizzo.citta = request.POST.get('citta', '')
+                indirizzo.provincia = request.POST.get('provincia', '')
+                indirizzo.stato = request.POST.get('stato', '')
+                indirizzo.save()
+
+                aeroporto.codice = request.POST.get('codice', '')
+                aeroporto.nome = request.POST.get('nome', '')
+                aeroporto.indirizzo = indirizzo
+                aeroporto.descrizione = request.POST.get('descrizione', '')
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'
         else:
-            messages = 'Errore'
+            try:
+                indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
+                aeroporto.codice = request.POST.get('codice', '')
+                aeroporto.nome = request.POST.get('nome', '')
+                aeroporto.indirizzo = indirizzo
+                aeroporto.descrizione = request.POST.get('descrizione', '')
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'                
 
     content = {
         'messaggio': messages,
         'home': 'gestione_aeroporti',
-        'form': form,
+        'form_a': form_a,
+        'form_i': form_i,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
 
@@ -435,6 +460,9 @@ def modifica_aereo(request, id):
 
 
 
+
+
+#################################### AGGIUNGI ################################################
 
 
 
@@ -487,38 +515,27 @@ def agg_prenotazioni(request):
 def agg_aeroporti(request):
     messages = ''
     if request.method == 'POST':
-        form = AerportoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
+        if request.POST.get('via', '') != '':
+            try:
+                indirizzo = Indirizzo_a(via=request.POST.get('via', ''), numero=request.POST.get('numero', ''), citta=request.POST.get('citta', ''), provincia=request.POST.get('provincia', ''), stato=request.POST.get('stato', ''))
+                indirizzo.save()
+                aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
+                aeroporto.save()
+                messages = 'Salvato'
+            except:
+                messages = 'Errore'
         else:
-            messages = 'Errore'
+            indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
+            aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
+            aeroporto.save()
 
     content = {
         'messaggio': messages,
         'home': 'gestione_aeroporti',
-        'form': AerportoForm,
+        'form_a': AerportoForm,
+        'form_i': Indirizzo_a_form,
     }
     return render(request, 'App/pagina_gestione/form/form_aeroporto.html', content) 
-
-
-def agg_indirizzo_a(request):
-    messages = ''
-    if request.method == 'POST':
-        form = Indirizzo_a_form(request.POST)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
-        else:
-            messages = 'Errore'
-
-    content = {
-        'form': Indirizzo_a_form,
-        'messaggio': messages,
-        'home': 'gestione_aeroporti',
-    }
-    return render(request, 'App/pagina_gestione/form/form_indirizzo_a.html', content) 
-
 
 
 

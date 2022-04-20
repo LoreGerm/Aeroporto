@@ -41,7 +41,6 @@ urlpatterns = [
     path('gestione/home/voli/aereo', views.agg_aereo, name="aggiungi_aereo"),
     path('gestione/home/prenotazioni/aggiungi', views.agg_prenotazioni, name='aggiungi_prenotazioni'),
     path('gestione/home/aeroporti/aggiungi', views.agg_aeroporti, name='aggiungi_aeroporti'),
-    path('gestione/home/aeroporti/aggiungi/indirizzo', views.agg_indirizzo_a, name="aggiungi_indirizzo_a"),
 
     path('gestione/home/voli/modifica/<int:id>', views.modifica_volo, name='modifica_volo'),
     path('gestione/home/aeroporti/modifica/<int:id>', views.modifica_aeroporto, name='modifica_aeroporto'),
