@@ -85,6 +85,8 @@ function Voli() {
         document.getElementById('error').innerHTML = '';
         document.getElementById('error').classList.add('d-none');
 
+        document.getElementById('voli_andata').classList.remove('d-none');
+
         document.getElementById('div_voli').classList.remove('d-none');
 
         document.getElementById('posti').value = n_posti;
@@ -101,10 +103,10 @@ function Voli() {
                     document.getElementById('voli_andata').append(Genera_card(data[i], 'andata'));
                 }
                 else if (data_ritorno != '' && data[i].aeroporto_di_partenza.id == aeroporto_ritorno && data[i].aeroporto_di_arrivo.id == aeroporto_andata && data[i].data_di_partenza == data_ritorno && data[i].posti_totali >= n_posti){
+                    console.log('caio')
                     document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
                 }
             }
-            document.getElementById('voli_andata').classList.remove('d-none');
 
             if(document.getElementById('voli_andata').innerHTML == ''){
                 document.getElementById('error').innerHTML = 'Voli non disponibili';
