@@ -1,6 +1,9 @@
 function Aumenta(){
     posti =parseInt(document.getElementById('n_posti').value);
-    document.getElementById('n_posti').value = posti+1;
+    if(posti < 15){
+        posti =parseInt(document.getElementById('n_posti').value);
+        document.getElementById('n_posti').value = posti+1;
+    }   
 }
 
 function Diminuisci(){
