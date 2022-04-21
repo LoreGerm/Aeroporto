@@ -102,6 +102,7 @@ function Arrivo(){
   if(aeroporto_partenza == ''){
     document.getElementById('aeroporto_di_arrivo').disabled = true;
     document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
+    document.getElementById('div_voli').classList.add('d-none');
   }
   else{
     document.getElementById('aeroporto_di_arrivo').disabled = false;

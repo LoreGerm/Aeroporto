@@ -24,8 +24,6 @@ urlpatterns = [
     path('i_tuoi_voli',views.i_tuoi_voli, name='i_tuoi_voli'),
     path('i_tuoi_voli/<int:id>',views.cancella_prenotazione, name='cancella_prenotazione'),
 
-    #path('gestione', views.gestione_accesso, name='gestione'),
-    #path('gestione/home', views.verifica_accesso, name='gestione_home'),
     path('gestione/home', views.gestione_home, name='gestione_home'),
     path('gestione/home/voli', views.gestione_voli, name='gestione_voli'),
     path('gestione/home/prenotazioni', views.gestione_prenotazioni, name='gestione_prenotazioni'),

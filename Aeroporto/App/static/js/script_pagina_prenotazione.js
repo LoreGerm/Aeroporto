@@ -104,9 +104,10 @@ function Voli() {
                     document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
                 }
             }
+            document.getElementById('voli_andata').classList.remove('d-none');
 
             if(document.getElementById('voli_andata').innerHTML == ''){
-                document.getElementById('error').innerHTML = 'Voli disponibili';
+                document.getElementById('error').innerHTML = 'Voli non disponibili';
                 document.getElementById('error').classList.remove('d-none'); 
                 document.getElementById('voli_andata').classList.add('d-none');
                 document.getElementById('div_voli').classList.add('d-none');
