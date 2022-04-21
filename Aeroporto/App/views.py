@@ -356,13 +356,34 @@ def modifica_volo(request, id):
     }
     form = VoloForm(initial=field)
     messages = ''
+    aereo = Aereo.objects.get(id = volo.aereo.id)
+
+    tot_posti_aereo = int(aereo.posti_prima_classe)+int(aereo.posti_seconda_classe)+int(aereo.posti_terza_classe)
+    posti_occupati = tot_posti_aereo - int(volo.posti_totali)
+
     if request.method == 'POST':
-        form = VoloForm(request.POST, instance=volo)
-        if form.is_valid():
-            form.save()
-            messages = 'Salvato'
-        else:
-            messages = 'Errore'
+        
+        volo.codice = request.POST.get('codice', '')
+        aeroporto_partenza = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_partenza', ''))
+        volo.aeroporto_di_partenza = aeroporto_partenza
+        aeroporto_arrivo = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_arrivo', ''))
+        volo.aeroporto_di_arrivo = aeroporto_arrivo
+
+        volo.prezzo_unitario_prima_classe = request.POST.get('prezzo_unitario_prima_classe', '')
+        volo.prezzo_unitario_seconda_classe = request.POST.get('prezzo_unitario_seconda_classe', '')
+        volo.prezzo_unitario_terza_classe = request.POST.get('prezzo_unitario_terza_classe', '')
+        volo.ora_di_partenza = request.POST.get('ora_di_partenza', '')
+        volo.ora_di_arrivo = request.POST.get('ora_di_arrivo', '')
+        volo.data_di_partenza = request.POST.get('data_di_partenza', '')
+        volo.data_di_arrivo = request.POST.get('data_di_arrivo', '')
+        volo.km = request.POST.get('km', '')
+        aereo = Aereo.objects.get(id = request.POST.get('aereo', ''))
+        volo.aereo = aereo
+
+        volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
+        volo.save()
+        messages = 'Salvato'
+           # messages = 'Errore'
 
     content = {
         'form': form,
