@@ -264,7 +264,6 @@ def gestione_voli(request):
 
 def gestione_prenotazioni(request):
     content = {
-        'agg': 'aggiungi_prenotazioni',
         'active_v': '',
         'active_p': 'active',
         'active_a': '',

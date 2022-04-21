@@ -27,7 +27,9 @@
       <button type="button" class="input-group-text btn btn-primary" onclick="Genera_gestione_cerca('{{obj}}')"><i class="bi bi-search"></i></button>
     </div>
     <div class="col">
+      {% if obj != 'pren' %}
       <a class="btn btn-success" type="button" aria-current="page" href="{% url agg %}">Aggiungi</a>
+      {% endif %}
     </div>
   </div>
 
