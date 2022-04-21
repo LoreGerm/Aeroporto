@@ -7,7 +7,7 @@
         <label for="" class="form-label">Codice</label>
         <div class="input-group">
             {{form.codice}}
-            <button class="input-group-text btn btn-primary" onclick="Genera_codice()" type="button" id="basic-addon2">Genera</i></button>
+            <button class="input-group-text btn btn-primary" onclick="Genera_codice()" type="button" >Genera</i></button>
         </div>
     </div>
     <div class="col">
@@ -15,7 +15,7 @@
         <div class="input-group">
             {{form.aeroporto_di_partenza}}
             <a href="{% url 'aggiungi_aeroporti' %}" target="_blank" class="input-group-text btn btn-primary"
-                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+                type="button" ><i class="bi bi-plus-circle"></i></a>
         </div>
     </div>
     <div class="col">
@@ -23,7 +23,7 @@
         <div class="input-group" >
             {{form.aeroporto_di_arrivo}}
             <a href="{% url 'aggiungi_aeroporti' %}" target="_blank" class="input-group-text btn btn-primary"
-                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+                type="button" ><i class="bi bi-plus-circle"></i></a>
         </div>
     </div>
 </div>
@@ -33,18 +33,17 @@
         <label class="form-label">Aereo</label>
         <div class="input-group">
             {{form.aereo}}
-            <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary"
-                type="button" id="basic-addon2"><i class="bi bi-plus-circle"></i></a>
+            <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary" type="button" ><i class="bi bi-plus-circle"></i></a>
         </div>
-    </div>
-    <div class="d-none">
-        <label class="form-label row">Posti totali</label>
-        <div id="lbl_posti_totali" class="row form-control text-center">0</div>
-        <span class="d-none">{{form.posti_totali}}</span>
     </div>
     <div class="col">
         <label class="form-label">Km</label>
         {{form.km}}
+    </div>
+    <div class="d-none col">
+        <label class="form-label row">Posti totali</label>
+        <div id="lbl_posti_totali" class="row form-control text-center">0</div>
+        <span class="d-none">{{form.posti_totali}}</span>
     </div>
 </div>
 
@@ -53,21 +52,21 @@
         <label class="form-label">Prezzo prima classe</label>
         <div class="input-group">
             {{form.prezzo_unitario_prima_classe}}
-            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+            <span class="input-group-text bg-primary text-light" >€</span>
         </div>
     </div>
     <div class="col">
         <label class="form-label">Prezzo seconda classe</label>
         <div class="input-group">
             {{form.prezzo_unitario_seconda_classe}}
-            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+            <span class="input-group-text bg-primary text-light" >€</span>
         </div>
     </div>
     <div class="col">
         <label class="form-label">Prezzo terza classe</label>
         <div class="input-group">
             {{form.prezzo_unitario_terza_classe}}
-            <span class="input-group-text bg-primary text-light" id="basic-addon2">€</span>
+            <span class="input-group-text bg-primary text-light" >€</span>
         </div>
     </div>
 </div>
