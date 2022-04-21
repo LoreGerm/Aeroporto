@@ -1,9 +1,13 @@
 
-
+volo_ritorno_global = '';
+posti_global = '';
 
 let posti_scelti = [];
-function Posti(id_volo='', id_div_posti='', volo_ritorno='', posti=''){
-    
+function Posti(id_volo_andata='', id_div_posti='', volo_ritorno='', posti=''){
+
+    volo_ritorno_global = volo_ritorno;
+    posti_global = posti;
+
     document.getElementById('btn-avanti').disabled = true;
     document.getElementById('btn-avanti').classList.add('opacity-25');
 
@@ -34,11 +38,11 @@ function Posti(id_volo='', id_div_posti='', volo_ritorno='', posti=''){
     }
 
     posti_scelti = [];
-    if(id_volo == ''){
-        id_volo = parseInt(document.getElementById('volo').value);
+    if(id_volo_andata == ''){
+        id_volo_andata = parseInt(document.getElementById('volo').value);
     }
     else{
-        id_volo = parseInt(id_volo);
+        id_volo_andata = parseInt(id_volo_andata);
     }
     const API_PREN = 'http://localhost:8000/apiprenotazione/';
     fetch(API_PREN)
@@ -47,24 +51,24 @@ function Posti(id_volo='', id_div_posti='', volo_ritorno='', posti=''){
 
             let posti_prenotati = '';
             for(let i=0; i<data.length; i++){
-                if(data[i].volo.id == id_volo){
+                if(data[i].volo.id == id_volo_andata){
                     posti_prenotati += data[i].posti_prenotati+',';
                 }
             }
 
             posti_prenotati = posti_prenotati.split(',');
-            Genera_posti(id_volo, posti_prenotati, id_div_posti, posti)
+            Genera_posti(id_volo_andata, posti_prenotati, id_div_posti)
         })
         .catch(err => console.log(err));
     
 }
 
 
-function Genera_posti(id_volo, posti_prenotati, id_div_posti, posti) {
+function Genera_posti(id_volo_andata, posti_prenotati, id_div_posti) {
     document.getElementById('prezzo_totale_'+id_div_posti).value = 0;
     document.getElementById('posti_'+id_div_posti).innerHTML = '';
     const API_VOLI = 'http://localhost:8000/apivolo/';
-    fetch(API_VOLI+id_volo)
+    fetch(API_VOLI+id_volo_andata)
         .then(response => response.json())
         .then(data => {
             content = {
@@ -82,7 +86,7 @@ function Genera_posti(id_volo, posti_prenotati, id_div_posti, posti) {
             document.getElementById('tabella_posti').classList.remove('d-none');
 
             for (let i = 1; i <= content.posti; i++){
-                document.getElementById('posti_'+id_div_posti).append(Fila(i,content, posti_prenotati, id_div_posti, posti));
+                document.getElementById('posti_'+id_div_posti).append(Fila(i,content, posti_prenotati, id_div_posti));
             }
         })
         .catch(err => console.log(err));
@@ -90,7 +94,7 @@ function Genera_posti(id_volo, posti_prenotati, id_div_posti, posti) {
 
 
 
-function Fila(i,content, posti_prenotati, id_div_posti, posti) {
+function Fila(i,content, posti_prenotati, id_div_posti) {
     const node = document.createElement('tr');
     let td = '<th scope="row">' + i + '</th>';
     let lettere = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -98,15 +102,15 @@ function Fila(i,content, posti_prenotati, id_div_posti, posti) {
 
         if(!posti_prenotati.includes(lettere[j] + i.toString())){
             if (content.posti_prima_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.id,'+content.prezzo_prima_classe+', '+id_div_posti+', '+posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.id,'+content.prezzo_prima_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_prima_classe--;
             }
             else if(content.posti_seconda_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.id,'+content.prezzo_seconda_classe+', '+id_div_posti+', '+posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.id,'+content.prezzo_seconda_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_seconda_classe--;
             }
             else{
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.id,'+content.prezzo_terza_classe+', '+id_div_posti+', '+posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.id,'+content.prezzo_terza_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
             }
         }
         else{
@@ -129,35 +133,54 @@ function Fila(i,content, posti_prenotati, id_div_posti, posti) {
 
 
 
-function Scelta(id, prezzo, id_div_posti, posti) {
-        if (!posti_scelti.includes(id)) {
-            posti_scelti.push(id);
-            document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
-            let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
-            document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo + prezzo;
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('btn-lg');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-success');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-5');
-        }
-        else {
-            posti_scelti.pop(id);
-            document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
-            let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
-            document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo - prezzo;
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('btn-lg');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-success');
-            document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-5');
-        }
+function Scelta(id, prezzo, id_div_posti) {
+    if (!posti_scelti.includes(id)) {
+        posti_scelti.push(id);
+        document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
+        let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
+        document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo + prezzo;
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('btn-lg');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-success');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-5');
+    }
+    else {
+        posti_scelti.pop(id);
+        document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;
+        let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
+        document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo - prezzo;
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('btn-lg');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-success');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-5');
+    }
         
-    if(posti_scelti.length == posti){
+
+
+    if(posti_scelti.length == posti_global){
+        if(volo_ritorno_global != ''){
+            document.getElementById('btn-ritorno').disabled = false;
+            document.getElementById('btn-ritorno').classList.remove('opacity-50');
+        }
         document.getElementById('btn-avanti').disabled = false;
         document.getElementById('btn-avanti').classList.remove('opacity-25');
     }
-    else{
+    else if(posti_scelti.length > posti_global){
+        if(volo_ritorno_global != ''){
+            document.getElementById('btn-ritorno').disabled = true;
+            document.getElementById('btn-ritorno').classList.add('opacity-50');
+        }
         document.getElementById('btn-avanti').disabled = true;
-        document.getElementById('btn-avanti').classList.add('opacity-25');        
+        document.getElementById('btn-avanti').classList.add('opacity-25');  
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).click();
+    }
+    else{
+        if(volo_ritorno_global != ''){
+            document.getElementById('btn-ritorno').disabled = true;
+            document.getElementById('btn-ritorno').classList.add('opacity-50');
+        }
+        document.getElementById('btn-avanti').disabled = true;
+        document.getElementById('btn-avanti').classList.add('opacity-25');          
     }
 }
 

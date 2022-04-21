@@ -68,7 +68,7 @@
 
     <div class="row">
         <button id="btn-andata" class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata', '{{volo_ritorno}}', '{{posti}}')">Scegli posti andata</button>
-        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}', '{{posti}}')">Scegli posti ritorno</button>
+        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none opacity-50" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}', '{{posti}}')" disabled>Scegli posti ritorno</button>
         <div class="d-none col" id="form">
             <form action="{% url 'dati_utente' %}" method="post">
                 {% csrf_token %}
@@ -80,7 +80,6 @@
                     <input type="number" value="0" id="prezzo_totale_ritorno" name="prezzo_totale_ritorno" step=0.01>
                     <input type="text" id="posti_prenotati_andata" name="posti_prenotati_andata" >
                     <input type="text" id="posti_prenotati_ritorno" name="posti_prenotati_ritorno" >
-                    <!--{{form_prenota_andata.posti_prenotati}}-->
                 </div>
             </form>
         </div>

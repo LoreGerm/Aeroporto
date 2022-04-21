@@ -11,6 +11,21 @@ function Diminuisci(){
 }
 
 
+function btn_avanti(){
+    if(document.getElementById('andata-ritorno').checked){
+        if(document.getElementById('ritorno').checked && document.getElementById('andata').checked){
+            document.getElementById('avanti').classList.remove('opacity-50');
+            document.getElementById('avanti').disabled = false;
+        }
+    }
+    else{
+        document.getElementById('avanti').classList.remove('opacity-50');
+        document.getElementById('avanti').disabled = false;        
+    }
+
+}
+
+
 function radio_btn(id){
     if(id=='andata-ritorno'){
         document.getElementById('div-data-ritorno').classList.remove('d-none');
@@ -33,6 +48,9 @@ function radio_btn(id){
 function Voli() {
     document.getElementById('voli_andata').innerHTML = '';
     document.getElementById('voli_ritorno').innerHTML = '';
+
+    document.getElementById('avanti').classList.add('opacity-50');
+    document.getElementById('avanti').disabled = true;
 
     aeroporto_andata = document.getElementById('aeroporto_di_partenza').value;
     aeroporto_ritorno = document.getElementById('aeroporto_di_arrivo').value;
@@ -83,6 +101,19 @@ function Voli() {
                     document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
                 }
             }
+
+            if(document.getElementById('voli_andata').innerHTML == ''){
+                document.getElementById('error').innerHTML = 'Voli disponibili';
+                document.getElementById('error').classList.remove('d-none'); 
+                document.getElementById('voli_andata').classList.add('d-none');
+                document.getElementById('div_voli').classList.add('d-none');
+            }
+            if(data_ritorno != '' && document.getElementById('voli_ritorno').innerHTML == ''){
+                document.getElementById('error').innerHTML = 'Voli non disponibili';
+                document.getElementById('error').classList.remove('d-none');
+                document.getElementById('voli_ritorno').classList.add('d-none');
+                document.getElementById('div_voli').classList.add('d-none');
+            }
         
         
         })
@@ -103,7 +134,7 @@ function Genera_card(volo, check){
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'
-                +'<div> <input type="radio" class="btn-check" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="btn btn-outline-success" for="'+check+'">Seleziona</label></div>'
+                +'<div> <input type="radio" class="btn-check" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="btn btn-outline-success" for="'+check+'">Seleziona</label></div>'
                 +'</div></div>';
     node.innerHTML = card;
     return node

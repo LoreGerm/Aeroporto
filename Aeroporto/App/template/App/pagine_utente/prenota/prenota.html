@@ -43,7 +43,7 @@
       <label name="n_posti" class="form-label">Numero di posti</label>
       <div class="input-group ">
         <button type="button" class="btn btn-danger" onclick="Diminuisci()"><i class="bi bi-dash-lg"></i></i></button>
-        <input type="number" value="1" name="n_posti" class="form-control text-center" id="n_posti">
+        <input type="number" value="1" name="n_posti" class="form-control text-center" id="n_posti" min="1" max="15">
         <button type="button" class="btn btn-success" onclick="Aumenta()"><i class="bi bi-plus-lg"></i></i></button>
       </div>
     </div>
@@ -61,17 +61,19 @@
   <form action="{% url 'scelta_posti' %}" method="post" class="row">
     {% csrf_token %}
     <input type="number" value="" class="d-none" name="posti" id="posti">
-    <button type="submit" class="btn btn-success mt-3 w-100" id="avanti">Avanti</button>
     <div class="col" id="voli_andata">
     </div>
     <div class="col d-none" id="voli_ritorno">
     </div>
+    <button type="submit" class="btn btn-success mt-3 w-100 opacity-50" id="avanti" disabled>Avanti</button>
   </form>
 </div>
 
 
 
 <script>
+  document.getElementById('data_andata').min = new Date().toISOString().split("T")[0];
+  document.getElementById('data_ritorno').min = new Date().toISOString().split("T")[0];
 
   document.getElementById('aeroporto_di_arrivo').disabled = true;
   document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
