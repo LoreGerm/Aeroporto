@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from App.models import Aereo, Aeroporto, Volo, Admin, Utente, Prenotazioni, Indirizzo_a
+from App.models import Aereo, Aeroporto, Volo, Utente, Prenotazioni, Indirizzo_a
 
 # Register your models here.
 admin.site.unregister(Group)
@@ -28,10 +28,6 @@ class AereoAdmin(admin.ModelAdmin):
     list_filter = ('codice', 'modello', 'stato', 'km_totali', 'km_da_ultima_manutenzione', 'data_ultima_manutenzione')
 admin.site.register(Aereo, AereoAdmin)
 
-class AdminAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'password')
-    list_filter = ('nome', 'password')
-admin.site.register(Admin, AdminAdmin)
 
 class UtenteAdmin(admin.ModelAdmin):
     list_display = ('nome', 'cognome', 'email', 'telefono')
