@@ -1,49 +1,51 @@
-function Aumenta(){
+function Aumenta(){     // Al click del + aumenta il numero dei posti
     posti =parseInt(document.getElementById('n_posti').value);
-    if(posti < 15){
+    if(posti < 15){     // Massimo 15 posti
         posti =parseInt(document.getElementById('n_posti').value);
         document.getElementById('n_posti').value = posti+1;
     }   
 }
 
-function Diminuisci(){
+function Diminuisci(){     // Al click del - diminuisce il numero dei posti
     posti =parseInt(document.getElementById('n_posti').value);
-    if(posti != 1){
+    if(posti != 1){     // Minimo 1 posto
         document.getElementById('n_posti').value = posti-1;
     }
 }
 
 
-function btn_avanti(){
-    if(document.getElementById('andata-ritorno').checked){
-        if(document.getElementById('ritorno').checked && document.getElementById('andata').checked){
+function radio_btn(id){
+    // Azzera e nasconde i div dove vengono mostrati i voli
+    document.getElementById('voli_andata').innerHTML = '';
+    document.getElementById('voli_ritorno').innerHTML = '';
+    document.getElementById('div_voli').classList.add('d-none');
+
+    if(id=='andata-ritorno'){   // Se l'utente seleziona 'andata e ritorno'
+        document.getElementById('div-data-ritorno').classList.remove('d-none'); // Mostra la data di ritorno
+    }
+    else{
+        document.getElementById('div-data-ritorno').classList.add('d-none');  // Nasconde la data di ritorno
+        document.getElementById('voli_ritorno').classList.add('d-none');  // Nasconde il div dei voli di ritorno
+        document.getElementById('data_ritorno').value = '';  // Azzera la data di ritorno
+    }
+}
+
+
+
+function btn_avanti(){  // Abilita il bottone per andare avanti al click del volo
+    if(document.getElementById('andata-ritorno').checked){  // Se l'utente ha selezionato andata e ritrono
+        if(document.getElementById('ritorno').checked && document.getElementById('andata').checked){    // Se l'utente ha selezionato i voli
+            // Abilita il bottone per andare avanti
             document.getElementById('avanti').classList.remove('opacity-50');
             document.getElementById('avanti').disabled = false;
         }
     }
-    else{
+    else{ // Se l'utente ha selezionato solo andata
+        // Abilita il bottone per andare avanti
         document.getElementById('avanti').classList.remove('opacity-50');
         document.getElementById('avanti').disabled = false;        
     }
 
-}
-
-
-function radio_btn(id){
-    if(id=='andata-ritorno'){
-        document.getElementById('div-data-ritorno').classList.remove('d-none');
-        document.getElementById('voli_andata').innerHTML = '';
-        document.getElementById('voli_ritorno').innerHTML = '';
-        document.getElementById('div_voli').classList.add('d-none');
-    }
-    else{
-        document.getElementById('div-data-ritorno').classList.add('d-none');    
-        document.getElementById('voli_andata').innerHTML = '';
-        document.getElementById('voli_ritorno').innerHTML = '';
-        document.getElementById('voli_ritorno').classList.add('d-none');
-        document.getElementById('div_voli').classList.add('d-none');
-        document.getElementById('data_ritorno').value = '';
-    }
 }
 
 
