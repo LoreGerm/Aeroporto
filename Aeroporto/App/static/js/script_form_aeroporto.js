@@ -1,5 +1,5 @@
 
-
+// Al clck del + fa apparire i campi del form per aggiungere l'indirizzo
 function Form_indirizzo_appari(){
     document.getElementById('id_indirizzo').removeAttribute('required'); 
     document.getElementById('id_via').setAttribute('required', ''); 
@@ -12,6 +12,7 @@ function Form_indirizzo_appari(){
 
 }
 
+// Al clck del - fa scomparire i campi del form per aggiungere l'indirizzo
 function Form_indirizzo_scompari(){
     document.getElementById('id_indirizzo').setAttribute('required', '');
     document.getElementById('id_via').removeAttribute('required', ''); 
