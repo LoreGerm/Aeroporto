@@ -18,14 +18,12 @@
     <div class="col">
       <label for="" class="form-label">Partenza</label>
       <select class="form-select" id="aeroporto_di_partenza" onchange="Arrivo()">
-        <option value="">----------</option>
       </select>
     </div>
 
     <div class="col">
       <label for="" class="form-label" >Arrivo</label>
       <select class="form-select" id="aeroporto_di_arrivo">
-        <option value="">----------</option>
       </select>
     </div>
 
@@ -77,11 +75,12 @@
 
   document.getElementById('aeroporto_di_arrivo').disabled = true;
   document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
+
   const API_VOLI = 'http://localhost:8000/apiaeroporto/';
   fetch(API_VOLI)
   .then(response => response.json())
   .then(data => {
-
+      // Genera gli aetoporti nella select degli aeroporti di partenza
       for(let i=0; i<data.length; i++){
           document.getElementById('aeroporto_di_partenza').append(Genera_option(data[i]));
       }
@@ -96,32 +95,32 @@ function Genera_option(data){
   return option
 }
 
+// Quando si sceglie l'aeroporto di partenza
 function Arrivo(){
+
   let aeroporto_partenza = document.getElementById('aeroporto_di_partenza').value
-  document.getElementById('aeroporto_di_arrivo').innerHTML = '<option value="">----------</option>';
-  if(aeroporto_partenza == ''){
-    document.getElementById('aeroporto_di_arrivo').disabled = true;
-    document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
-    document.getElementById('div_voli').classList.add('d-none');
-  }
-  else{
-    document.getElementById('aeroporto_di_arrivo').disabled = false;
-    document.getElementById('aeroporto_di_arrivo').classList.remove('opacity-50');
+  document.getElementById('aeroporto_di_arrivo').innerHTML = '';
 
-    const API_VOLI = 'http://localhost:8000/apivolo/';
-    fetch(API_VOLI)
-    .then(response => response.json())
-    .then(data => {
+  const API_VOLI = 'http://localhost:8000/apivolo/';
+  fetch(API_VOLI)
+  .then(response => response.json())
+  .then(data => {
 
-        for(let i=0; i<data.length; i++){
-          if(data[i].aeroporto_di_partenza.id == aeroporto_partenza){
-            document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
-          }
+      for(let i=0; i<data.length; i++){
+        // Se esistono voli con l'aeroporto di partenza scelto
+        if(data[i].aeroporto_di_partenza.id == aeroporto_partenza){ 
+          // Genera nella select degli aeroporti di arrivo le option con gli aeroporti di arrivo
+          document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
         }
-    
-    })
-    .catch(err => console.log(err));
-  }
+      }
+  
+  })
+  .catch(err => console.log(err));
+  
+  // Abilita la select degli aeroporti di arrivo
+  document.getElementById('aeroporto_di_arrivo').disabled = false;
+  document.getElementById('aeroporto_di_arrivo').classList.remove('opacity-50');
+
 
 }
 
