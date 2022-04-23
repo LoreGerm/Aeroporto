@@ -36,7 +36,6 @@ class UtenteApi(viewsets.ModelViewSet):
 
 
 
-# Create your views here.
 
 def prenota_utente(request):
     content = {
@@ -45,13 +44,15 @@ def prenota_utente(request):
     return render(request, 'App/pagine_utente/prenota/prenota.html', content)
 
 
+# View chiamata una volta confermati i dati iniziali della prenotazione
 def scelta_posti(request):
-    posti = request.POST.get('posti', '')
-    codice_volo_andata = request.POST.get('andata', '')
+    posti = request.POST.get('posti', '')   # Numero di posti scelti
+    codice_volo_andata = request.POST.get('andata', '') 
     codice_volo_ritorno = request.POST.get('ritorno', '')
     volo_ritorno = ''
     volo_andata = Volo.objects.get(codice = codice_volo_andata)
-    if codice_volo_ritorno != '':
+    # Se l'utente sceglie andata e ritorno
+    if codice_volo_ritorno != '':   
         volo_ritorno = Volo.objects.get(codice = codice_volo_ritorno)
 
     content = {
@@ -63,6 +64,7 @@ def scelta_posti(request):
     }
     return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
 
+# View chiamata dopo aver scelto i posti
 def dati_utente(request):
     if request.method == 'POST':
         id_volo_andata = request.POST.get('id_volo_andata', '')
@@ -74,6 +76,7 @@ def dati_utente(request):
         volo_ritorno = ''
         posti_prenotati_ritorno = ''
         prezzo_totale_ritorno = ''
+        # Se l'utente sceglie andata e ritorno
         if id_volo_ritorno != '':
             volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
             posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
@@ -90,6 +93,7 @@ def dati_utente(request):
     }
     return render(request, 'App/pagine_utente/prenota/form_utente.html', content)
 
+# View chiamata dopo aver messo i dati dell'utente
 def recap(request):
     if request.method == 'POST':
         nome_ut = request.POST['nome']
@@ -106,6 +110,7 @@ def recap(request):
         volo_ritorno = ''
         posti_prenotati_ritorno = ''
         prezzo_totale_ritorno = ''
+        # Se l'utente sceglie andata e ritorno
         if id_volo_ritorno != '':
             volo_ritorno = Volo.objects.get(id = id_volo_ritorno)
             posti_prenotati_ritorno = request.POST.get('posti_prenotati_ritorno', '')
@@ -127,8 +132,10 @@ def recap(request):
     }
     return render(request, 'App/pagine_utente/prenota/recap.html', content)
 
+# View chiamata una volta confermata la prenotazione
 def acquista(request):
     if request.method == 'POST':
+        # Crea l'utente e lo salva
         nome = request.POST.get('nome', '')
         cognome = request.POST.get('cognome', '')
         email = request.POST.get('email', '')
@@ -140,11 +147,13 @@ def acquista(request):
 
         volo_ritorno_id = request.POST.get('volo_ritorno_id', '')
         volo_ritorno = ''
+        # Se l'utente sceglie andata e ritorno
         if volo_ritorno_id != '':
             volo_ritorno = Volo.objects.get(id=volo_ritorno_id)
             posti_ritorno = request.POST.get('posti_prenotati_ritorno', '')
+            # Modifica i posti totali del volo togliendo quelli scelti
             volo_ritorno.posti_totali -= len(list(posti_ritorno.split(',')))
-            volo_ritorno.save()
+            volo_ritorno.save() # Salva la modifica
             prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
             prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
             prenotazione_ritorno.save()
@@ -152,12 +161,16 @@ def acquista(request):
         volo_andata_id = request.POST.get('volo_andata_id', '')
         volo_andata = Volo.objects.get(id=volo_andata_id)
         posti_andata = request.POST.get('posti_prenotati_andata', '')
+        # Modifica i posti totali del volo togliendo quelli scelti
         volo_andata.posti_totali -= len(list(posti_andata.split(',')))
-        volo_andata.save()
+        volo_andata.save() # Salva la modifica
+
+        # Crea la prenotazione
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
         prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
         prenotazione_andata.save()
 
+        # Manda la mail con il codice
         if volo_ritorno_id != '':
             send_mail(
                 'Codice prenotazione Starlato Airline',
@@ -183,10 +196,11 @@ def acquista(request):
 
 
 
-
+# View chiamata quando si vogliono visualizzare le prenotazioni
 def i_tuoi_voli(request):
     prenotazione = []
     if request.method == 'POST':
+        # L'utente inserisce il codice e viene cercata la prenotazione
         cerca = request.POST['cerca']
         prenotazione = Prenotazioni.objects.filter(codice=cerca)
 
@@ -195,14 +209,19 @@ def i_tuoi_voli(request):
     }
     return render(request, 'App/pagine_utente/i_tuoi_voli.html', content)
 
+# View chiamata quando l'utente vuole eliminare la prenotazione
 def cancella_prenotazione(request,id):
     pren = Prenotazioni.objects.get(id = id)
     utente = Utente.objects.get(id = pren.utente.id)
+    # Prenotazioni con lo stesso utente
     pren_con_ut = Prenotazioni.objects.filter(utente = utente.id)
-    print(pren_con_ut)
+
     volo = Volo.objects.get(id = pren.volo.id)
     posti_pren = len(list(pren.posti_prenotati.split(',')))
+    # i posti della prenotazione vengono riaggiunti al volo
     volo.posti_totali += posti_pren
+
+    # Se lo stesso utente appare in una sola prenotazione viene eliminato
     if len(pren_con_ut) <= 1:
         utente.delete()
     pren.delete()
