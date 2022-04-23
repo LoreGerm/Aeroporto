@@ -1,24 +1,25 @@
 
 
-function Genera_gestione_cerca(obj){
+function Genera_gestione_cerca(pagina){
 
     let API = '';
 
-    if(obj == 'voli'){
+    // Scegli l'API basandosi sulla pagina in cui si trova
+    if(pagina == 'voli'){
         API = 'http://localhost:8000/apivolo/';
     }
-    else if(obj == 'pren'){
+    else if(pagina == 'pren'){
         API = 'http://localhost:8000/apiprenotazione/';
     }
-    else if(obj == 'aeroporti'){
+    else if(pagina == 'aeroporti'){
         API = 'http://localhost:8000/apiaeroporto/';
     }
-    else if(obj == 'aerei'){
+    else if(pagina == 'aerei'){
         API = 'http://localhost:8000/apiaereo/';
     }
 
-    
-    document.getElementById('thead').innerHTML = Genera_thead(obj);
+    // Genera l'head della tabella basandosi sulla pagina in cui si trova
+    document.getElementById('thead').innerHTML = Genera_thead(pagina);
     document.getElementById('tbody').innerHTML = '<div id="modal"> </div>';
 
     fetch(API)
@@ -26,8 +27,9 @@ function Genera_gestione_cerca(obj){
     .then(data => {
 
         for (let i = 0; i < data.length; i++) {
+            // Genera la tabella basandosi sul valore dell'input 'Cerca' (se è vuoto stampa tutte le entità)
             if(data[i].codice.includes(document.getElementById('cerca').value.toUpperCase()) || data[i].codice.includes(document.getElementById('cerca').value.toLowerCase())){
-                document.getElementById('tbody').append(Genera_tbody(data[i], obj));
+                document.getElementById('tbody').append(Genera_tbody(data[i], pagina));
             }
         }
 
@@ -38,9 +40,9 @@ function Genera_gestione_cerca(obj){
 
 
 
-function Genera_thead(obj){
+function Genera_thead(pagina){
     let thead = '';
-    if(obj == 'voli'){
+    if(pagina == 'voli'){
         thead = '<th>Codice</th>'
                     +'<th>Partenza</th>'
                     +'<th>Arrivo</th>'
@@ -55,7 +57,7 @@ function Genera_thead(obj){
                     +'<th>Km</th>'
                     +'<th>Aereo</th>';
     }
-    else if(obj == 'pren'){
+    else if(pagina == 'pren'){
         thead = '<th>Codice</th>'
                     +'<th>Nome utente</th>'
                     +'<th>Cognome utente</th>'
@@ -65,7 +67,7 @@ function Genera_thead(obj){
                     +'<th>Posti prenotati</th>'
                     +'<th>Prezzo totale</th>';
     }
-    else if(obj == 'aeroporti'){
+    else if(pagina == 'aeroporti'){
         thead = '<th>Codice</th>'
                     +'<th>Nome</th>'
                     +'<th>Descrizione</th>'
@@ -75,7 +77,7 @@ function Genera_thead(obj){
                     +'<th>Citta</th>'
                     +'<th>Provincia</th>';
     }
-    else if(obj == 'aerei'){
+    else if(pagina == 'aerei'){
         thead = '<th>Codice</th>'
                     +'<th>Modello</th>'
                     +'<th>Stato</th>'
@@ -91,11 +93,11 @@ function Genera_thead(obj){
 
 
 
-function Genera_tbody(data, obj){
+function Genera_tbody(data, pagina){
     const tr = document.createElement('tr');
     let modal = '';
     let td = '';
-    if(obj == 'voli'){
+    if(pagina == 'voli'){
         let data_p = data.data_di_partenza.slice(8,10)+'/'+data.data_di_partenza.slice(5,7)+'/'+data.data_di_partenza.slice(0,4)
         let data_a = data.data_di_arrivo.slice(8,10)+'/'+data.data_di_arrivo.slice(5,7)+'/'+data.data_di_arrivo.slice(0,4)
         td = '<td>'+data.codice+'</td>'
@@ -133,7 +135,7 @@ function Genera_tbody(data, obj){
                     +'</div>'
                 +'</div>';
     }
-    else if(obj == 'pren'){
+    else if(pagina == 'pren'){
         td = '<td>'+data.codice+'</td>'
                 +'<td>'+data.utente.nome+'</td>'
                 +'<td>'+data.utente.cognome+'</td>'
@@ -163,7 +165,7 @@ function Genera_tbody(data, obj){
                     +'</div>'
                 +'</div>';
     }
-    else if(obj == 'aeroporti'){
+    else if(pagina == 'aeroporti'){
         td = '<td>'+data.codice+'</td>'
                 +'<td>'+data.nome+'</td>'
                 +'<td>'+data.descrizione+'</td>'
@@ -194,7 +196,7 @@ function Genera_tbody(data, obj){
                     +'</div>'
                 +'</div>';
     }
-    else if(obj == 'aerei'){
+    else if(pagina == 'aerei'){
         let data_m = data.data_ultima_manutenzione.slice(8,10)+'/'+data.data_ultima_manutenzione.slice(5,7)+'/'+data.data_ultima_manutenzione.slice(0,4)
         td = '<td>'+data.codice+'</td>'
                 +'<td>'+data.modello+'</td>'
