@@ -448,7 +448,7 @@ def modifica_aeroporto(request, id):
 def modifica_aereo(request, id):
     aereo = Aereo.objects.get(id = id)
     field = {
-        'targa': aereo.targa,
+        'codice': aereo.codice,
         'modello': aereo.modello,
         'stato': aereo.stato,
         'km_totali': aereo.km_totali,
