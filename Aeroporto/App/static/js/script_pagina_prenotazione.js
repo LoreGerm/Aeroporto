@@ -63,22 +63,26 @@ function Voli() {
     data_ritorno = document.getElementById('data_ritorno').value;
     n_posti = document.getElementById('n_posti').value;
 
-    if (n_posti <= 0 ){
+    if (n_posti <= 0 || n_posti > 15){     // Se il numero di posti selezionati è minore o ugale a 0 o maggiore di 15
+        // Stampa l'errore
         document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Numero di posti non valido';
         document.getElementById('error').classList.remove('d-none');
     }
-    else if(aeroporto_andata == '' || aeroporto_ritorno == ''){
+    else if(aeroporto_andata == '' || aeroporto_ritorno == ''){     // Se non vengono selezionati gli aeroporti
+        // Stampa l'errore
         document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Selezionare gli aeroporti';
         document.getElementById('error').classList.remove('d-none');    
     }
-    else if(data_andata == ''){
+    else if(data_andata == ''){     // Se non viene selezionata la data di andata
+        // Stampa l'errore
         document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Selezionare la data di partenza';
         document.getElementById('error').classList.remove('d-none');   
     }
-    else if(data_ritorno == '' && document.getElementById('andata-ritorno').checked){
+    else if(data_ritorno == '' && document.getElementById('andata-ritorno').checked){   // Se l'utente ha selezionato 'andata e ritorno' e non viene selezionata la data di ritorno
+        // Stampa l'errore
         document.getElementById('div_voli').classList.add('d-none');
         document.getElementById('error').innerHTML = 'Selezionare la data di ritorno';
         document.getElementById('error').classList.remove('d-none');   
@@ -87,6 +91,9 @@ function Voli() {
         document.getElementById('error').innerHTML = '';
         document.getElementById('error').classList.add('d-none');
 
+        if(data_ritorno != ''){
+            document.getElementById('voli_ritorno').classList.remove('d-none');
+        }
         document.getElementById('voli_andata').classList.remove('d-none');
 
         document.getElementById('div_voli').classList.remove('d-none');
@@ -97,19 +104,20 @@ function Voli() {
         fetch(API_VOLI)
         .then(response => response.json())
         .then(data => {
-            if(data_ritorno != ''){
-                document.getElementById('voli_ritorno').classList.remove('d-none');
-            }
+
             for (let i=0; i<data.length; i++) {
+                // Cerca e genera i voli di andata
                 if (data[i].aeroporto_di_partenza.id == aeroporto_andata && data[i].aeroporto_di_arrivo.id == aeroporto_ritorno && data[i].data_di_partenza == data_andata && data[i].posti_totali >= n_posti) {
                     document.getElementById('voli_andata').append(Genera_card(data[i], 'andata'));
                 }
+                // Cerca e genera i voli di ritorno
                 else if (data_ritorno != '' && data[i].aeroporto_di_partenza.id == aeroporto_ritorno && data[i].aeroporto_di_arrivo.id == aeroporto_andata && data[i].data_di_partenza == data_ritorno && data[i].posti_totali >= n_posti){
                     console.log('caio')
                     document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
                 }
             }
 
+            // Stampa gli errori se non ci sono voli
             if(document.getElementById('voli_andata').innerHTML == ''){
                 document.getElementById('error').innerHTML = 'Voli non disponibili';
                 document.getElementById('error').classList.remove('d-none'); 
