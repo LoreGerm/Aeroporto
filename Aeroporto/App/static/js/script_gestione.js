@@ -27,7 +27,7 @@ function Genera_gestione_cerca(pagina){
     .then(data => {
 
         for (let i = 0; i < data.length; i++) {
-            // Genera la tabella basandosi sul valore dell'input 'Cerca' (se è vuoto stampa tutte le entità)
+            // Genera la tabella più il modal dell'elimina basandosi sul valore dell'input 'Cerca' (se è vuoto stampa tutte le entità)
             if(data[i].codice.includes(document.getElementById('cerca').value.toUpperCase()) || data[i].codice.includes(document.getElementById('cerca').value.toLowerCase())){
                 document.getElementById('tbody').append(Genera_tbody(data[i], pagina));
             }
