@@ -238,19 +238,6 @@ def cancella_prenotazione(request,id):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #######################################################################################
 
 
@@ -381,28 +368,30 @@ def modifica_volo(request, id):
     posti_occupati = tot_posti_aereo - int(volo.posti_totali)
 
     if request.method == 'POST':
-        
-        volo.codice = request.POST.get('codice', '')
-        aeroporto_partenza = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_partenza', ''))
-        volo.aeroporto_di_partenza = aeroporto_partenza
-        aeroporto_arrivo = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_arrivo', ''))
-        volo.aeroporto_di_arrivo = aeroporto_arrivo
+        try:
+            volo.codice = request.POST.get('codice', '')
+            aeroporto_partenza = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_partenza', ''))
+            volo.aeroporto_di_partenza = aeroporto_partenza
+            aeroporto_arrivo = Aeroporto.objects.get(id = request.POST.get('aeroporto_di_arrivo', ''))
+            volo.aeroporto_di_arrivo = aeroporto_arrivo
 
-        volo.prezzo_unitario_prima_classe = request.POST.get('prezzo_unitario_prima_classe', '')
-        volo.prezzo_unitario_seconda_classe = request.POST.get('prezzo_unitario_seconda_classe', '')
-        volo.prezzo_unitario_terza_classe = request.POST.get('prezzo_unitario_terza_classe', '')
-        volo.ora_di_partenza = request.POST.get('ora_di_partenza', '')
-        volo.ora_di_arrivo = request.POST.get('ora_di_arrivo', '')
-        volo.data_di_partenza = request.POST.get('data_di_partenza', '')
-        volo.data_di_arrivo = request.POST.get('data_di_arrivo', '')
-        volo.km = request.POST.get('km', '')
-        aereo = Aereo.objects.get(id = request.POST.get('aereo', ''))
-        volo.aereo = aereo
+            volo.prezzo_unitario_prima_classe = request.POST.get('prezzo_unitario_prima_classe', '')
+            volo.prezzo_unitario_seconda_classe = request.POST.get('prezzo_unitario_seconda_classe', '')
+            volo.prezzo_unitario_terza_classe = request.POST.get('prezzo_unitario_terza_classe', '')
+            volo.ora_di_partenza = request.POST.get('ora_di_partenza', '')
+            volo.ora_di_arrivo = request.POST.get('ora_di_arrivo', '')
+            volo.data_di_partenza = request.POST.get('data_di_partenza', '')
+            volo.data_di_arrivo = request.POST.get('data_di_arrivo', '')
+            volo.km = request.POST.get('km', '')
+            aereo = Aereo.objects.get(id = request.POST.get('aereo', ''))
+            volo.aereo = aereo
 
-        volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
-        volo.save()
-        messages = 'Salvato'
-           # messages = 'Errore'
+            # Se si cambia l'aereo al volo ai nuovi posti totali vengono tolti i posti già prenotati
+            volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
+            volo.save()
+            messages = 'Salvato'
+        except:
+           messages = 'Errore'
 
     content = {
         'form': form,
@@ -425,7 +414,8 @@ def modifica_aeroporto(request, id):
     form_i = Indirizzo_a_form()
     form_a = AerportoForm(initial=field_a)
     if request.method == 'POST':
-        if request.POST.get('via', '') != '':
+        # Se l'utente non crea un nuovo indirizzo
+        if request.POST.get('via', '') != '': 
             try:
                 indirizzo.via = request.POST.get('via', '')
                 indirizzo.numero = request.POST.get('numero', '')
@@ -525,6 +515,7 @@ def agg_voli(request):
 def agg_aeroporti(request):
     messages = ''
     if request.method == 'POST':
+        # Se l'utente non crea un nuovo indirizzo
         if request.POST.get('via', '') != '':
             try:
                 indirizzo = Indirizzo_a(via=request.POST.get('via', ''), numero=request.POST.get('numero', ''), citta=request.POST.get('citta', ''), provincia=request.POST.get('provincia', ''), stato=request.POST.get('stato', ''))
