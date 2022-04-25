@@ -2,9 +2,8 @@
 
 // Nella creazione del voli alla scelta dell'aereo scrive nell'input nascosto il numero di posti totali dell'aereo scelto che per salvarli nel volo
 function Imposta_posti_volo(){
-
-    const API_PREN = 'http://localhost:8000/apiaereo/';
-    fetch(API_PREN + document.getElementById('aereo').value)
+    const API_AEREO = 'http://localhost:8000/apiaereo/';
+    fetch(API_AEREO + document.getElementById('aereo').value)
         .then(response => response.json())
         .then(data => {
             
