@@ -362,9 +362,9 @@ def modifica_volo(request, id):
     }
     form = VoloForm(initial=field)
     messages = ''
-    aereo = Aereo.objects.get(id = volo.aereo.id)
+    aereo_in = Aereo.objects.get(id = volo.aereo.id)
 
-    tot_posti_aereo = int(aereo.posti_prima_classe)+int(aereo.posti_seconda_classe)+int(aereo.posti_terza_classe)
+    tot_posti_aereo = int(aereo_in.posti_prima_classe)+int(aereo_in.posti_seconda_classe)+int(aereo_in.posti_terza_classe)
     posti_occupati = tot_posti_aereo - int(volo.posti_totali)
 
     if request.method == 'POST':
@@ -383,15 +383,17 @@ def modifica_volo(request, id):
             volo.data_di_partenza = request.POST.get('data_di_partenza', '')
             volo.data_di_arrivo = request.POST.get('data_di_arrivo', '')
             volo.km = request.POST.get('km', '')
-            aereo = Aereo.objects.get(id = request.POST.get('aereo', ''))
-            volo.aereo = aereo
+            aereo_mod = Aereo.objects.get(id = request.POST.get('aereo', ''))
+            volo.aereo = aereo_mod
 
             # Se si cambia l'aereo al volo ai nuovi posti totali vengono tolti i posti già prenotati
-            volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
+            if(aereo_in != aereo_mod):
+                volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
             volo.save()
-            messages = 'Salvato'
+            messages = 'Salvato' 
         except:
            messages = 'Errore'
+       
 
     content = {
         'form': form,

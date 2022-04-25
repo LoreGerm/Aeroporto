@@ -32,17 +32,15 @@
     <div class="col">
         <label class="form-label">Aereo</label>
         <div class="input-group">
-            {{form.aereo}}
+            <!--{{form.aereo}}-->
+            <select class="form-select" id="aereo" name="aereo" onchange="Imposta_posti_volo()">
+            </select>
             <a href="{% url 'aggiungi_aereo' %}" target="_blank" class="input-group-text btn btn-primary" type="button" ><i class="bi bi-plus-circle"></i></a>
         </div>
     </div>
     <div class="col">
         <label class="form-label">Km</label>
         {{form.km}}
-    </div>
-    <div class="d-none col">
-        <label class="form-label row">Posti totali</label>
-        <span>{{form.posti_totali}}</span>
     </div>
 </div>
 
@@ -94,8 +92,67 @@
 
 
 
+<div class="d-none">
+    <span>{{form.posti_totali}}</span>
+</div>
 
+<script>
 
+const API_AEREI = 'http://localhost:8000/apiaereo/';
+// Trova i posti già prenotati per quel volo
+let codice_volo = '{{form.codice.value}}';
+const API_PREN = 'http://localhost:8000/apiprenotazione/';
+fetch(API_PREN)
+.then(response => response.json())
+.then(data => {
+
+    let n_posti_prenotati = '';
+    for(let i=0; i<data.length; i++){           
+        if(data[i].volo.codice == codice_volo){
+            n_posti_prenotati += data[i].posti_prenotati+',';
+        }
+    }
+
+    n_posti_prenotati = n_posti_prenotati.split(',').length-1;
+    Crea_select(n_posti_prenotati)
+})
+.catch(err => console.log(err));
+
+// Crea la select in modo da escludere gli aerei che non hanno abbastanza posti
+function Crea_select(n_posti_prenotati){
+    fetch(API_AEREI)
+    .then(response => response.json())
+    .then(data => {
+
+        for(let i=0; i<data.length; i++){
+            let posti_tot = data[i].posti_prima_classe+data[i].posti_seconda_classe+data[i].posti_terza_classe;
+
+            if(posti_tot >= n_posti_prenotati){
+                let option = document.createElement('option');
+                option.value = data[i].id;
+                option.text = data[i].codice+' '+data[i].modello;
+                document.getElementById('aereo').append(option);
+            }
+        }
+        Genera_posti_volo()
+        
+    })
+    .catch(err => console.log(err));
+
+}
+
+// Inserisce il numero dei posti dell'aereo nel form nascosto
+function Genera_posti_volo(){
+    fetch(API_AEREI + document.getElementById('aereo').value)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('posti_totali').value = data.posti_prima_classe + data.posti_seconda_classe + data.posti_terza_classe;
+
+        })
+        .catch(err => console.log(err));
+}
+
+</script>
 
 
 {% endblock %}
