@@ -174,7 +174,7 @@ def acquista(request):
         if volo_ritorno_id != '':
             send_mail(
                 'Codice prenotazione Starlato Airline',
-                'Codice della prenotazione:   Andata --> '+codice_pre[0] + ' Ritorno --> '+codice_pre[1],
+                'Codice della prenotazione:   Codice --> '+codice_pre,
                 'loregerm149@gmail.com',
                 [email],
                 fail_silently=False,
