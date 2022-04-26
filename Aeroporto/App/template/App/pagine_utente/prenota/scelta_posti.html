@@ -67,8 +67,8 @@
     </table>
 
     <div class="row">
-        <button id="btn-andata" class="btn btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata', '{{volo_ritorno}}', '{{posti}}')">Scegli posti andata</button>
-        <button id="btn-ritorno" class="btn btn-success border border-dark col d-none opacity-50" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}', '{{posti}}')" disabled>Scegli posti ritorno</button>
+        <button id="btn-andata" class="btn-lg btn-success border border-dark col" onclick="Posti('{{volo_andata.id}}', 'andata', '{{volo_ritorno}}', '{{posti}}')">Scegli posti andata</button>
+        <button id="btn-ritorno" class="btn-lg btn-success border border-dark col d-none opacity-50" onclick="Posti('{{volo_ritorno.id}}', 'ritorno', '{{volo_ritorno}}', '{{posti}}')" disabled>Scegli posti ritorno</button>
         <div class="d-none col" id="form">
             <form action="{% url 'dati_utente' %}" method="post">
                 {% csrf_token %}

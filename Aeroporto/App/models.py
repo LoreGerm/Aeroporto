@@ -79,7 +79,7 @@ class Utente(models.Model):
 
 
 class Prenotazioni(models.Model):
-    codice = models.CharField(max_length=200, null=False, unique=True)
+    codice = models.CharField(max_length=200, null=False)
     utente = models.ForeignKey(Utente, on_delete=models.CASCADE)
     volo = models.ForeignKey(Volo, on_delete=models.CASCADE)
     posti_prenotati = models.CharField(max_length=1000, null=True)

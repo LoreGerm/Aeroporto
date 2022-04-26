@@ -49,7 +49,7 @@ function Genera_thead(pagina){
                     +'<th>Prezzo 1° classe</th>'
                     +'<th>Prezzo 2° classe</th>'
                     +'<th>Prezzo 3° classe</th>'
-                    +'<th>Posti totali</th>'
+                    +'<th>Posti disponibili</th>'
                     +'<th>Ora di partenza</th>'
                     +'<th>Ora di arrivo</th>'
                     +'<th>Data di partenza</th>'

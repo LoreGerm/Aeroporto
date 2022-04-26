@@ -143,7 +143,7 @@ def acquista(request):
         utente = Utente(nome=nome, cognome=cognome, email=email, telefono=telefono)
         utente.save()
 
-        codice_pre = request.POST.getlist('codice')
+        codice_pre = request.POST.get('codice', '')
 
         volo_ritorno_id = request.POST.get('volo_ritorno_id', '')
         volo_ritorno = ''
@@ -155,7 +155,7 @@ def acquista(request):
             volo_ritorno.posti_totali -= len(list(posti_ritorno.split(',')))
             volo_ritorno.save() # Salva la modifica
             prezzo_totale_ritorno = request.POST.get('prezzo_totale_ritorno', '')
-            prenotazione_ritorno = Prenotazioni(codice=codice_pre[1], utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
+            prenotazione_ritorno = Prenotazioni(codice=codice_pre, utente=utente, volo=volo_ritorno, posti_prenotati=posti_ritorno, prezzo_totale=prezzo_totale_ritorno)
             prenotazione_ritorno.save()
 
         volo_andata_id = request.POST.get('volo_andata_id', '')
@@ -167,7 +167,7 @@ def acquista(request):
 
         # Crea la prenotazione
         prezzo_totale_andata = request.POST.get('prezzo_totale_andata', '')
-        prenotazione_andata = Prenotazioni(codice=codice_pre[0], utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
+        prenotazione_andata = Prenotazioni(codice=codice_pre, utente=utente, volo=volo_andata, posti_prenotati=posti_andata, prezzo_totale=prezzo_totale_andata)
         prenotazione_andata.save()
 
         # Manda la mail con il codice
@@ -198,14 +198,7 @@ def acquista(request):
 
 # View chiamata quando si vogliono visualizzare le prenotazioni
 def i_tuoi_voli(request):
-    prenotazione = []
-    if request.method == 'POST':
-        # L'utente inserisce il codice e viene cercata la prenotazione
-        cerca = request.POST['cerca']
-        prenotazione = Prenotazioni.objects.filter(codice=cerca)
-
     content = {
-        'prenotazione': prenotazione,
     }
     return render(request, 'App/pagine_utente/i_tuoi_voli.html', content)
 
