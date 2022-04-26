@@ -92,7 +92,7 @@ class utente_form(forms.ModelForm):
         widgets =  {
             'cognome': forms.TextInput(attrs={'class':'form-control', 'name':'cognome'}),
             'nome': forms.TextInput(attrs={'class':'form-control', 'name':'nome'}),
-            'email': forms.EmailInput(attrs={'class':'form-select', 'name':'email'}),
+            'email': forms.EmailInput(attrs={'class':'form-control', 'name':'email'}),
             'telefono': forms.TextInput(attrs={'class':'form-control', 'name':'telefono'}),
         }
 

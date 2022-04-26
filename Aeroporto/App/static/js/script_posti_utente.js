@@ -5,6 +5,8 @@ posti_global = '';  // Numero di posti inseriti dall'utente
 let posti_scelti = [];
 function Posti(id_volo_andata='', id_div_posti='', volo_ritorno='', posti=''){
 
+    document.getElementById('div-posti-scelti').innerHTML = '';
+
     volo_ritorno_global = volo_ritorno;
     posti_global = posti;
 
@@ -133,6 +135,7 @@ function Scelta(id, prezzo, id_div_posti) {
     if (!posti_scelti.includes(id)) {  // Se l'id del posti è presente nell'array posti_scelti
         posti_scelti.push(id);          // Inserisce il posto scelto nell'array di posti_scelti
         document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;      // Scrive il valore dell'array nell'input nascosto
+        document.getElementById('div-posti-scelti').innerHTML = posti_scelti;
         let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
         document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo + prezzo;    // Aggiorna il prezzo totale nell'input nascosto
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('btn-lg');
@@ -141,8 +144,11 @@ function Scelta(id, prezzo, id_div_posti) {
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-5');
     }
     else {
-        posti_scelti.pop(id);          // Toglie il posto scelto nell'array di posti_scelti
+        const index = posti_scelti.indexOf(id);
+        posti_scelti.splice(index, 1);          // Toglie il posto scelto nell'array di posti_scelti
+
         document.getElementById('posti_prenotati_'+id_div_posti.id).value = posti_scelti;      // Scrive il valore dell'array nell'input nascosto
+        document.getElementById('div-posti-scelti').innerHTML = posti_scelti;
         let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
         document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo - prezzo;    // Aggiorna il prezzo totale nell'input nascosto
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('btn-lg');
@@ -162,6 +168,8 @@ function Scelta(id, prezzo, id_div_posti) {
         // Abilita il click del pulsante 'Scegli posti andata'
         document.getElementById('btn-avanti').disabled = false;
         document.getElementById('btn-avanti').classList.remove('opacity-25');
+
+        $("#modalPosti").modal('show');
     }
     else if(posti_scelti.length > posti_global){  // Se il numero di posti selezionati è MAGGIORE il numero di posti scelti all'inizio 
         if(volo_ritorno_global != ''){  // Se ha selezionato 'andata e ritorno'

@@ -30,7 +30,7 @@
 
     <div class="col">
       <label for="" class="form-label">Data di partenza</label>
-      <input type="date" name="data_di_partenza" class="form-control" id="data_andata">
+      <input type="date" name="data_di_partenza" class="form-control" id="data_andata" onchange="Data()">
     </div>
 
     <div class="col d-none" id="div-data-ritorno">
@@ -73,6 +73,10 @@
 <script>
   document.getElementById('data_andata').min = new Date().toISOString().split("T")[0];
   document.getElementById('data_ritorno').min = new Date().toISOString().split("T")[0];
+
+  function Data(){
+    document.getElementById('data_ritorno').min = document.getElementById('data_andata').value;    
+  }
 
   document.getElementById('aeroporto_di_arrivo').disabled = true;
   document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
