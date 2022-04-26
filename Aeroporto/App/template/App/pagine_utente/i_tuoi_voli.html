@@ -23,54 +23,21 @@
     <div class="row justify-content-center">
       <div class="col-auto">
         <h3>Inserisci il codice di prenotazione</h3>
-        <input type="text" class="form-control" name="cerca">
-        <button type="submit" class="btn btn-success mt-2 w-100">Cerca</button>
+        <input type="text" class="form-control" name="cerca" id="cerca">
+        <button type="button" class="btn btn-success mt-2 w-100" onclick="I_tuoi_voli()">Cerca</button>
       </div>
     </div>
   </form>
 </div>
 
 
-{% for p in prenotazione %}
-<div class="mt-5 text-dark">
-  <div class="card">
-    <h2 class="card-header"> Prenotazione </h2>
-    <div class="card-body">
-      <div class="mb-3">
-        <h5 class="card-title">{{p.utente.nome}} {{p.utente.cognome}}</h5>
-        <h5 class="card-text">{{p.utente.email}}</h5>
-        <h5 class="card-text">{{p.utente.telefono}}</h5>
-      </div>
-      <div class="mb-3">
-        <h5 class="card-text">{{p.volo.aeroporto_di_partenza}} --> {{p.volo.aeroporto_di_arrivo}}</h5>
-        <h5 class="card-text">{{p.volo.data_di_partenza}} --> {{p.volo.data_di_arrivo}}</h5>
-        <h5 class="card-text">{{p.volo.ora_di_partenza}} --> {{p.volo.ora_di_arrivo}}</h5>
-        <h5 class="card-text">{{p.posti_prenotati}} --> {{p.prezzo_totale}} €</h5>
-      </div>
-      <div class="mt-4">
-        <button data-bs-toggle="modal" data-bs-target="#modalElimina" class="btn btn-danger">Cancella</button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="row" id="prenotazioni">
 
 
-<div class="modal fade" id="modalElimina" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h3 class="text-dark">Sei sicuro di voler eliminare la prenotazione?</h3>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <a href="{% url 'cancella_prenotazione' p.id %}" type="button" class="btn btn-danger">Elimina</a>
-      </div>
-    </div>
-  </div>
+
+<div id="modal">
 </div>
-{% endfor %}
+
+</div>
 
 {% endblock %}

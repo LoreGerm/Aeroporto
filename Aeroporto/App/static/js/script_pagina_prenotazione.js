@@ -112,7 +112,6 @@ function Voli() {
                 }
                 // Cerca e genera i voli di ritorno
                 else if (data_ritorno != '' && data[i].aeroporto_di_partenza.id == aeroporto_ritorno && data[i].aeroporto_di_arrivo.id == aeroporto_andata && data[i].data_di_partenza == data_ritorno && data[i].posti_totali >= n_posti){
-                    console.log('caio')
                     document.getElementById('voli_ritorno').append(Genera_card(data[i], 'ritorno'));
                 }
             }

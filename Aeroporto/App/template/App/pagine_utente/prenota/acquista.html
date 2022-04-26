@@ -6,10 +6,7 @@
 <div class="mt-5 text-center bg-dark p-3 rounded bg-opacity-75">
     <h1>La prenotazione è andata a buon fine</h1>
     <h3>Codice di prenotazione da conservare </h3>
-    <h1 class="text-warning">Andata --> {{codice.0}}</h1>
-    {% if volo_ritorno != '' %}
-    <h1 class="text-warning">Ritorno --> {{codice.1}}</h1>
-    {% endif %}
+    <h1 class="text-warning">Codice --> {{codice}}</h1>
     <a href="{% url 'prenota_utente' %}" class="btn btn-lg btn-success mt-5">Torna alla schermata principale</a>
 </div>
 
