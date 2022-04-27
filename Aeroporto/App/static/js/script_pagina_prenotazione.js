@@ -37,15 +37,12 @@ function radio_btn(id){
 let andata = false
 let ritorno = false
 function btn_avanti(check){  // Abilita il bottone per andare avanti al click del volo
-    console.log(check[0].name)
     if (check[0].name=='andata'){
         andata = true
     }
     else{
         ritorno = true
     }
-    console.log(andata)
-    console.log(ritorno)
     if(document.getElementById('andata-ritorno').checked){  // Se l'utente ha selezionato andata e ritrono
 
         if(andata && ritorno){    // Se l'utente ha selezionato i voli
