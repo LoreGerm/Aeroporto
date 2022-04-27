@@ -71,6 +71,8 @@
 
 
 <script>
+  API_URL = '192.168.200.70:8000';
+
   document.getElementById('data_andata').min = new Date().toISOString().split("T")[0];
   document.getElementById('data_ritorno').min = document.getElementById('data_andata').value;  
 
@@ -81,8 +83,8 @@
   document.getElementById('aeroporto_di_arrivo').disabled = true;
   document.getElementById('aeroporto_di_arrivo').classList.add('opacity-50');
 
-  const API_VOLI = 'http://localhost:8000/apiaeroporto/';
-  fetch(API_VOLI)
+  const API_AEROPORTO = 'http://'+API_URL+'/apiaeroporto/';
+  fetch(API_AEROPORTO)
   .then(response => response.json())
   .then(data => {
       // Genera gli aetoporti nella select degli aeroporti di partenza
@@ -106,7 +108,7 @@ function Arrivo(){
   let aeroporto_partenza = document.getElementById('aeroporto_di_partenza').value
   document.getElementById('aeroporto_di_arrivo').innerHTML = '';
 
-  const API_VOLI = 'http://localhost:8000/apivolo/';
+  const API_VOLI = 'http://'+API_URL+'/apivolo/';
   fetch(API_VOLI)
   .then(response => response.json())
   .then(data => {

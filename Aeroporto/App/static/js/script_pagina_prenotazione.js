@@ -1,3 +1,6 @@
+let API_URL = '192.168.200.70:8000';
+
+
 function Aumenta(){     // Al click del + aumenta il numero dei posti
     posti =parseInt(document.getElementById('n_posti').value);
     if(posti < 15){     // Massimo 15 posti
@@ -100,7 +103,7 @@ function Voli() {
 
         document.getElementById('posti').value = n_posti;
 
-        const API_VOLI = 'http://localhost:8000/apivolo/';
+        const API_VOLI = 'http://'+API_URL+'/apivolo/';
         fetch(API_VOLI)
         .then(response => response.json())
         .then(data => {

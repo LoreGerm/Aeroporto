@@ -97,11 +97,11 @@
 </div>
 
 <script>
-
-const API_AEREI = 'http://localhost:8000/apiaereo/';
+let API_URL = '192.168.200.70:8000';
+const API_AEREI = 'http://'+API_URL+'/apiaereo/';
 // Trova i posti già prenotati per quel volo
 let codice_volo = '{{form.codice.value}}';
-const API_PREN = 'http://localhost:8000/apiprenotazione/';
+const API_PREN = 'http://'+API_URL+'/apiprenotazione/';
 fetch(API_PREN)
 .then(response => response.json())
 .then(data => {

@@ -1,4 +1,6 @@
 
+API_URL = '192.168.200.70:8000';
+
 
 function Genera_gestione_cerca(pagina){
 
@@ -6,16 +8,16 @@ function Genera_gestione_cerca(pagina){
 
     // Scegli l'API basandosi sulla pagina in cui si trova
     if(pagina == 'voli'){
-        API = 'http://localhost:8000/apivolo/';
+        API = 'http://'+API_URL+'/apivolo/';
     }
     else if(pagina == 'pren'){
-        API = 'http://localhost:8000/apiprenotazione/';
+        API = 'http://'+API_URL+'/apiprenotazione/';
     }
     else if(pagina == 'aeroporti'){
-        API = 'http://localhost:8000/apiaeroporto/';
+        API = 'http://'+API_URL+'/apiaeroporto/';
     }
     else if(pagina == 'aerei'){
-        API = 'http://localhost:8000/apiaereo/';
+        API = 'http://'+API_URL+'/apiaereo/';
     }
 
     // Genera l'head della tabella basandosi sulla pagina in cui si trova

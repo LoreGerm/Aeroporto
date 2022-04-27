@@ -93,7 +93,7 @@ class utente_form(forms.ModelForm):
             'cognome': forms.TextInput(attrs={'class':'form-control', 'name':'cognome'}),
             'nome': forms.TextInput(attrs={'class':'form-control', 'name':'nome'}),
             'email': forms.EmailInput(attrs={'class':'form-control', 'name':'email'}),
-            'telefono': forms.TextInput(attrs={'class':'form-control', 'name':'telefono'}),
+            'telefono': forms.NumberInput(attrs={'class':'form-control', 'name':'telefono'}),
         }
 
 

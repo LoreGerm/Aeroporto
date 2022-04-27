@@ -1,10 +1,10 @@
-
+API_URL = '192.168.200.70:8000';
 
 
 function I_tuoi_voli(){
     let codice = document.getElementById('cerca').value;
     document.getElementById('prenotazioni').innerHTML = '<div id="modal"></div>';
-    const API_PREN = 'http://localhost:8000/apiprenotazione/';
+    const API_PREN = 'http://'+API_URL+'/apiprenotazione/';
 
     fetch(API_PREN)
     .then(response => response.json())

@@ -1,4 +1,6 @@
 
+API_URL = '192.168.200.70:8000';
+
 volo_ritorno_global = '';
 posti_global = '';  // Numero di posti inseriti dall'utente
 
@@ -39,7 +41,7 @@ function Posti(id_volo_andata='', id_div_posti='', volo_ritorno='', posti=''){
 
     posti_scelti = [];
 
-    const API_PREN = 'http://localhost:8000/apiprenotazione/';
+    const API_PREN = 'http://'+API_URL+'/apiprenotazione/';
     fetch(API_PREN)
         .then(response => response.json())
         .then(data => {
@@ -63,7 +65,7 @@ function Genera_posti(id_volo_andata, posti_prenotati, id_div_posti) {
     document.getElementById('prezzo_totale_'+id_div_posti).value = 0;
     document.getElementById('posti_'+id_div_posti).innerHTML = '';
 
-    const API_VOLI = 'http://localhost:8000/apivolo/';
+    const API_VOLI = 'http://'+API_URL+'/apivolo/';
     fetch(API_VOLI+id_volo_andata)
         .then(response => response.json())
         .then(data => {
