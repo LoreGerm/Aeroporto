@@ -94,9 +94,12 @@
         <input type="text" value="{{prezzo_totale_ritorno}}" name="prezzo_totale_ritorno">
         <input type="text" value="{{prezzo_totale_andata}}" name="prezzo_totale_andata">
         {{prenota_form_andata.codice}}
-        <!--{{prenota_form_ritorno.codice}}-->
     </div>
-    <button type="submit" class="btn btn-success btn-lg w-100">Acquista</button>
+    <button type="submit" id="acquista" class="btn btn-success btn-lg w-100" onclick="Btn()">Acquista</button>
 </form>
-
+<script>
+    function Btn(){
+        document.getElementById('acquista').classList.add('d-none');
+    }
+</script>
 {% endblock %}

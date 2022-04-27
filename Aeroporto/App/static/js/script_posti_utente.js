@@ -1,5 +1,5 @@
 
-API_URL = '192.168.200.70:8000';
+API_URL = '192.168.1.254:8000';
 
 volo_ritorno_global = '';
 posti_global = '';  // Numero di posti inseriti dall'utente
@@ -101,15 +101,15 @@ function Fila(i,content, posti_prenotati, id_div_posti) {
         if(!posti_prenotati.includes(lettere[j] + i.toString())){       // Controlla se il posto è gia stato prenotato
             // Crea i posti liberi
             if (content.posti_prima_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning" onclick="Scelta(this.id,'+content.prezzo_prima_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-warning opacity-75" onclick="Scelta(this.id,'+content.prezzo_prima_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_prima_classe--;
             }
             else if(content.posti_seconda_classe!=0){
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary" onclick="Scelta(this.id,'+content.prezzo_seconda_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-primary opacity-75" onclick="Scelta(this.id,'+content.prezzo_seconda_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
                 content.posti_seconda_classe--;
             }
             else{
-                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light" onclick="Scelta(this.id,'+content.prezzo_terza_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
+                td += '<td><button type="button" id="'+ lettere[j] + i.toString() + '" value="'+ lettere[j] + i.toString() + '" class="btn btn-light opacity-75" onclick="Scelta(this.id,'+content.prezzo_terza_classe+', '+id_div_posti+')"><img src="/static/img/poltrona.png" height=30 width=30></button></td>';
             }
         }
         else{   
@@ -140,7 +140,8 @@ function Scelta(id, prezzo, id_div_posti) {
         document.getElementById('div-posti-scelti').innerHTML = posti_scelti;
         let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
         document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo + prezzo;    // Aggiorna il prezzo totale nell'input nascosto
-        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('btn-lg');
+        //document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('btn-lg');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('opacity-75');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-success');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.add('border-5');
@@ -153,7 +154,8 @@ function Scelta(id, prezzo, id_div_posti) {
         document.getElementById('div-posti-scelti').innerHTML = posti_scelti;
         let input_prezzo = document.getElementById('prezzo_totale_'+id_div_posti.id).valueAsNumber;
         document.getElementById('prezzo_totale_'+id_div_posti.id).value = input_prezzo - prezzo;    // Aggiorna il prezzo totale nell'input nascosto
-        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('btn-lg');
+        //document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('btn-lg');
+        document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('opacity-75');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-success');
         document.getElementById('posti_'+id_div_posti.id).querySelector('#'+id).classList.remove('border-5');

@@ -61,8 +61,10 @@
     {% csrf_token %}
     <input type="number" value="" class="d-none" name="posti" id="posti">
     <div class="col" id="voli_andata">
+      <h1>Andata</h1>
     </div>
     <div class="col d-none" id="voli_ritorno">
+      <h1>Ritorno</h1>
     </div>
     <button type="submit" class="btn btn-success mt-3 w-100 opacity-50" id="avanti" disabled>Avanti</button>
   </form>
@@ -71,7 +73,7 @@
 
 
 <script>
-  API_URL = '192.168.200.70:8000';
+  API_URL = '192.168.1.254:8000';
 
   document.getElementById('data_andata').min = new Date().toISOString().split("T")[0];
   document.getElementById('data_ritorno').min = document.getElementById('data_andata').value;  
@@ -87,7 +89,7 @@
   fetch(API_AEROPORTO)
   .then(response => response.json())
   .then(data => {
-      // Genera gli aetoporti nella select degli aeroporti di partenza
+      // Genera gli aeroporti nella select degli aeroporti di partenza
       for(let i=0; i<data.length; i++){
           document.getElementById('aeroporto_di_partenza').append(Genera_option(data[i]));
       }

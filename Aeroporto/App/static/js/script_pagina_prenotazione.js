@@ -1,4 +1,4 @@
-let API_URL = '192.168.200.70:8000';
+let API_URL = '192.168.1.254:8000';
 
 
 function Aumenta(){     // Al click del + aumenta il numero dei posti
@@ -19,8 +19,8 @@ function Diminuisci(){     // Al click del - diminuisce il numero dei posti
 
 function radio_btn(id){
     // Azzera e nasconde i div dove vengono mostrati i voli
-    document.getElementById('voli_andata').innerHTML = '';
-    document.getElementById('voli_ritorno').innerHTML = '';
+    document.getElementById('voli_andata').innerHTML = '<h1>Andata</h1>';
+    document.getElementById('voli_ritorno').innerHTML = '<h1>Ritorno</h1>';
     document.getElementById('div_voli').classList.add('d-none');
 
     if(id=='andata-ritorno'){   // Se l'utente seleziona 'andata e ritorno'
@@ -54,8 +54,8 @@ function btn_avanti(){  // Abilita il bottone per andare avanti al click del vol
 
 
 function Voli() {
-    document.getElementById('voli_andata').innerHTML = '';
-    document.getElementById('voli_ritorno').innerHTML = '';
+    document.getElementById('voli_andata').innerHTML = '<h1>Andata</h1>';
+    document.getElementById('voli_ritorno').innerHTML = '<h1>Ritorno</h1>';
 
     document.getElementById('avanti').classList.add('opacity-50');
     document.getElementById('avanti').disabled = true;
@@ -120,13 +120,13 @@ function Voli() {
             }
 
             // Stampa gli errori se non ci sono voli
-            if(document.getElementById('voli_andata').innerHTML == ''){
+            if(document.getElementById('voli_andata').innerHTML == '<h1>Andata</h1>'){
                 document.getElementById('error').innerHTML = 'Voli non disponibili';
                 document.getElementById('error').classList.remove('d-none'); 
                 document.getElementById('voli_andata').classList.add('d-none');
                 document.getElementById('div_voli').classList.add('d-none');
             }
-            if(data_ritorno != '' && document.getElementById('voli_ritorno').innerHTML == ''){
+            if(data_ritorno != '' && document.getElementById('voli_ritorno').innerHTML == '<h1>Ritorno</h1>'){
                 document.getElementById('error').innerHTML = 'Voli non disponibili';
                 document.getElementById('error').classList.remove('d-none');
                 document.getElementById('voli_ritorno').classList.add('d-none');
@@ -152,7 +152,7 @@ function Genera_card(volo, check){
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'
-                +'<div> <input type="radio" class="btn-check" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="btn btn-outline-success" for="'+check+'">Seleziona</label></div>'
+                +'<div> <input type="radio" class="form-check-input" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="form-check-label" for="'+check+volo.id+'">Seleziona</label></div>'
                 +'</div></div>';
     node.innerHTML = card;
     return node
