@@ -34,10 +34,21 @@ function radio_btn(id){
 }
 
 
-
-function btn_avanti(){  // Abilita il bottone per andare avanti al click del volo
+let andata = false
+let ritorno = false
+function btn_avanti(check){  // Abilita il bottone per andare avanti al click del volo
+    console.log(check[0].name)
+    if (check[0].name=='andata'){
+        andata = true
+    }
+    else{
+        ritorno = true
+    }
+    console.log(andata)
+    console.log(ritorno)
     if(document.getElementById('andata-ritorno').checked){  // Se l'utente ha selezionato andata e ritrono
-        if(document.getElementById('ritorno').checked && document.getElementById('andata').checked){    // Se l'utente ha selezionato i voli
+
+        if(andata && ritorno){    // Se l'utente ha selezionato i voli
             // Abilita il bottone per andare avanti
             document.getElementById('avanti').classList.remove('opacity-50');
             document.getElementById('avanti').disabled = false;
@@ -152,7 +163,7 @@ function Genera_card(volo, check){
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'
-                +'<div class="form-check"> <input type="radio" class="form-check-input" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="form-check-label" for="'+check+volo.id+'">Seleziona</label></div>'
+                +'<div class="form-check"> <input type="radio" class="form-check-input" onclick="btn_avanti('+check+')" name="'+check+'" id="'+check+volo.id+'" autocomplete="off" value="'+volo.codice+'"><label class="form-check-label" for="'+check+volo.id+'">Seleziona</label></div>'
                 +'</div></div>';
     node.innerHTML = card;
     return node
