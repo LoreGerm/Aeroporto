@@ -90,8 +90,12 @@
   .then(response => response.json())
   .then(data => {
       // Genera gli aeroporti nella select degli aeroporti di partenza
+      let aeroporti = [];
       for(let i=0; i<data.length; i++){
-          document.getElementById('aeroporto_di_partenza').append(Genera_option(data[i]));
+          if(!aeroporti.includes(data[i].nome)){
+            document.getElementById('aeroporto_di_partenza').append(Genera_option(data[i]));
+            aeroporti.push(data[i].nome);
+          }
       }
   
   })
@@ -115,11 +119,15 @@ function Arrivo(){
   .then(response => response.json())
   .then(data => {
 
+      let aeroporti = [];
       for(let i=0; i<data.length; i++){
         // Se esistono voli con l'aeroporto di partenza scelto
         if(data[i].aeroporto_di_partenza.id == aeroporto_partenza){
           // Genera nella select degli aeroporti di arrivo le option con gli aeroporti di arrivo
-          document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
+          if(!aeroporti.includes(data[i].nome)){
+            document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
+            aeroporti.push(data[i].nome);
+          }
         }
       }
   
