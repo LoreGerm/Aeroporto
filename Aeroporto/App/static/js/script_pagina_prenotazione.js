@@ -152,7 +152,7 @@ function Genera_card(volo, check){
                 +'<h6 class="card-subtitle mb-3">Prima classe: '+volo.prezzo_unitario_prima_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Seconda classe: '+volo.prezzo_unitario_seconda_classe+' €</h6>'
                 +'<h6 class="card-subtitle mb-3">Terza classe: '+volo.prezzo_unitario_terza_classe+' €</h6>'
-                +'<div> <input type="radio" class="form-check-input" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="form-check-label" for="'+check+volo.id+'">Seleziona</label></div>'
+                +'<div class="form-check"> <input type="radio" class="form-check-input" onclick="btn_avanti()" name="'+check+'" id="'+check+'" autocomplete="off" value="'+volo.codice+'"><label class="form-check-label" for="'+check+volo.id+'">Seleziona</label></div>'
                 +'</div></div>';
     node.innerHTML = card;
     return node
