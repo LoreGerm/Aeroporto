@@ -37,7 +37,14 @@ function radio_btn(id){
 let andata = false
 let ritorno = false
 function btn_avanti(check){  // Abilita il bottone per andare avanti al click del volo
-    if (check[0].name=='andata'){
+    let nome=''
+    try {
+        nome = check[0].name
+    } catch {
+        nome = check.name
+    }
+
+    if (nome=='andata'){
         andata = true
     }
     else{
