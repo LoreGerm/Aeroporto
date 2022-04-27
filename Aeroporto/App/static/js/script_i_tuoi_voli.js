@@ -1,4 +1,4 @@
-// <a href="{% url 'cancella_prenotazione' p.id %}" type="button" class="btn btn-danger">Elimina</a>
+
 
 
 function I_tuoi_voli(){
