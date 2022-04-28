@@ -384,6 +384,7 @@ def modifica_volo(request, id):
                 volo.posti_totali = int(request.POST.get('posti_totali', '')) - posti_occupati
             volo.save()
             messages = 'Salvato' 
+            return redirect('gestione_voli')
         except:
            messages = 'Errore'
        
@@ -425,6 +426,7 @@ def modifica_aeroporto(request, id):
                 aeroporto.descrizione = request.POST.get('descrizione', '')
                 aeroporto.save()
                 messages = 'Salvato'
+                return redirect('gestione_aeroporti')
             except:
                 messages = 'Errore'
         else:
@@ -436,6 +438,7 @@ def modifica_aeroporto(request, id):
                 aeroporto.descrizione = request.POST.get('descrizione', '')
                 aeroporto.save()
                 messages = 'Salvato'
+                return redirect('gestione_aeroporti')
             except:
                 messages = 'Errore'                
 
@@ -469,6 +472,7 @@ def modifica_aereo(request, id):
         if form.is_valid():
             form.save()
             messages = 'Salvato'
+            return redirect('gestione_aerei')
         else:
             messages = 'Errore'
 
@@ -495,6 +499,7 @@ def agg_voli(request):
         if form.is_valid():
             form.save()
             messages = 'Salvato'
+            return redirect('gestione_voli')
         else:
             messages = 'Errore'
 
@@ -518,12 +523,14 @@ def agg_aeroporti(request):
                 aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
                 aeroporto.save()
                 messages = 'Salvato'
+                return redirect('gestione_aeroporti')
             except:
                 messages = 'Errore'
         else:
             indirizzo = Indirizzo_a.objects.get(id = request.POST.get('indirizzo', ''))
             aeroporto = Aeroporto(codice=request.POST.get('codice', ''), nome=request.POST.get('nome', ''), indirizzo=indirizzo, descrizione=request.POST.get('descrizione', ''))
             aeroporto.save()
+            return redirect('gestione_aeroporti')
 
     content = {
         'messaggio': messages,
@@ -543,6 +550,7 @@ def agg_aereo(request):
         if form.is_valid():
             form.save()
             messages = 'Salvato'
+            return redirect('gestione_aerei')
         else:
             messages = 'Errore'
     

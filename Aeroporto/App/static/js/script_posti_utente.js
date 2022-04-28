@@ -1,5 +1,5 @@
 
-API_URL = '192.168.1.254:8000';
+API_URL = '192.168.200.70:8000';
 
 volo_ritorno_global = '';
 posti_global = '';  // Numero di posti inseriti dall'utente

@@ -73,7 +73,7 @@
 
 
 <script>
-  API_URL = '192.168.1.254:8000';
+  API_URL = '192.168.200.70:8000';
 
   document.getElementById('data_andata').min = new Date().toISOString().split("T")[0];
   document.getElementById('data_ritorno').min = document.getElementById('data_andata').value;  
@@ -124,7 +124,7 @@ function Arrivo(){
         // Se esistono voli con l'aeroporto di partenza scelto
         if(data[i].aeroporto_di_partenza.id == aeroporto_partenza){
           // Genera nella select degli aeroporti di arrivo le option con gli aeroporti di arrivo
-          if(!aeroporti.includes(data[i].nome)){
+          if(!aeroporti.includes(data[i].aeroporto_di_arrivo.nome)){
             document.getElementById('aeroporto_di_arrivo').append(Genera_option(data[i].aeroporto_di_arrivo));
             aeroporti.push(data[i].nome);
           }

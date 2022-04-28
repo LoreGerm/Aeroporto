@@ -1,5 +1,5 @@
 
-API_URL = '192.168.1.254:8000';
+API_URL = '192.168.200.70:8000';
 // Nella creazione del voli alla scelta dell'aereo scrive nell'input nascosto il numero di posti totali dell'aereo scelto che per salvarli nel volo
 function Imposta_posti_volo(){
     const API_AEREO = 'http://'+API_URL+'/apiaereo/';
