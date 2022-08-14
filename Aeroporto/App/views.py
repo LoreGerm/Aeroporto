@@ -64,7 +64,7 @@ def scelta_posti(request):
     }
     return render(request, 'App/pagine_utente/prenota/scelta_posti.html', content)
 
-# View chiamata dopo aver scelto i posti
+# View chiamata dopo aver scelto i posti wegfwgewg
 def dati_utente(request):
     if request.method == 'POST':
         id_volo_andata = request.POST.get('id_volo_andata', '')
