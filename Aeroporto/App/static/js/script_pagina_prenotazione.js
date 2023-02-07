@@ -1,4 +1,4 @@
-let API_URL = '192.168.200.70:8000';
+let API_URL = 'localhost:8000';
 
 
 function Aumenta(){     // Al click del + aumenta il numero dei posti

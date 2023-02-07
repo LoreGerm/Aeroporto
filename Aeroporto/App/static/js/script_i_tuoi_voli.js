@@ -1,4 +1,4 @@
-API_URL = '192.168.200.70:8000';
+API_URL = 'localhost:8000';
 
 
 function I_tuoi_voli(){

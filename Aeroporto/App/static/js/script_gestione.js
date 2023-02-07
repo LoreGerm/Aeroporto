@@ -1,5 +1,5 @@
 
-API_URL = '192.168.200.70:8000';
+API_URL = 'localhost:8000';
 
 
 function Genera_gestione_cerca(pagina){
